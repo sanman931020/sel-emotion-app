@@ -207,9 +207,13 @@ app.get('/api/health', (req, res) => {
 /** 靜態檔案（emotion-app.html 等） */
 app.use(express.static(path.join(__dirname, '..')));
 
-app.listen(PORT, () => {
-  const provider = normalizeProvider();
-  console.log(`SEL App 伺服器運行中 → http://localhost:${PORT}`);
-  console.log(`對話 API → POST http://localhost:${PORT}/api/chat`);
-  console.log(`Provider → ${providerDisplayName(provider)} (${provider})`);
-});
+export default app;
+
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    const provider = normalizeProvider();
+    console.log(`SEL App 伺服器運行中 → http://localhost:${PORT}`);
+    console.log(`對話 API → POST http://localhost:${PORT}/api/chat`);
+    console.log(`Provider → ${providerDisplayName(provider)} (${provider})`);
+  });
+}
