@@ -6340,7 +6340,7 @@ document.addEventListener('DOMContentLoaded',function(){
   ensureTestAccount();
   loadProfile();
   renderPINScreen();
-  setTimeout(function(){ SPLASH_READY=true; },2400);
+  SPLASH_READY=true;
   var forgotAcc=document.getElementById('forgot-account');
   if(forgotAcc) forgotAcc.addEventListener('blur',onForgotAccountBlur);
   initAuthConfig();
