@@ -8,6 +8,7 @@ import { sendShareEmail, verifySmtp, getSmtpStatus } from './share-email.js';
 import { appendSessionAnalytics, getSheetStatus, isSheetConfigured } from './analytics-sheet.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const rootDir = process.env.VERCEL ? process.cwd() : path.join(__dirname, '..');
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 
@@ -106,7 +107,7 @@ app.get('/api/email/config', async (_req, res) => {
     verified: verified.ok === true,
     host: status.host,
     user: status.user,
-    error: verified.ok ? undefined : verified.error,
+    error: verified.ok ? undefined : ('error' in verified ? verified.error : undefined),
     reason: verified.ok ? undefined : verified.reason,
   });
 });
@@ -205,7 +206,10 @@ app.get('/api/health', (req, res) => {
 });
 
 /** 靜態檔案（emotion-app.html 等） */
-app.use(express.static(path.join(__dirname, '..')));
+app.use(express.static(rootDir));
+app.get('/', (_req, res) => {
+  res.sendFile(path.join(rootDir, 'emotion-app.html'));
+});
 
 export default app;
 
