@@ -4,16 +4,17 @@ Set-Location $PSScriptRoot
 
 $clientId = '733104291212-ged0fhk8t1buuimul003unt4rdspa59b.apps.googleusercontent.com'
 $origins = @(
-  'http://127.0.0.1:5500',
-  'http://localhost:5500',
+  'https://sel-emotion-app.vercel.app',
   'http://localhost:3000',
-  'http://127.0.0.1:3000'
+  'http://127.0.0.1:3000',
+  'http://127.0.0.1:5500',
+  'http://localhost:5500'
 ) -join "`r`n"
 
 Set-Clipboard -Value $origins
 
 $credUrl = 'https://console.cloud.google.com/apis/credentials'
-$appUrl = 'http://127.0.0.1:5500/emotion-app.html'
+$appUrl = 'https://sel-emotion-app.vercel.app/'
 
 Start-Process $credUrl
 Start-Sleep -Seconds 1
@@ -26,10 +27,11 @@ Add-Type -AssemblyName System.Windows.Forms
 Google 登入錯誤 origin_mismatch — 修復步驟
 
 已複製以下「JavaScript 來源」到剪貼簿：
-  http://127.0.0.1:5500   ← Live Server（你目前使用的）
-  http://localhost:5500
+  https://sel-emotion-app.vercel.app   ← 正式上線網址
   http://localhost:3000
   http://127.0.0.1:3000
+  http://127.0.0.1:5500
+  http://localhost:5500
 
 1. Google Cloud Console → 憑證
 2. OAuth 2.0 用戶端 ID（網頁應用程式）：
