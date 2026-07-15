@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import { generateChatReply, generateChatOpening, type ChatMessage, type ChatContext, isConfiguredApiKey, isValidGeminiKey, normalizeProvider, providerDisplayName } from './chat.js';
 import { sendShareEmail, verifySmtp, getSmtpStatus } from './share-email.js';
 import { appendSessionAnalytics, getSheetStatus, isSheetConfigured } from './analytics-sheet.js';
+import { exchangeGoogleAuthCode, isGoogleRedirectConfigured } from './google-auth.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = process.env.VERCEL ? process.cwd() : path.join(__dirname, '..');
@@ -181,9 +182,32 @@ app.get('/api/auth/config', (_req, res) => {
   res.json({
     googleEnabled,
     googleClientId: validClientId ? clientId : null,
+    googleRedirectEnabled: isGoogleRedirectConfigured(),
     firebaseConfig,
     authMethod: firebaseConfig ? 'firebase' : validClientId ? 'gsi' : null,
   });
+});
+
+/** 手機導向登入：將授權碼兌換為使用者資訊 */
+app.post('/api/auth/google/exchange', async (req, res) => {
+  try {
+    if (!isGoogleRedirectConfigured()) {
+      res.status(503).json({ ok: false, reason: 'google_oauth_server_not_configured' });
+      return;
+    }
+    const { code, redirect_uri } = req.body as { code?: string; redirect_uri?: string };
+    const result = await exchangeGoogleAuthCode(String(code || ''), String(redirect_uri || ''));
+    if (!result.ok) {
+      const status = result.reason === 'google_oauth_server_not_configured' ? 503 : 400;
+      res.status(status).json(result);
+      return;
+    }
+    res.json(result);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Google 登入失敗';
+    console.error('[api/auth/google/exchange]', message);
+    res.status(500).json({ ok: false, reason: 'exchange_failed', error: message });
+  }
 });
 
 /** 健康檢查 */

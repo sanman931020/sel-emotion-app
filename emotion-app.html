@@ -1244,12 +1244,25 @@ body.tour-active #sos-pill{z-index:40}
         <code>http://127.0.0.1:3000</code>
       </div>
     </div>
-    <p class="f13 t2 mb14" style="line-height:1.85">1. 開啟下方「OAuth 用戶端設定」<br>2. 確認 Client ID 與上方<strong>完全一致</strong><br>3. 「已授權的 JavaScript 來源」加入以上網址（不是重新導向 URI）<br>4. 若同意畫面為「測試中」，須在 OAuth 同意畫面加入你的 Gmail 為測試使用者<br>5. 儲存後等 2 分鐘，Ctrl+F5 再試</p>
+    <p class="f13 t2 mb14" style="line-height:1.85">1. 開啟下方「OAuth 用戶端設定」<br>2. 確認 Client ID 與上方<strong>完全一致</strong><br>3. 「已授權的 JavaScript 來源」加入以上網址<br>4. 「已授權的重新導向 URI」加入：<code>https://sel-emotion-app.vercel.app/</code><br>5. 到「OAuth 同意畫面」→「已授權網域」加入：<code>vercel.app</code><br>6. 若為測試中，須加入 Gmail 為測試使用者<br>7. 儲存後等 2 分鐘，Ctrl+F5 再試</p>
     <button class="bp mb8" onclick="copyGoogleOrigins()">複製所有來源網址</button>
     <button class="bg w100 center mb8" onclick="openGoogleOAuthClient()">開啟 OAuth 用戶端設定</button>
     <button class="bg w100 center mb8" onclick="openGoogleConsentScreen()">開啟 OAuth 同意畫面（測試使用者）</button>
     <button class="bg w100 center mb8" onclick="window.open('https://sel-emotion-app.vercel.app/','_blank')">開啟正式網站測試</button>
     <button class="bg w100 center" onclick="hideOverlay('google-origin-modal')">關閉</button>
+  </div>
+</div>
+
+<!-- 手機內建瀏覽器（LINE / IG 等）無法 Google 登入 -->
+<div class="overlay" id="mobile-browser-modal">
+  <div class="sheet">
+    <button type="button" class="sheet-close-btn" onclick="hideOverlay('mobile-browser-modal')" aria-label="關閉">×</button>
+    <span class="sheet-handle"></span>
+    <h3 class="fw6 mb8" style="font-size:17px;padding-right:36px">請改用 Safari 或 Chrome</h3>
+    <p class="f13 t2 mb14" style="line-height:1.85">你目前可能是在 <strong>LINE、Instagram、Facebook</strong> 等 App 內開啟網頁。Google 政策會封鎖這類內建瀏覽器的登入。</p>
+    <p class="f13 t2 mb14" style="line-height:1.85">請點右上角 <strong>⋯</strong> 或 <strong>分享</strong>，選擇「<strong>在 Safari 中開啟</strong>」或「<strong>在 Chrome 中開啟</strong>」，再試 Google 登入。</p>
+    <button class="bp mb8" onclick="copyCurrentPageUrl()">複製網址</button>
+    <button class="bg w100 center" onclick="hideOverlay('mobile-browser-modal')">我知道了</button>
   </div>
 </div>
 
@@ -2783,7 +2796,7 @@ function pinInput(v){
 /* ════════════════════════════════════════
    AUTH — LOCAL + GOOGLE (GIS / Firebase)
 ════════════════════════════════════════ */
-var AUTH_CONFIG={googleEnabled:false,googleClientId:null,authMethod:null,firebaseReady:false,_gsiLoading:null};
+var AUTH_CONFIG={googleEnabled:false,googleClientId:null,googleRedirectEnabled:false,authMethod:null,firebaseReady:false,_gsiLoading:null};
 var GOOGLE_CLIENT_STORAGE='sel_google_client_id';
 var GOOGLE_OAUTH_CLIENT_NUM='89740114064-rmb3njnqtdsn6gomstsgkp1fkfvc7urj';
 
@@ -2856,6 +2869,102 @@ function openGoogleOAuthClient(){
 function openGoogleConsentScreen(){
   window.open('https://console.cloud.google.com/apis/credentials/consent','_blank','noopener,noreferrer');
 }
+function isMobileDevice(){
+  return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'');
+}
+function isInAppBrowser(){
+  var ua=(navigator.userAgent||'').toLowerCase();
+  if(/micromessenger|line\/|instagram|fbav|fban|fb_iab|twitter|tiktok|bytedance|snapchat|kakaotalk/.test(ua)) return true;
+  if(/iphone|ipad|ipod/.test(ua)&&!/safari/.test(ua)&&/applewebkit/.test(ua)) return true;
+  if(/android/.test(ua)&&/wv/.test(ua)) return true;
+  return false;
+}
+function shouldUseGoogleRedirect(){
+  return isMobileDevice()&&!isInAppBrowser();
+}
+function getGoogleRedirectUri(){
+  return getAuthPageOrigin().replace(/\/$/,'')+'/';
+}
+function showMobileBrowserHelp(){
+  showOverlay('mobile-browser-modal');
+}
+function copyCurrentPageUrl(){
+  var url=location.href.split('#')[0].split('?')[0];
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(function(){ showToast('已複製網址，請貼到 Safari / Chrome'); });
+  }else{
+    fallbackCopyOrigins(url);
+  }
+}
+function cleanGoogleOAuthUrl(){
+  try{
+    if(history.replaceState) history.replaceState({},'',location.pathname);
+  }catch(e){}
+}
+function signInWithGoogleRedirect(isRegister){
+  var clientId=resolveGoogleClientId();
+  if(!clientId) return Promise.reject(new Error('尚未設定 OAuth 用戶端 ID'));
+  var redirectUri=getGoogleRedirectUri();
+  var state=Math.random().toString(36).slice(2)+Date.now().toString(36);
+  sessionStorage.setItem('sel_google_oauth_state',state);
+  sessionStorage.setItem('sel_google_register',isRegister?'1':'0');
+  var url='https://accounts.google.com/o/oauth2/v2/auth?'
+    +'client_id='+encodeURIComponent(clientId)
+    +'&redirect_uri='+encodeURIComponent(redirectUri)
+    +'&response_type=code'
+    +'&scope='+encodeURIComponent('openid email profile')
+    +'&state='+encodeURIComponent(state)
+    +'&prompt=select_account';
+  window.location.href=url;
+  return Promise.resolve();
+}
+function handleGoogleOAuthReturn(){
+  var params=new URLSearchParams(location.search);
+  var code=params.get('code');
+  var state=params.get('state');
+  var err=params.get('error');
+  if(!code&&!err) return Promise.resolve(false);
+  if(err){
+    cleanGoogleOAuthUrl();
+    showToast('Google 登入已取消');
+    return Promise.resolve(true);
+  }
+  var saved=sessionStorage.getItem('sel_google_oauth_state');
+  if(!state||!saved||state!==saved){
+    cleanGoogleOAuthUrl();
+    showToast('Google 登入驗證失敗，請再試一次');
+    return Promise.resolve(true);
+  }
+  var isRegister=sessionStorage.getItem('sel_google_register')==='1';
+  sessionStorage.removeItem('sel_google_oauth_state');
+  sessionStorage.removeItem('sel_google_register');
+  setGoogleButtonsLoading(true);
+  showToast('正在完成 Google 登入…',2400);
+  return fetch(getAuthApiBase()+'/api/auth/google/exchange',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({code:code,redirect_uri:getGoogleRedirectUri()})
+  }).then(function(r){return r.json().then(function(d){return {ok:r.ok,data:d};});})
+  .then(function(res){
+    cleanGoogleOAuthUrl();
+    if(!res.ok||!res.data||!res.data.ok||!res.data.user){
+      var reason=(res.data&&res.data.reason)||'exchange_failed';
+      if(reason==='google_oauth_server_not_configured'){
+        showToast('手機登入尚未完成伺服器設定，請改用帳號密碼或聯絡管理員');
+      }else{
+        showToast('Google 登入失敗，請改用 Safari / Chrome 再試');
+      }
+      if(isMobileDevice()) showMobileBrowserHelp();
+      return;
+    }
+    completeGoogleAuth(res.data.user,isRegister);
+  })
+  .catch(function(){
+    cleanGoogleOAuthUrl();
+    showToast('Google 登入連線失敗');
+  })
+  .then(function(){ setGoogleButtonsLoading(false); return true; });
+}
 
 function loadScriptOnce(src){
   return new Promise(function(resolve,reject){
@@ -2882,6 +2991,7 @@ function initAuthConfig(){
     .then(function(cfg){
       var localId=resolveGoogleClientId();
       AUTH_CONFIG.googleClientId=(cfg.googleClientId||localId||'').trim()||null;
+      AUTH_CONFIG.googleRedirectEnabled=!!cfg.googleRedirectEnabled;
       AUTH_CONFIG.authMethod=cfg.authMethod||(AUTH_CONFIG.googleClientId?'gsi':null);
       AUTH_CONFIG.firebaseConfig=cfg.firebaseConfig||null;
       AUTH_CONFIG.googleEnabled=!!(cfg.googleEnabled||AUTH_CONFIG.googleClientId);
@@ -3471,20 +3581,24 @@ function signInWithGoogle(isRegister){
     showGoogleSetupSheet(isRegister);
     return;
   }
-  // Google GIS 需要 http/https 網址；file:// 會被封鎖（顯示「已封鎖存取權」）
   if(location.protocol==='file:'){
     showToast('Google 登入需要從 http://localhost:3000 開啟（不要用檔案方式直接開啟）');
     showGoogleOriginFix();
     return;
   }
-  // 來源網址不匹配是最常見原因：請將目前 origin 加入 Google Cloud Console
+  if(isInAppBrowser()){
+    showMobileBrowserHelp();
+    return;
+  }
   var currentOrigin=getAuthPageOrigin();
   AUTH_CONFIG.googleClientId=clientId;
   AUTH_CONFIG.googleEnabled=true;
   setGoogleButtonsLoading(true);
   showToast('正在開啟 Google 登入…',2200);
   var flow;
-  if(AUTH_CONFIG.authMethod==='firebase'&&AUTH_CONFIG.firebaseReady&&typeof firebase!=='undefined'){
+  if(shouldUseGoogleRedirect()&&AUTH_CONFIG.googleRedirectEnabled){
+    flow=signInWithGoogleRedirect(isRegister);
+  }else if(AUTH_CONFIG.authMethod==='firebase'&&AUTH_CONFIG.firebaseReady&&typeof firebase!=='undefined'){
     flow=signInWithGoogleFirebase(isRegister);
   }else{
     AUTH_CONFIG.authMethod='gsi';
@@ -3493,17 +3607,23 @@ function signInWithGoogle(isRegister){
   flow.catch(function(err){
     var msg=err&&err.message?err.message:'請稍後再試';
     if(msg.indexOf('popup')>=0||msg.indexOf('blocked')>=0){
-      showToast('請允許彈出視窗以完成 Google 登入');
+      if(isMobileDevice()) showMobileBrowserHelp();
+      else showToast('請允許彈出視窗以完成 Google 登入');
     }else if(msg.indexOf('取消')>=0||msg==='access_denied'){
       showToast('已取消 Google 登入');
     }else if(msg.indexOf('access_denied')>=0||msg.indexOf('testing')>=0||msg.indexOf('403')>=0){
       showToast('請在 OAuth 同意畫面加入你的 Gmail 為測試使用者');
       showGoogleOriginFix();
+    }else if(msg.indexOf('政策')>=0||msg.indexOf('policy')>=0){
+      showToast('Google 政策限制：請用 Safari / Chrome 開啟，並確認 OAuth 同意畫面已授權 vercel.app');
+      if(isMobileDevice()) showMobileBrowserHelp();
+      else showGoogleOriginFix();
     }else if(msg.indexOf('origin')>=0||msg.indexOf('redirect')>=0||msg.indexOf('授權錯誤')>=0||msg.indexOf('blocked')>=0||msg.indexOf('不匹配')>=0||msg.indexOf('mismatch')>=0){
       showToast('Google 授權錯誤：請加入來源 '+currentOrigin);
       showGoogleOriginFix();
     }else{
       showToast('Google 登入失敗：'+msg);
+      if(isMobileDevice()) showMobileBrowserHelp();
     }
   }).then(function(){
     setGoogleButtonsLoading(false);
@@ -6349,6 +6469,12 @@ function he(s){
    BOOT SEQUENCE
 ════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded',function(){
+  handleGoogleOAuthReturn().then(function(handled){
+    if(handled) return;
+    bootApp();
+  });
+});
+function bootApp(){
   ensureTestAccount();
   loadProfile();
   renderPINScreen();
@@ -6365,7 +6491,7 @@ document.addEventListener('DOMContentLoaded',function(){
   if(sp) sp.addEventListener('keydown',function(e){
     if(e.key==='Enter'||e.key===' '){ e.preventDefault(); enterFromSplash(); }
   });
-});
+}
 </script>
 </body>
 </html>
