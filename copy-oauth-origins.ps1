@@ -7,11 +7,9 @@ $origins = @(
   'http://127.0.0.1:5500',
   'http://localhost:5500',
   '',
-  '# 重新導向 URI（貼到 OAuth 用戶端 → 已授權的重新導向 URI）',
-  'https://sel-emotion-app.vercel.app/',
+  'REDIRECT_URI: https://sel-emotion-app.vercel.app/',
   '',
-  '# OAuth 同意畫面 → 已授權網域（不是 JavaScript 來源）',
-  'vercel.app'
+  'AUTHORIZED_DOMAIN: vercel.app'
 ) -join [Environment]::NewLine
 
 Set-Clipboard -Value $origins
