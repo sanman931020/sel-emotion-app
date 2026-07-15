@@ -228,6 +228,8 @@ html,body{height:100%;overflow:hidden;background:var(--bg);
 body.sos-chat-active #sos-pill{bottom:calc(68px + env(safe-area-inset-bottom, 0px));right:10px;max-width:196px}
 body.sos-chat-active #chat-msgs{padding-right:6px;padding-bottom:4px}
 body.sos-no-nav #sos-pill{bottom:calc(14px + env(safe-area-inset-bottom, 0px))}
+body.sos-breath-active #sos-pill{bottom:calc(14px + env(safe-area-inset-bottom, 0px));max-width:168px}
+body.sos-breath-active #sos-pill .sos-pill-text{font-size:11px;line-height:1.45}
 body.sos-splash #sos-pill{display:none!important}
 
 /* ══════════════════════════════════════
@@ -637,8 +639,13 @@ body.chat-crisis-frozen #chat-quick-replies{display:none!important}
 #breath-msg{font-size:15px;color:var(--t2);transition:opacity .35s ease;white-space:nowrap}
 #breath-sub{font-size:12px;color:var(--t3);margin-top:6px}
 #breath-timer{font-size:36px;font-weight:300;color:var(--acc);margin-bottom:8px;min-width:50px;display:block}
-#breath-skip{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:2}
-#breath-phase{position:absolute;bottom:72px;left:50%;transform:translateX(-50%);z-index:2}
+#breath-skip{
+  position:absolute;
+  top:calc(12px + env(safe-area-inset-top, 0px));
+  right:16px;left:auto;bottom:auto;
+  transform:none;z-index:46;
+  padding:10px 16px;min-height:44px}
+#breath-phase{position:absolute;bottom:calc(88px + env(safe-area-inset-bottom, 0px));left:50%;transform:translateX(-50%);z-index:2}
 #breath-screen-rings{position:absolute;inset:0;pointer-events:none}
 .breath-ring.breath-expand{animation:breathExpand 4s ease-in-out infinite}
 .breath-ring.breath-contract{animation:breathContract 4s ease-in-out infinite}
@@ -1230,6 +1237,7 @@ body.tour-active #sos-pill{z-index:40}
       <code id="google-client-id-display" style="font-size:11px;word-break:break-all">—</code>
       <div style="margin-top:10px">建議一併加入：</div>
       <div id="google-origin-suggested">
+        <code>https://sel-emotion-app.vercel.app</code>
         <code>http://127.0.0.1:5500</code>
         <code>http://localhost:5500</code>
         <code>http://localhost:3000</code>
@@ -1240,7 +1248,7 @@ body.tour-active #sos-pill{z-index:40}
     <button class="bp mb8" onclick="copyGoogleOrigins()">複製所有來源網址</button>
     <button class="bg w100 center mb8" onclick="openGoogleOAuthClient()">開啟 OAuth 用戶端設定</button>
     <button class="bg w100 center mb8" onclick="openGoogleConsentScreen()">開啟 OAuth 同意畫面（測試使用者）</button>
-    <button class="bg w100 center mb8" onclick="window.open('http://localhost:3000/emotion-app.html','_blank')">改用 localhost:3000 開啟（建議）</button>
+    <button class="bg w100 center mb8" onclick="window.open('https://sel-emotion-app.vercel.app/','_blank')">開啟正式網站測試</button>
     <button class="bg w100 center" onclick="hideOverlay('google-origin-modal')">關閉</button>
   </div>
 </div>
@@ -2640,6 +2648,7 @@ function showScreen(id,dir){
   if(pill) pill.style.display=(id==='splash'||id==='consent')?'none':'flex';
   document.body.classList.toggle('sos-splash',id==='splash'||id==='consent');
   document.body.classList.toggle('sos-no-nav',id!=='main');
+  document.body.classList.toggle('sos-breath-active',id==='breath-screen');
   document.body.classList.toggle('sos-chat-active',id==='chat');
   document.body.classList.toggle('sos-scenario-active',id==='scenario');
   if(id==='login'){
@@ -2789,8 +2798,11 @@ function getAuthPageOrigin(){
 }
 function getGoogleOriginsToRegister(){
   var current=getAuthPageOrigin();
-  var list=['http://127.0.0.1:5500','http://localhost:5500',
-    'http://localhost:3000','http://127.0.0.1:3000'];
+  var list=[
+    'https://sel-emotion-app.vercel.app',
+    'http://127.0.0.1:5500','http://localhost:5500',
+    'http://localhost:3000','http://127.0.0.1:3000'
+  ];
   if(list.indexOf(current)<0) list.unshift(current);
   else{
     list=list.filter(function(o){return o!==current;});
