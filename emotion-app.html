@@ -224,10 +224,15 @@ html,body{height:100%;overflow:hidden;background:var(--bg);
   0%,100%{box-shadow:0 0 18px rgba(255,210,100,.4),0 0 38px rgba(90,175,230,.3),0 0 8px rgba(255,235,160,.45),0 4px 14px rgba(139,125,184,.1);opacity:.9}
   50%{box-shadow:0 0 32px rgba(255,210,100,.62),0 0 60px rgba(90,175,230,.48),0 0 14px rgba(255,235,160,.7),0 6px 20px rgba(139,125,184,.16);opacity:1}
 }
-/* 對話頁：抬高至輸入列上方，訊息區預留右側空間避免遮擋 */
-body.sos-chat-active #sos-pill{bottom:calc(68px + env(safe-area-inset-bottom, 0px));right:10px;max-width:196px}
-body.sos-chat-active #chat-msgs{padding-right:6px;padding-bottom:4px}
-body.sos-no-nav #sos-pill{bottom:calc(14px + env(safe-area-inset-bottom, 0px))}
+/* 對話頁：縮成右側圖示，固定在輸入列上方，不遮擋發送鈕 */
+body.sos-chat-active #sos-pill{
+  bottom:calc(84px + env(safe-area-inset-bottom, 0px));
+  right:12px;left:auto;
+  max-width:48px;padding:10px;border-radius:50%;
+  justify-content:center}
+body.sos-chat-active #sos-pill .sos-pill-text{display:none}
+body.sos-chat-active #chat-msgs{padding-bottom:8px}
+body.sos-no-nav:not(.sos-chat-active) #sos-pill{bottom:calc(14px + env(safe-area-inset-bottom, 0px))}
 body.sos-breath-active #sos-pill{bottom:calc(14px + env(safe-area-inset-bottom, 0px));max-width:168px}
 body.sos-breath-active #sos-pill .sos-pill-text{font-size:11px;line-height:1.45}
 body.sos-splash #sos-pill{display:none!important}
@@ -1357,7 +1362,7 @@ body.tour-active #sos-pill{z-index:40}
   <div class="scroll" id="chat-msgs" style="padding:14px 16px;display:flex;flex-direction:column;gap:12px"></div>
   <div id="chat-quick-replies" aria-label="快速回覆建議"></div>
   <div id="chat-detected-tags" style="display:none;padding:0 14px 6px;flex-shrink:0"></div>
-  <div style="padding:10px 14px;border-top:1px solid var(--bor);background:var(--card);
+  <div id="chat-input-bar" style="padding:10px 14px calc(10px + env(safe-area-inset-bottom, 0px));border-top:1px solid var(--bor);background:var(--card);
     display:flex;gap:8px;align-items:flex-end;flex-shrink:0;transition:background .3s,border .3s">
     <button type="button" class="voice-btn" aria-label="語音輸入" aria-pressed="false" onclick="toggleVoiceInput('chat-inp')">🎤</button>
     <textarea id="chat-inp" class="inp" rows="1"
