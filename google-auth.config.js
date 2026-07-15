@@ -4,5 +4,5 @@
  * 授權來源須包含：https://sel-emotion-app.vercel.app、http://localhost:3000 等
  */
 window.SEL_GOOGLE_AUTH = {
-  clientId: '733104291212-ged0fhk8t1buuimul003unt4rdspa59b.apps.googleusercontent.com'
+  clientId: '89740114064-rmb3njnqtdsn6gomstsgkp1fkfvc7urj.apps.googleusercontent.com'
 };

@@ -1,5 +1,5 @@
 # Copy OAuth origins and open the exact OAuth client edit page
-$clientNum = '733104291212-ged0fhk8t1buuimul003unt4rdspa59b'
+$clientNum = '89740114064-rmb3njnqtdsn6gomstsgkp1fkfvc7urj'
 $origins = @(
   'https://sel-emotion-app.vercel.app',
   'http://localhost:3000',
