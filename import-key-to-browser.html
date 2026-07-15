@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>匯入 Gemini Key 至瀏覽器</title>
+<style>
+  body{font-family:'Noto Sans TC','Segoe UI',sans-serif;max-width:480px;margin:40px auto;padding:20px;line-height:1.7;color:#333}
+  input,button{width:100%;padding:12px;font-size:14px;margin:8px 0;box-sizing:border-box}
+  button{background:#8B7DB8;color:#fff;border:none;border-radius:8px;cursor:pointer}
+  button.secondary{background:#f5f2ef;color:#5a5270;border:1px solid #ddd}
+  .ok{color:#4a8f5c}.warn{color:#b8860b}.err{color:#c24040}
+  a{color:#8B7DB8}
+</style>
+</head>
+<body>
+  <h2>匯入 Gemini API Key</h2>
+  <p id="hint">正在從本機伺服器讀取已設定的金鑰…</p>
+  <input type="password" id="key" placeholder="Gemini API Key" autocomplete="off">
+  <button type="button" onclick="save()">儲存至本機瀏覽器</button>
+  <button type="button" class="secondary" onclick="location.href='/emotion-app.html'">開啟 emotion-app.html</button>
+  <p id="msg"></p>
+  <script>
+  var KEY_STORAGE='sel_gemini_api_key';
+  var PROVIDER_STORAGE='sel_chat_provider';
+
+  function save(silent){
+    var k=document.getElementById('key').value.trim();
+    if(k.length<12){
+      document.getElementById('msg').className='err';
+      document.getElementById('msg').textContent='金鑰太短，請手動貼上後再儲存。';
+      return false;
+    }
+    localStorage.setItem(KEY_STORAGE,k);
+    localStorage.setItem(PROVIDER_STORAGE,'gemini');
+    document.getElementById('msg').className='ok';
+    document.getElementById('msg').textContent=silent
+      ? '已自動匯入金鑰！可直接開啟 emotion-app.html。'
+      : '已儲存！請開啟 emotion-app.html 並重新整理。';
+    return true;
+  }
+
+  function tryAutoImport(){
+    var host=location.hostname;
+    var onDevServer=host==='localhost'||host==='127.0.0.1';
+    if(!onDevServer){
+      document.getElementById('hint').className='warn';
+      document.getElementById('hint').textContent='請以 http://localhost:3000/import-key-to-browser.html 開啟此頁，才能自動匯入 .env 中的金鑰。';
+      return;
+    }
+    fetch('/api/bootstrap-gemini-key')
+      .then(function(res){return res.json();})
+      .then(function(data){
+        if(data&&data.key){
+          document.getElementById('key').value=data.key;
+          save(true);
+          document.getElementById('hint').className='ok';
+          document.getElementById('hint').textContent='已從專案 .env 自動讀取您先前設定的 Gemini API Key。';
+        }else{
+          document.getElementById('hint').className='warn';
+          document.getElementById('hint').textContent='伺服器尚未設定 GEMINI_API_KEY，請手動貼上金鑰後點「儲存」。';
+        }
+      })
+      .catch(function(){
+        document.getElementById('hint').className='warn';
+        document.getElementById('hint').textContent='無法連線本機伺服器。請先執行 start-dev.bat，再以 localhost:3000 開啟此頁。';
+      });
+  }
+
+  tryAutoImport();
+  </script>
+</body>
+</html>
