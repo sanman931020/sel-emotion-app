@@ -1051,7 +1051,10 @@ body.sos-gallery-active #app{max-width:min(920px,100vw)}
   .home-feature-grid>.card{margin-bottom:0!important;height:100%}
   .gallery-grid{gap:16px;padding:0 28px 88px}
   .canvas-stage{max-width:520px}
-  .auth-shell{max-width:420px}
+  .auth-shell{max-width:520px}
+  .auth-card{padding:28px 28px 24px}
+  .auth-layout{display:block}
+  .auth-brand-panel{display:none}
   .overlay{align-items:center;justify-content:center}
   .sheet{
     max-width:min(520px,92vw);border-radius:22px;max-height:88vh;
@@ -1078,20 +1081,21 @@ body.sos-gallery-active #app{max-width:min(920px,100vw)}
     box-shadow:0 0 0 1px rgba(0,0,0,.05),0 20px 64px rgba(0,0,0,.08)}
   body.sos-gallery-active #app{max-width:min(1280px,96vw)}
 
-  /* 主頁導覽：左側窄欄（其餘全螢幕流程仍無底欄） */
+  /* 主頁導覽：左側窄欄（DOM 在內容後，用 order 拉到左邊） */
   #s-main{
     flex-direction:row}
   #s-main>.bnav{
+    order:-1;
     position:relative;left:auto;right:auto;bottom:auto;top:auto;
     width:var(--side-nav-w);height:100%;flex-shrink:0;
     flex-direction:column;justify-content:flex-start;
-    border-top:none;border-right:1px solid var(--bor);
+    border-top:none;border-right:1px solid var(--bor);border-left:none;
     padding:14px 0 18px;gap:2px}
   #s-main>.bnav .ntab{
     flex:0 0 auto;width:100%;padding:12px 6px;gap:4px}
   #s-main>.bnav .ntab span{font-size:10px;letter-spacing:0}
   #s-main>#main-scroll{
-    flex:1;min-width:0;padding-bottom:0!important}
+    order:1;flex:1;min-width:0;padding-bottom:0!important}
 
   /* 有側欄時 SOS／關於回到頂部改貼右下，不再預留底欄高度 */
   body:not(.sos-no-nav) #sos-pill:not(.sos-pos-custom){bottom:22px;right:22px}
@@ -1122,6 +1126,36 @@ body.sos-gallery-active #app{max-width:min(920px,100vw)}
   #s-checkin .pad,#s-post .pad,#s-onboard .pad,#s-consent .privacy-consent{
     max-width:680px;margin-left:auto;margin-right:auto}
   #s-chat .scroll,#chat-msgs{max-width:720px;margin-left:auto;margin-right:auto;width:100%}
+
+  /* 登入／註冊：網頁版雙欄加寬 */
+  .auth-shell{max-width:min(880px,92%);margin:0 auto}
+  #s-login .auth-shell{padding-top:48px!important;padding-bottom:48px!important}
+  .auth-layout{
+    display:grid;grid-template-columns:minmax(260px,.9fr) minmax(320px,1.1fr);
+    align-items:stretch;border-radius:var(--cr);overflow:hidden;
+    border:1px solid var(--bor);background:var(--card);
+    box-shadow:0 8px 32px var(--sha)}
+  .auth-brand-panel{
+    display:flex;flex-direction:column;justify-content:center;gap:12px;
+    padding:40px 32px;min-height:100%;
+    background:
+      radial-gradient(ellipse 90% 70% at 10% 0%,rgba(240,217,160,.22) 0%,transparent 55%),
+      linear-gradient(165deg,var(--sage-l) 0%,var(--card) 55%,rgba(240,217,160,.12) 100%);
+    border-right:1px solid var(--bor)}
+  .dark .auth-brand-panel{
+    background:
+      radial-gradient(ellipse 90% 70% at 10% 0%,rgba(240,217,160,.16) 0%,transparent 55%),
+      linear-gradient(165deg,#1a1e28 0%,var(--card) 60%,rgba(40,36,28,.9) 100%)}
+  .auth-brand-panel .auth-brand-kicker{
+    font-size:12px;font-weight:600;letter-spacing:1px;color:var(--sage-d)}
+  .dark .auth-brand-panel .auth-brand-kicker{color:rgba(240,217,160,.85)}
+  .auth-brand-panel h2{
+    font-family:'Noto Serif TC',serif;font-size:26px;font-weight:700;line-height:1.4;color:var(--t1);margin:0}
+  .auth-brand-panel p{font-size:14px;line-height:1.85;color:var(--t2);margin:0}
+  .auth-layout .auth-card{
+    border:none;border-radius:0;box-shadow:none;margin:0;
+    padding:36px 40px 32px;height:100%}
+  .auth-layout+.auth-hint{margin-top:18px;max-width:none}
 }
 
 /* 桌機橫向更寬展場 */
@@ -1267,6 +1301,8 @@ body.sos-gallery-active #app{max-width:min(920px,100vw)}
 ══════════════════════════════════════ */
 #s-login{background:var(--bg)}
 .auth-shell{max-width:380px;margin:0 auto}
+.auth-layout{display:block}
+.auth-brand-panel{display:none}
 .auth-card{background:var(--card);border:1px solid var(--bor);border-radius:var(--cr);
   padding:22px 20px 20px;box-shadow:0 4px 18px var(--sha)}
 .auth-hero{text-align:center;margin-bottom:22px}
@@ -2220,6 +2256,12 @@ body.tour-night-guide .tour-hole{
 <!-- ══ LOGIN / REGISTER ══ -->
 <div class="screen screen-exit-r" id="s-login">
   <div class="scroll"><div class="pad auth-shell" style="padding-top:44px;padding-bottom:40px">
+    <div class="auth-layout">
+    <aside class="auth-brand-panel" aria-label="品牌說明">
+      <p class="auth-brand-kicker">心靈夥伴</p>
+      <h2>讓情緒被看見<br>讓安全被接住</h2>
+      <p>正式輔導前的低負荷情緒覺察空間——溫暖、安全、包容，資料預設僅存於你的裝置。</p>
+    </aside>
     <div class="auth-card">
     <!-- Login View -->
     <div id="auth-login" class="auth-view active">
@@ -2281,6 +2323,7 @@ body.tour-night-guide .tour-hole{
       <div class="auth-footer">
         <p class="auth-switch">已有帳號？<button type="button" onclick="switchAuthView('login')">返回登入</button></p>
       </div>
+    </div>
     </div>
     </div>
     <p class="auth-hint">所有資料僅儲存於你的裝置，不會上傳到任何伺服器。<br>你的隱私，我們全力守護。</p>
