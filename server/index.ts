@@ -7,6 +7,7 @@ import { generateChatReply, generateChatOpening, type ChatMessage, type ChatCont
 import { sendShareEmail, verifySmtp, getSmtpStatus } from './share-email.js';
 import { appendSessionAnalytics, getSheetStatus, isSheetConfigured } from './analytics-sheet.js';
 import { exchangeGoogleAuthCode, isGoogleRedirectConfigured } from './google-auth.js';
+import { generateSessionSummary } from './summary.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = process.env.VERCEL ? process.cwd() : path.join(__dirname, '..');
@@ -51,11 +52,28 @@ app.post('/api/chat', async (req, res) => {
       return;
     }
 
-    const reply = await generateChatReply(messages, context, {
+    const turn = await generateChatReply(messages, context, {
       clientApiKey: apiKey,
       provider: chatProvider,
     });
-    res.json({ reply });
+    res.json({
+      reply: turn.reply,
+      risk_level: turn.risk_level,
+      has_misconception: turn.has_misconception,
+      misconception_type: turn.misconception_type,
+      reasoning: turn.reasoning,
+      misconception_alert: turn.misconception_alert,
+      system_action: turn.system_action,
+      valence: turn.valence,
+      consistency: turn.consistency,
+      forbidden_assumption_avoided: turn.forbidden_assumption_avoided,
+      note_for_supporter: turn.misconception_alert,
+      show_medical_disclaimer: turn.show_medical_disclaimer,
+      medical_disclaimer: turn.medical_disclaimer,
+      show_safety_notice: turn.show_safety_notice,
+      safety_notice: turn.safety_notice,
+      categories_detected: turn.categories_detected,
+    });
   } catch (err) {
     const message = err instanceof Error ? err.message : '對話生成失敗';
     console.error('[api/chat]', message);
@@ -145,6 +163,49 @@ app.post('/api/analytics/session', async (req, res) => {
     const message = err instanceof Error ? err.message : '寫入試算表失敗';
     console.error('[api/analytics/session]', message);
     res.status(500).json({ ok: false, reason: 'sheet_write_failed', error: message });
+  }
+});
+
+/** 對話結束總結：summary / advice / closing / teacherAdvice */
+app.post('/api/summary', async (req, res) => {
+  try {
+    const {
+      userName,
+      companionName,
+      transcript,
+      emotions,
+      events,
+      clientApiKey,
+      provider,
+    } = req.body as {
+      userName?: string;
+      companionName?: string;
+      transcript?: string;
+      emotions?: string[];
+      events?: string[];
+      clientApiKey?: string;
+      provider?: string;
+    };
+    const headerKey = req.headers['x-api-key'] || req.headers['x-gemini-key'];
+    const headerProvider = req.headers['x-chat-provider'];
+    const apiKey =
+      (typeof clientApiKey === 'string' && clientApiKey) ||
+      (typeof headerKey === 'string' && headerKey) ||
+      undefined;
+    const chatProvider =
+      (typeof provider === 'string' && provider) ||
+      (typeof headerProvider === 'string' && headerProvider) ||
+      undefined;
+
+    const result = await generateSessionSummary(
+      { userName, companionName, transcript, emotions, events },
+      { clientApiKey: apiKey, provider: chatProvider },
+    );
+    res.json(result);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : '總結生成失敗';
+    console.error('[api/summary]', message);
+    res.status(500).json({ error: message });
   }
 });
 

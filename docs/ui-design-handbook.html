@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>介面設計手冊｜心靈夥伴</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F1EE;--bg2:#FFFEFB;--card:#FFFFFF;
+  --t1:#2D2926;--t2:#6A6560;--t3:#9E9A95;
+  --acc:#8B7DB8;--acc-l:#EEE9F8;--acc-m:#C4BCE0;
+  --sage:#789E8A;--sage-l:#E6F2EC;--sage-d:#4A7A62;
+  --warm:#C2876A;--rose:#C97B8A;--sky:#6A9EC2;
+  --bor:#E5E0DB;--sha:rgba(0,0,0,.06);
+  --red:#C24040;--blu:#3A6AB2;--amb:#B8863A;
+  --gold:#c4a35a;--gold-l:rgba(240,217,160,.35);
+  --cr:22px;--br:14px;
+  --doc-max:820px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Sans TC',sans-serif;color:var(--t1);background:var(--bg);
+  line-height:1.75;font-size:15px;
+  background-image:
+    radial-gradient(ellipse 70% 40% at 12% 0%,rgba(240,217,160,.14),transparent 55%),
+    radial-gradient(ellipse 50% 30% at 90% 8%,rgba(91,155,213,.08),transparent 50%);
+}
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+.no-print{}
+.toolbar{
+  position:sticky;top:0;z-index:40;
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;
+  padding:12px 18px;background:rgba(255,252,247,.94);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--bor);box-shadow:0 4px 18px var(--sha)}
+.toolbar-brand{font-family:'Noto Serif TC',serif;font-weight:600;font-size:15px;color:var(--t1)}
+.toolbar-brand span{display:block;font-family:'Noto Sans TC',sans-serif;font-size:11px;font-weight:400;color:var(--t3);margin-top:2px}
+.toolbar-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 16px;border-radius:12px;font-size:13px;font-weight:500;
+  font-family:inherit;cursor:pointer;border:1.5px solid transparent;transition:.2s}
+.btn-primary{background:var(--acc);color:#fff;border-color:var(--acc)}
+.btn-primary:hover{filter:brightness(1.05)}
+.btn-ghost{background:var(--card);color:var(--t2);border-color:var(--bor)}
+.btn-ghost:hover{border-color:var(--acc-m);color:var(--acc);background:var(--acc-l)}
+.btn-gold{
+  background:linear-gradient(145deg,rgba(255,248,230,.98),rgba(255,252,247,.94));
+  color:#8a7040;border-color:rgba(200,160,80,.5);
+  box-shadow:0 0 12px rgba(232,200,120,.22)}
+.btn-gold:hover{box-shadow:0 0 16px rgba(232,200,120,.4)}
+
+.doc{max-width:var(--doc-max);margin:0 auto;padding:28px 20px 80px}
+.cover{
+  position:relative;overflow:hidden;border-radius:var(--cr);padding:36px 28px 32px;margin-bottom:28px;
+  background:
+    radial-gradient(ellipse 90% 70% at 10% 0%,rgba(240,217,160,.2) 0%,transparent 55%),
+    linear-gradient(160deg,var(--card) 0%,var(--sage-l) 100%);
+  border:1.5px solid rgba(200,160,80,.45);
+  box-shadow:0 0 22px rgba(232,200,120,.16),0 8px 24px rgba(180,140,60,.08)}
+.cover::after{
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:
+    radial-gradient(1.5px 1.5px at 14% 22%,rgba(255,230,160,.85),transparent),
+    radial-gradient(1px 1px at 82% 18%,rgba(240,217,160,.7),transparent),
+    radial-gradient(1px 1px at 70% 70%,rgba(255,245,210,.5),transparent)}
+.cover>*{position:relative;z-index:1}
+.kicker{font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--amb);margin-bottom:10px}
+.cover h1{font-family:'Noto Serif TC',serif;font-size:clamp(26px,5vw,34px);font-weight:700;line-height:1.35;margin-bottom:12px}
+.cover .lead{font-size:14px;color:var(--t2);line-height:1.9;max-width:36em}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:22px}
+.meta-item{background:rgba(255,255,255,.72);border:1px solid var(--bor);border-radius:12px;padding:12px 14px}
+.meta-item dt{font-size:11px;color:var(--t3);margin-bottom:4px}
+.meta-item dd{font-size:13px;font-weight:600;color:var(--t1)}
+
+.toc{
+  background:var(--card);border:1px solid var(--bor);border-radius:var(--cr);padding:20px 22px;margin-bottom:32px}
+.toc h2{font-size:15px;font-weight:600;margin-bottom:12px}
+.toc ol{padding-left:1.2em;columns:1}
+@media(min-width:640px){.toc ol{columns:2;column-gap:28px}}
+.toc li{margin-bottom:6px;break-inside:avoid;font-size:13px;color:var(--t2)}
+.toc a{color:var(--t1)}
+
+section.chapter{margin-bottom:40px;scroll-margin-top:72px}
+.chapter-hd{
+  display:flex;align-items:baseline;gap:12px;margin-bottom:16px;
+  padding-bottom:10px;border-bottom:1px solid var(--bor)}
+.chapter-num{
+  font-family:'Noto Serif TC',serif;font-size:13px;font-weight:600;color:var(--gold);
+  letter-spacing:.04em;flex-shrink:0}
+.chapter-hd h2{font-family:'Noto Serif TC',serif;font-size:22px;font-weight:700;line-height:1.35}
+h3{font-size:16px;font-weight:600;margin:22px 0 10px;color:var(--t1)}
+h4{font-size:14px;font-weight:600;margin:16px 0 8px;color:var(--sage-d)}
+p{margin-bottom:12px;color:var(--t2);font-size:14px;line-height:1.9}
+p:last-child{margin-bottom:0}
+ul,ol{margin:0 0 14px 1.2em;color:var(--t2);font-size:14px}
+li{margin-bottom:6px;line-height:1.8}
+strong{color:var(--t1);font-weight:600}
+.note{
+  margin:14px 0;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.8;color:var(--t2);
+  background:var(--amb-l,#FBF2E3);border:1px solid rgba(184,134,58,.25)}
+.note strong{color:var(--amb)}
+
+.card{
+  background:var(--card);border:1px solid var(--bor);border-radius:var(--cr);
+  padding:16px 18px;margin:14px 0;box-shadow:0 4px 14px var(--sha)}
+.grid-2{display:grid;gap:12px}
+@media(min-width:640px){.grid-2{grid-template-columns:1fr 1fr}}
+.grid-3{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+
+.swatch{
+  border-radius:12px;overflow:hidden;border:1px solid var(--bor);background:var(--card)}
+.swatch-chip{height:52px}
+.swatch-meta{padding:8px 10px}
+.swatch-meta .name{font-size:12px;font-weight:600;color:var(--t1)}
+.swatch-meta .hex{font-size:11px;color:var(--t3);font-family:ui-monospace,monospace}
+
+table.spec{
+  width:100%;border-collapse:collapse;font-size:13px;margin:12px 0 16px;
+  background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--bor)}
+table.spec th,table.spec td{
+  text-align:left;padding:10px 12px;border-bottom:1px solid var(--bor);vertical-align:top}
+table.spec th{background:var(--bg2);font-weight:600;color:var(--t1);width:28%}
+table.spec tr:last-child td,table.spec tr:last-child th{border-bottom:none}
+table.spec code,code{
+  font-family:ui-monospace,Consolas,monospace;font-size:12px;
+  background:var(--acc-l);color:var(--acc);padding:1px 6px;border-radius:6px}
+
+.flow{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0}
+.flow-step{
+  background:var(--card);border:1px solid var(--bor);border-radius:999px;
+  padding:8px 14px;font-size:12px;font-weight:500;color:var(--t1)}
+.flow-arrow{color:var(--t3);font-size:14px}
+
+.principle{
+  display:grid;gap:10px;margin:14px 0}
+@media(min-width:640px){.principle{grid-template-columns:1fr 1fr}}
+.principle-item{
+  padding:14px 16px;border-radius:14px;background:var(--card);border:1px solid var(--bor)}
+.principle-item h4{margin:0 0 6px;font-size:14px;color:var(--acc)}
+.principle-item p{font-size:13px;margin:0}
+
+.check-list{list-style:none;margin-left:0;padding:0}
+.check-list li{
+  position:relative;padding:10px 12px 10px 36px;margin-bottom:8px;
+  background:var(--card);border:1px solid var(--bor);border-radius:12px;font-size:13px}
+.check-list li::before{
+  content:'☐';position:absolute;left:12px;top:10px;color:var(--sage);font-size:14px}
+
+.footer-doc{
+  margin-top:48px;padding-top:20px;border-top:1px solid var(--bor);
+  font-size:12px;color:var(--t3);text-align:center;line-height:1.8}
+
+@media print{
+  @page{size:A4;margin:16mm 14mm}
+  body{background:#fff;font-size:11.5pt;line-height:1.65}
+  .no-print,.toolbar{display:none!important}
+  .doc{max-width:none;padding:0;margin:0}
+  .cover,.card,.toc,table.spec,.principle-item,.check-list li,.meta-item,.swatch{
+    box-shadow:none!important;break-inside:avoid}
+  .cover{border:1px solid #ccc;background:#faf8f5!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .swatch-chip{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section.chapter{break-before:auto;page-break-inside:avoid}
+  .chapter-hd{break-after:avoid}
+  h2,h3,h4{break-after:avoid}
+  a{color:inherit;text-decoration:none}
+  .toc a::after{content:''}
+}
+</style>
+</head>
+<body>
+<header class="toolbar no-print" role="banner">
+  <div class="toolbar-brand">
+    心靈夥伴｜介面設計手冊
+    <span>大專生 AI 情緒覺察 App · UI Design Handbook</span>
+  </div>
+  <div class="toolbar-actions">
+    <button type="button" class="btn btn-ghost" onclick="window.print()">下載 PDF（列印）</button>
+    <a class="btn btn-gold" href="../emotion-app.html">返回 App</a>
+  </div>
+</header>
+
+<main class="doc">
+  <header class="cover" id="top">
+    <p class="kicker">SEL × RULER × 色彩心理學</p>
+    <h1>心靈夥伴<br>介面設計手冊</h1>
+    <p class="lead">本文件依據實際產品實作（<code>emotion-app.html</code>、<code>sel-data.v2.js</code>、<code>lib/*</code>）整理，作為設計對齊、驗收與後續迭代的單一真相來源。產品定位為<strong>非診斷性</strong>的低負荷情緒覺察與求助導引前哨站。</p>
+    <dl class="meta-grid">
+      <div class="meta-item"><dt>文件版本</dt><dd>1.0 · 2026-07</dd></div>
+      <div class="meta-item"><dt>產品名稱</dt><dd>心靈夥伴</dd></div>
+      <div class="meta-item"><dt>資料庫</dt><dd>SEL_DATA v2.1.1</dd></div>
+      <div class="meta-item"><dt>適用對象</dt><dd>大專生／設計／開發／計畫團隊</dd></div>
+      <div class="meta-item"><dt>語系</dt><dd>繁體中文（zh-TW）</dd></div>
+      <div class="meta-item"><dt>設計原則</dt><dd>溫暖 · 安全 · 包容 · 低負荷</dd></div>
+    </dl>
+  </header>
+
+  <nav class="toc" aria-label="目錄">
+    <h2>目錄</h2>
+    <ol>
+      <li><a href="#ch1">1. 文件資訊與產品定位</a></li>
+      <li><a href="#ch2">2. 品牌與體驗原則</a></li>
+      <li><a href="#ch3">3. 設計系統</a></li>
+      <li><a href="#ch4">4. 資訊架構與導覽</a></li>
+      <li><a href="#ch5">5. 逐頁介面規格</a></li>
+      <li><a href="#ch6">6. 響應式規範</a></li>
+      <li><a href="#ch7">7. 互動與動效規格</a></li>
+      <li><a href="#ch8">8. 內容與合規</a></li>
+      <li><a href="#ch9">9. 設計驗收清單</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section class="chapter" id="ch1">
+    <div class="chapter-hd"><span class="chapter-num">01</span><h2>文件資訊與產品定位</h2></div>
+    <h3>1.1 產品一句話</h3>
+    <p>正式輔導前的<strong>低負荷情緒覺察與求助導引前哨站</strong>——非診斷、以使用者為中心，協助把「知道」變成「能照顧自己」。</p>
+    <h3>1.2 核心能力對應</h3>
+    <ul>
+      <li><strong>RULER</strong>：辨識／理解／標記／表達／調節情緒的引導路徑（打卡三步驟＋對話）。</li>
+      <li><strong>CASEL SEL</strong>：自我覺察、自我管理、社會覺察、人際技巧、負責任決策（藝廊 SEL 曲集對應）。</li>
+      <li><strong>多模態回饋</strong>：心靈畫布（<code>lib/mind-canvas.js</code>）將情緒色票轉為視覺作品。</li>
+    </ul>
+    <h3>1.3 技術與檔案對應</h3>
+    <table class="spec">
+      <tr><th>層級</th><td>主要檔案</td></tr>
+      <tr><th>殼層／樣式／流程</th><td><code>emotion-app.html</code>（單頁 App、CSS tokens、screens、tabs）</td></tr>
+      <tr><th>情緒／事件資料</th><td><code>sel-data.v2.js</code>（六大情緒類、70 色票、七類事件）</td></tr>
+      <tr><th>藝廊</th><td><code>lib/emotion-gallery.js</code></td></tr>
+      <tr><th>背景音樂</th><td><code>lib/app-music.js</code>（App 頁 ~35–40%）；藝廊獨立曲集</td></tr>
+      <tr><th>畫布</th><td><code>lib/mind-canvas.js</code></td></tr>
+      <tr><th>呼吸／危機／情境</th><td><code>breathing.js</code>、<code>crisis-guard.js</code>、<code>scenario-play.js</code></td></tr>
+    </table>
+  </section>
+
+  <!-- 2 -->
+  <section class="chapter" id="ch2">
+    <div class="chapter-hd"><span class="chapter-num">02</span><h2>品牌與體驗原則</h2></div>
+    <div class="principle">
+      <div class="principle-item"><h4>溫暖</h4><p>暖紙感背景（<code>--bg #F4F1EE</code>）、金色點綴（音樂鈕、關於 hero、夜間選取事件）、柔和圓角（<code>--cr 22px</code>）。</p></div>
+      <div class="principle-item"><h4>安全</h4><p>SOS 常駐「你不是一個人」；危機／關注 modal；隱私鎖定（PIN／veil）；資料預設本機優先。</p></div>
+      <div class="principle-item"><h4>包容</h4><p>身分分流、知情同意、低門檻選項（標籤優於長文）；文案避免指責與診斷口吻。</p></div>
+      <div class="principle-item"><h4>低負荷</h4><p>一步一事；打卡分三步；快速回覆；語音輸入可選；夜間模式減輕刺激。</p></div>
+      <div class="principle-item"><h4>非診斷</h4><p>介面與文案明確定位為引導工具，不取代專業諮商／醫療。</p></div>
+      <div class="principle-item"><h4>使用者主控</h4><p>音樂開關、日夜切換、藝廊策展、支持對象需同意、SOS 可收合拖曳。</p></div>
+    </div>
+    <div class="note"><strong>Splash 座右銘：</strong>「讓情緒被看見，讓安全被接住」·「溫暖 · 安全 · 包容」</div>
+  </section>
+
+  <!-- 3 -->
+  <section class="chapter" id="ch3">
+    <div class="chapter-hd"><span class="chapter-num">03</span><h2>設計系統</h2></div>
+
+    <h3>3.1 Color tokens（Light）</h3>
+    <div class="grid-3">
+      <div class="swatch"><div class="swatch-chip" style="background:#F4F1EE"></div><div class="swatch-meta"><div class="name">--bg</div><div class="hex">#F4F1EE</div></div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#FFFFFF;border-bottom:1px solid #E5E0DB"></div><div class="swatch-meta"><div class="name">--card</div><div class="hex">#FFFFFF</div></div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#2D2926"></div><div class="swatch-meta"><div class="name">--t1</div><div class="hex">#2D2926</div></div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#6A6560"></div><div class="swatch-meta"><div class="name">--t2</div><div class="hex">#6A6560</div></div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#8B7DB8"></div><div class="swatch-meta"><div class="name">--acc</div><div class="hex">#8B7DB8</div></div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#789E8A"></div><div class="swatch-meta"><div class="name">--sage</div><div class="hex">#789E8A</div></div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#C2876A"></div><div class="swatch-meta"><div class="name">--warm</div><div class="hex">#C2876A</div></div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#C97B8A"></div><div class="swatch-meta"><div class="name">--rose</div><div class="hex">#C97B8A</div></div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#6A9EC2"></div><div class="swatch-meta"><div class="name">--sky</div><div class="hex">#6A9EC2</div></div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#C24040"></div><div class="swatch-meta"><div class="name">--red</div><div class="hex">#C24040</div></div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#B8863A"></div><div class="swatch-meta"><div class="name">--amb</div><div class="hex">#B8863A</div></div></div>
+      <div class="swatch"><div class="swatch-chip" style="background:#E5E0DB"></div><div class="swatch-meta"><div class="name">--bor</div><div class="hex">#E5E0DB</div></div></div>
+    </div>
+
+    <h3>3.2 Dark mode tokens（節錄）</h3>
+    <table class="spec">
+      <tr><th>--bg</th><td><code>#181C28</code></td></tr>
+      <tr><th>--card</th><td><code>#242A3C</code></td></tr>
+      <tr><th>--t1</th><td><code>#E6E2DC</code></td></tr>
+      <tr><th>--acc</th><td><code>#A899D4</code></td></tr>
+      <tr><th>--bor</th><td><code>#2A3048</code></td></tr>
+      <tr><th>切換</th><td><code>document.documentElement.classList.toggle('dark')</code>；右上角日夜開關含太陽／星軌視覺</td></tr>
+    </table>
+
+    <h3>3.3 情緒色（色彩心理學 · 六大類）</h3>
+    <p>來源：<code>sel-data.v2.js</code>。每個情緒標籤有<strong>唯一色碼</strong>（共 70），供心靈畫布與 chip 使用。</p>
+    <div class="grid-2">
+      <div class="card">
+        <h4>高能量負面 · 憤怒</h4>
+        <p>主色 <code>#E53935</code> — 紅／朱＝喚醒與怒意。例：憤怒、暴躁、怨恨。</p>
+      </div>
+      <div class="card">
+        <h4>高能量負面 · 焦慮恐懼</h4>
+        <p>主色 <code>#FF7043</code> — 橙＝緊繃焦慮；紫＝恐懼未知。例：焦慮、害怕、窒息感。</p>
+      </div>
+      <div class="card">
+        <h4>低能量負面 · 悲傷耗竭</h4>
+        <p>主色 <code>#3A6EA5</code> — 藍／灰藍＝退縮與低能量。例：悲傷、孤獨、憂鬱。</p>
+      </div>
+      <div class="card">
+        <h4>複雜自我</h4>
+        <p>主色 <code>#7E57C2</code> — 紫／靛＝內省與羞恥。例：自我懷疑、羞愧、冒牌者感。</p>
+      </div>
+      <div class="card">
+        <h4>緩衝情緒</h4>
+        <p>柔粉／茶褐／青綠。例：逞強、渴望被抱抱、想安靜一下。</p>
+      </div>
+      <div class="card">
+        <h4>正向情緒</h4>
+        <p>主色 <code>#FFD54F</code> — 黃＝喜悅；綠＝踏實。例：開心、感恩、踏實。</p>
+      </div>
+    </div>
+
+    <h3>3.4 Typography</h3>
+    <table class="spec">
+      <tr><th>正文 UI</th><td><code>Noto Sans TC</code> 300–600</td></tr>
+      <tr><th>標題／品牌</th><td><code>Noto Serif TC</code>、藝廊部分 <code>Cormorant Garamond</code></td></tr>
+      <tr><th>層級建議</th><td>頁標約 22px／600；區塊 h2 約 15–20px；說明 12–14px／--t2</td></tr>
+    </table>
+
+    <h3>3.5 Spacing／Radius／Shadow</h3>
+    <table class="spec">
+      <tr><th>--cr</th><td>22px（大卡片、about-sec）</td></tr>
+      <tr><th>--br</th><td>14px（按鈕、輸入）</td></tr>
+      <tr><th>--nav-h</th><td>手機 68px；平板 72px；桌機主頁改側欄 <code>--side-nav-w:92px</code></td></tr>
+      <tr><th>.pad</th><td>手機 20px；平板 28px；桌機 36px</td></tr>
+      <tr><th>--sha</th><td>light <code>rgba(0,0,0,.06)</code>；dark <code>rgba(0,0,0,.35)</code></td></tr>
+      <tr><th>--trans</th><td><code>all .3s cubic-bezier(.4,0,.2,1)</code></td></tr>
+    </table>
+
+    <h3>3.6 元件基礎</h3>
+    <ul>
+      <li><code>.bp</code>：主按鈕（實心 --acc）</li>
+      <li><code>.bg</code>：次要／文字按鈕</li>
+      <li><code>.btn-canva-secondary</code>：次要描邊鈕</li>
+      <li><code>.etag</code>／<code>.etag-on</code>：標籤；夜間選取為金色魔法（<code>.dark .etag.etag-on</code>）</li>
+      <li><code>.sheet</code>／<code>.overlay</code>：底部或置中面板</li>
+      <li><code>.app-music-btn</code>：金色音符開關（關亦保持金色）</li>
+      <li><code>#sos-pill</code>：常駐求援，柔和霓虹呼吸</li>
+    </ul>
+
+    <h3>3.7 圖示與 emoji</h3>
+    <p>導覽以 SVG stroke 圖示為主；情緒／資源可用 emoji 作為溫暖識別（🤝 SOS、🎭 情境等），避免過度堆疊。藝廊工具列以文字＋狀態色為主。</p>
+  </section>
+
+  <!-- 4 -->
+  <section class="chapter" id="ch4">
+    <div class="chapter-hd"><span class="chapter-num">04</span><h2>資訊架構與導覽</h2></div>
+    <h3>4.1 主流程</h3>
+    <div class="flow">
+      <span class="flow-step">Splash</span><span class="flow-arrow">→</span>
+      <span class="flow-step">登入／註冊</span><span class="flow-arrow">→</span>
+      <span class="flow-step">知情同意</span><span class="flow-arrow">→</span>
+      <span class="flow-step">Onboard</span><span class="flow-arrow">→</span>
+      <span class="flow-step">主頁</span>
+    </div>
+    <div class="flow">
+      <span class="flow-step">Check-in 1 壓力</span><span class="flow-arrow">→</span>
+      <span class="flow-step">2 事件</span><span class="flow-arrow">→</span>
+      <span class="flow-step">3 情緒</span><span class="flow-arrow">→</span>
+      <span class="flow-step">（高壓力則呼吸）</span><span class="flow-arrow">→</span>
+      <span class="flow-step">對話</span><span class="flow-arrow">→</span>
+      <span class="flow-step">結束／心靈畫布</span><span class="flow-arrow">→</span>
+      <span class="flow-step">日記／打卡／藝廊</span>
+    </div>
+
+    <h3>4.2 主頁 Tabs（.bnav）</h3>
+    <table class="spec">
+      <tr><th>主頁</th><td>陪伴卡、開始對話、情境練習、資源</td></tr>
+      <tr><th>日記</th><td>自動紀錄網格；詳情含畫布與摘要</td></tr>
+      <tr><th>打卡牆</th><td>連續天數、月曆熱力、趨勢、統計（最常觸發<strong>類型</strong>）</td></tr>
+      <tr><th>情緒藝廊</th><td>全頁展場（另開 screen）</td></tr>
+      <tr><th>設定</th><td>個人／陪伴者／支持對象（檢視↔編輯）</td></tr>
+      <tr><th>關於</th><td>計畫背景、設計手冊、特色、團隊、隱私、AI 透明度</td></tr>
+    </table>
+    <p>手機／平板：底部導覽。桌機 ≥1024：主頁改<strong>左側窄欄</strong>（同一組 DOM，僅 CSS 改排）。</p>
+  </section>
+
+  <!-- 5 -->
+  <section class="chapter" id="ch5">
+    <div class="chapter-hd"><span class="chapter-num">05</span><h2>逐頁介面規格</h2></div>
+
+    <h3>5.1 Splash</h3>
+    <p>全螢幕品牌；輕觸進入。文案：座右銘＋「輕觸畫面進入系統」。SOS 於此頁隱藏（<code>body.sos-splash</code>）。</p>
+
+    <h3>5.2 登入／註冊</h3>
+    <ul>
+      <li>登入：「歡迎回來／你的私密情緒空間」；帳號密碼；Google；切換註冊。</li>
+      <li>註冊：帳密＋Google；細節資料於 Onboard。</li>
+      <li>容器：<code>.auth-shell</code> max-width 380–420px。</li>
+    </ul>
+
+    <h3>5.3 知情同意／Onboard</h3>
+    <p>長文捲動同意；Onboard 分步填寫身分／學校／陪伴者名稱等。未成年身分觸發家長同意 UI。</p>
+
+    <h3>5.4 Check-in（三步驟）</h3>
+    <table class="spec">
+      <tr><th>1/3 壓力</th><td>標題「今天的你，好嗎？」；滑桿 1–10；<strong>返回＋繼續</strong>並排</td></tr>
+      <tr><th>2/3 事件</th><td>七類客觀事件標籤；夜間選取金色魔法</td></tr>
+      <tr><th>3/3 情緒</th><td>情緒輪盤／標籤模式；可語音＋文字反射</td></tr>
+    </table>
+    <p>高壓力（≥7）或較多負向情緒 → 進入呼吸練習再對話。</p>
+
+    <h3>5.5 呼吸（Box 4-4-4-4）</h3>
+    <p><code>lib/breathing.js</code>；環形視覺；可搭配身體掃描文案。語氣安撫、短句。</p>
+
+    <h3>5.6 對話</h3>
+    <ul>
+      <li>氣泡：AI／使用者；快速回覆（<code>quick-replies.js</code>）。</li>
+      <li>危機：凍結輸入＋資源（<code>crisis-guard.js</code>）；關注級可選繼續。</li>
+      <li>SOS 在對話頁預設收合為圓鈕，避免遮擋輸入列。</li>
+    </ul>
+
+    <h3>5.7 對話結束／心靈畫布</h3>
+    <p><code>.canvas-stage</code> 固定 <strong>aspect-ratio 16/10</strong>；resize 依寬度重繪（不可拉成橢圓）。含深度摘要、日常小提醒、評分與回饋。</p>
+
+    <h3>5.8 主頁</h3>
+    <p>問候＋日期；<code>.home-feature-grid</code> 在 ≥768 為兩欄（陪伴卡｜情境卡）。文案例：「心裡有點小故事，都歡迎來聊聊。」右上：音樂＋日夜。</p>
+
+    <h3>5.9 日記</h3>
+    <p>空狀態溫和引導開始第一次對話；有資料時 <code>.gallery-grid</code> 2 欄（桌機 3 欄）。縮圖維持比例。</p>
+
+    <h3>5.10 打卡牆</h3>
+    <p>連續打卡橫幅、月曆（顏色反映情緒類）、近 10 次壓力趨勢、統計卡（最常觸發<strong>類型</strong>如「學業與課業」）。</p>
+
+    <h3>5.11 情緒藝廊</h3>
+    <ul>
+      <li>進場 portal（門扇／光線，偏慢儀式感）。</li>
+      <li>近觀漫遊／遠距總覽／策展／紀錄片（≤7 張、ken burns、金游標魔法）。</li>
+      <li>主題：柔光、雨日、清晨、白、米、黑（<code>GALLERY_THEME_ORDER</code>）。</li>
+      <li>畫位 max 10；SEL 曲集音量為全站基準 100%。</li>
+      <li>詳情：手機底部 sheet；平板／桌機右側分欄。</li>
+    </ul>
+
+    <h3>5.12 設定</h3>
+    <p>區塊預設純文字展示；畫筆進入編輯；儲存後回展示。含 Gemini Key、PIN、學校資源等。</p>
+
+    <h3>5.13 關於</h3>
+    <p>金色 hero、TOC chips、計畫背景、本設計手冊、特色、團隊、補助、隱私、AI 透明度；右下回到頂部箭頭。</p>
+
+    <h3>5.14 SOS</h3>
+    <p>文案：「你不是一個人，如果需要幫助就在這裡。」可展開全國／校園資源；可收合、拖曳；異常座標自動校正回右下。</p>
+
+    <h3>5.15 情境練習</h3>
+    <p>I-message 說明 → 隨機情境角色扮演；與主對話分流。</p>
+  </section>
+
+  <!-- 6 -->
+  <section class="chapter" id="ch6">
+    <div class="chapter-hd"><span class="chapter-num">06</span><h2>響應式規範</h2></div>
+    <div class="note"><strong>原則：</strong>手機版（&lt;768px）已完成，不重做、不大改。僅以媒體查詢／grid／flex 向上適配平板與桌機。</div>
+    <table class="spec">
+      <tr><th>&lt; 768 手機</th><td>#app max-width 430px；底欄；單欄；既有互動</td></tr>
+      <tr><th>768–1023 平板</th><td>#app ~760px；底欄加高；主頁兩欄；sheet 置中；藝廊詳情右側欄；畫位加大</td></tr>
+      <tr><th>≥ 1024 桌機</th><td>#app ~1100px 置中留白；主頁左側導覽；日記 3 欄；展牆更寬；Hover 僅增強</td></tr>
+      <tr><th>≥ 1280</th><td>藝廊可至 ~1360px；畫位 320px</td></tr>
+    </table>
+    <p>驗收寬度：<strong>375 / 768 / 1024 / 1440</strong>。Canvas／藝廊圖在 resize 時依寬度重繪，維持比例。</p>
+  </section>
+
+  <!-- 7 -->
+  <section class="chapter" id="ch7">
+    <div class="chapter-hd"><span class="chapter-num">07</span><h2>互動與動效規格</h2></div>
+    <ul>
+      <li>螢幕轉場：<code>.38s</code> cubic-bezier；exit-l／exit-r。</li>
+      <li>SOS 呼吸燈：<code>sosNeonBreathe ~4.2s</code>。</li>
+      <li>主頁「開始對話」光環／環擴散。</li>
+      <li>夜間事件選取：<code>etagGoldMagic</code>。</li>
+      <li>藝廊進場、紀錄片 ken burns、游標金魔法。</li>
+      <li>音樂：淡入淡出；App 頁音量約藝廊 35–40%（<code>APP_MUSIC_VOLUME = 0.16</code>）。</li>
+    </ul>
+    <p><code>@media (prefers-reduced-motion: reduce)</code>：關閉或簡化藝廊／ambient／portal 等動畫，保留可用性。</p>
+  </section>
+
+  <!-- 8 -->
+  <section class="chapter" id="ch8">
+    <div class="chapter-hd"><span class="chapter-num">08</span><h2>內容與合規</h2></div>
+    <ul>
+      <li><strong>非診斷：</strong>關於頁與知情同意反覆聲明。</li>
+      <li><strong>隱私：</strong>對話細節不未經同意外流；分析採去識別化。</li>
+      <li><strong>資源導引：</strong>1925、1995、1980、心快活、校園校安／諮商。</li>
+      <li><strong>AI 透明度：</strong>ChatGPT／Claude／Gemini／Suno／Cursor／OpenRouter 等用途揭露。</li>
+      <li><strong>事件標籤：</strong>客觀中立名詞，不做結果論評價。</li>
+    </ul>
+  </section>
+
+  <!-- 9 -->
+  <section class="chapter" id="ch9">
+    <div class="chapter-hd"><span class="chapter-num">09</span><h2>設計驗收清單</h2></div>
+    <ul class="check-list">
+      <li>375：主流程可走完；版面與改前一致；無溢位；SOS 可見</li>
+      <li>768：兩欄主頁、加高底欄、藝廊詳情側欄合理</li>
+      <li>1024：側欄導覽、內容置中留白、Hover 不取代點擊</li>
+      <li>1440：藝廊／日記不無限拉寬；畫布不變形</li>
+      <li>日／夜模式切換正常；音樂鈕金色；高壓力進呼吸</li>
+      <li>危機語句觸發資源；關於手冊可預覽與列印 PDF</li>
+      <li>reduced-motion 下仍可操作關鍵流程</li>
+    </ul>
+  </section>
+
+  <footer class="footer-doc">
+    <p>心靈夥伴｜介面設計手冊 v1.0</p>
+    <p>臺北市立大學 · 學習與媒材設計學系 · 校園 SEL 情緒安全網的數位補位</p>
+    <p class="no-print"><a href="#top">回到頂部</a></p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  if(q.get('print')==='1'||q.get('download')==='pdf'){
+    window.addEventListener('load',function(){
+      setTimeout(function(){ window.print(); },400);
+    });
+  }
+})();
+</script>
+</body>
+</html>

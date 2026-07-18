@@ -12,7 +12,9 @@
           "sel-data.v2.js",
           "school-resources.js",
           "university-list.js",
-          "lib/**"
+          "lib/**",
+          "docs/**",
+          "*.mp3"
         ]
       }
     },
@@ -22,7 +24,9 @@
     { "src": "sel-data.v2.js", "use": "@vercel/static" },
     { "src": "school-resources.js", "use": "@vercel/static" },
     { "src": "university-list.js", "use": "@vercel/static" },
-    { "src": "lib/**", "use": "@vercel/static" }
+    { "src": "lib/**", "use": "@vercel/static" },
+    { "src": "docs/**", "use": "@vercel/static" },
+    { "src": "*.mp3", "use": "@vercel/static" }
   ],
   "routes": [
     { "handle": "filesystem" },

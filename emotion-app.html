@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>心靈夥伴</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600&family=Noto+Serif+TC:wght@400;600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 <style>
 /* ══════════════════════════════════════
    RESET & ROOT TOKENS
@@ -69,29 +69,128 @@ html,body{height:100%;overflow:hidden;background:var(--bg);
 .ntab svg{width:20px;height:20px;transition:transform .2s;flex-shrink:0}
 .ntab.on svg{transform:scale(1.08)}
 .ntab span{font-size:9px;font-weight:500;letter-spacing:.2px;white-space:nowrap}
+.header-controls{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.app-music-btn{
+  position:relative;width:40px;height:40px;border-radius:50%;
+  border:1.5px solid rgba(200,160,80,.5);
+  background:linear-gradient(145deg,rgba(255,248,230,.98),rgba(255,252,247,.94));
+  color:#b8923a;cursor:pointer;display:inline-flex;
+  align-items:center;justify-content:center;padding:0;flex-shrink:0;
+  box-shadow:0 0 12px rgba(232,200,120,.22);
+  transition:background .2s,color .2s,opacity .2s,border-color .2s,box-shadow .2s}
+.app-music-btn:hover{background:linear-gradient(145deg,rgba(255,240,200,.98),rgba(255,248,230,.96));
+  box-shadow:0 0 16px rgba(232,200,120,.38)}
+.app-music-btn.off{color:#c4a35a;opacity:.88}
+.app-music-btn.off .app-music-slash{opacity:1}
+.app-music-slash{
+  position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:linear-gradient(135deg,transparent 46%,rgba(180,140,60,.85) 46%,rgba(180,140,60,.85) 54%,transparent 54%)}
+.dark .app-music-btn{
+  background:rgba(40,36,28,.88);border-color:rgba(240,217,160,.45);
+  color:rgba(240,217,160,.95);box-shadow:0 0 14px rgba(232,200,120,.18)}
+.dark .app-music-btn.off{color:rgba(240,217,160,.9);opacity:.9}
+.dark .app-music-btn.off .app-music-slash{
+  background:linear-gradient(135deg,transparent 46%,rgba(240,217,160,.85) 46%,rgba(240,217,160,.85) 54%,transparent 54%)}
 
 /* ══════════════════════════════════════
    ABOUT TAB
 ══════════════════════════════════════ */
 .about-hero{position:relative;border-radius:var(--cr);padding:22px 18px 20px;margin-bottom:16px;
   background:
-    radial-gradient(ellipse 90% 70% at 10% 0%,rgba(107,158,120,.18) 0%,transparent 55%),
-    radial-gradient(ellipse 80% 60% at 100% 100%,rgba(91,155,213,.14) 0%,transparent 55%),
+    radial-gradient(ellipse 90% 70% at 10% 0%,rgba(240,217,160,.16) 0%,transparent 55%),
+    radial-gradient(ellipse 80% 60% at 100% 100%,rgba(91,155,213,.12) 0%,transparent 55%),
     linear-gradient(160deg,var(--card) 0%,var(--sage-l) 100%);
-  border:1px solid var(--bor);overflow:hidden}
+  border:1.5px solid rgba(200,160,80,.45);
+  box-shadow:
+    0 0 0 1px rgba(240,217,160,.2) inset,
+    0 0 22px rgba(232,200,120,.18),
+    0 8px 24px rgba(180,140,60,.08);
+  overflow:hidden}
+.about-hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:
+    linear-gradient(135deg,rgba(255,240,200,.35) 0%,transparent 28%,transparent 72%,rgba(240,217,160,.2) 100%);
+  opacity:.7}
+.about-hero::after{
+  content:'';position:absolute;inset:0;pointer-events:none;border-radius:inherit;opacity:.55;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%,rgba(255,230,160,.85),transparent),
+    radial-gradient(1px 1px at 78% 14%,rgba(240,217,160,.7),transparent),
+    radial-gradient(1px 1px at 88% 62%,rgba(255,245,210,.55),transparent),
+    radial-gradient(1.5px 1.5px at 22% 78%,rgba(232,200,120,.5),transparent);
+  animation:aboutHeroSparkle 4.8s ease-in-out infinite}
+@keyframes aboutHeroSparkle{
+  0%,100%{opacity:.4} 50%{opacity:.75}
+}
 .dark .about-hero{background:
-  radial-gradient(ellipse 90% 70% at 10% 0%,rgba(107,158,120,.12) 0%,transparent 55%),
-  radial-gradient(ellipse 80% 60% at 100% 100%,rgba(91,155,213,.1) 0%,transparent 55%),
-  linear-gradient(160deg,var(--card) 0%,rgba(40,55,48,.45) 100%)}
+  radial-gradient(ellipse 90% 70% at 10% 0%,rgba(240,217,160,.2) 0%,transparent 55%),
+  radial-gradient(ellipse 80% 60% at 100% 100%,rgba(180,190,210,.12) 0%,transparent 55%),
+  linear-gradient(160deg,#14161e 0%,#1a1c24 55%,#161820 100%);
+  border-color:rgba(240,217,160,.4);
+  box-shadow:
+    0 0 0 1px rgba(240,217,160,.12) inset,
+    0 0 28px rgba(232,200,120,.16),
+    0 8px 28px rgba(0,0,0,.35)}
+.about-hero > *{position:relative;z-index:1}
 .about-kicker{font-size:11px;font-weight:600;letter-spacing:1.2px;color:var(--sage-d);margin-bottom:8px}
-.dark .about-kicker{color:var(--sage)}
+.dark .about-kicker{color:rgba(240,217,160,.85)}
 .about-hero h1{font-size:22px;font-weight:700;line-height:1.35;margin-bottom:10px;color:var(--t1)}
 .about-hero-lead{font-size:13px;line-height:1.85;color:var(--t2)}
 .about-toc{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
-.about-toc button{border:1px solid var(--bor);background:var(--card);color:var(--t2);
+.about-toc button{
+  border:1.5px solid rgba(200,160,80,.55);background:var(--card);color:var(--t2);
   font-size:11px;padding:6px 10px;border-radius:50px;cursor:pointer;
-  font-family:'Noto Sans TC',sans-serif;transition:background .2s,border-color .2s,color .2s}
-.about-toc button:hover,.about-toc button:focus{background:var(--sage-l);border-color:var(--sage);color:var(--sage-d)}
+  font-family:'Noto Sans TC',sans-serif;
+  box-shadow:0 0 0 1px rgba(240,217,160,.12) inset,0 0 10px rgba(232,200,120,.1);
+  transition:background .2s,border-color .2s,color .2s,box-shadow .2s}
+.about-toc button:hover,.about-toc button:focus{
+  background:rgba(240,217,160,.14);border-color:rgba(200,160,80,.75);color:var(--t1);
+  box-shadow:0 0 0 1px rgba(240,217,160,.22) inset,0 0 14px rgba(232,200,120,.22)}
+.dark .about-toc button{
+  background:rgba(255,255,255,.04);border-color:rgba(240,217,160,.45);color:rgba(232,230,225,.78)}
+.dark .about-toc button:hover,.dark .about-toc button:focus{
+  background:rgba(240,217,160,.12);color:#f5e6c8;border-color:rgba(245,220,160,.7)}
+.about-handbook-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.about-handbook-actions .about-hb-btn{
+  flex:1;min-width:140px;width:auto;text-align:center;padding:12px 14px;
+  border-radius:var(--br);font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;
+  color:#8a7040;
+  background:linear-gradient(145deg,rgba(255,248,230,.98),rgba(255,252,247,.94));
+  border:1.5px solid rgba(200,160,80,.55);
+  box-shadow:0 0 0 1px rgba(240,217,160,.2) inset,0 0 14px rgba(232,200,120,.22);
+  transition:background .2s,border-color .2s,box-shadow .2s,transform .15s,color .2s}
+.about-handbook-actions .about-hb-btn:hover,.about-handbook-actions .about-hb-btn:focus{
+  color:#6e5830;
+  border-color:rgba(200,160,80,.8);
+  background:linear-gradient(145deg,rgba(255,240,200,.98),rgba(255,248,230,.96));
+  box-shadow:0 0 0 1px rgba(240,217,160,.35) inset,0 0 18px rgba(232,200,120,.4)}
+.about-handbook-actions .about-hb-btn:active{transform:scale(.97)}
+.dark .about-handbook-actions .about-hb-btn{
+  color:rgba(240,217,160,.95);
+  background:rgba(40,36,28,.88);
+  border-color:rgba(240,217,160,.5);
+  box-shadow:0 0 0 1px rgba(240,217,160,.12) inset,0 0 16px rgba(232,200,120,.2)}
+.dark .about-handbook-actions .about-hb-btn:hover,
+.dark .about-handbook-actions .about-hb-btn:focus{
+  color:#fff8e6;
+  border-color:rgba(245,220,160,.75);
+  background:rgba(50,44,30,.95);
+  box-shadow:0 0 0 1px rgba(240,217,160,.22) inset,0 0 20px rgba(232,200,120,.32)}
+.about-back-top{
+  position:fixed;right:10px;z-index:42;
+  bottom:calc(var(--nav-h) + 64px + env(safe-area-inset-bottom,0px));
+  width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(200,160,80,.5);
+  background:rgba(255,252,247,.94);color:#8a7040;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;padding:0;
+  box-shadow:0 0 16px rgba(232,200,120,.28),0 4px 14px rgba(0,0,0,.1);
+  transition:transform .2s,background .2s,box-shadow .2s}
+.dark .about-back-top{
+  background:rgba(26,28,36,.94);color:rgba(240,217,160,.9);
+  border-color:rgba(240,217,160,.45);
+  box-shadow:0 0 18px rgba(232,200,120,.2),0 4px 14px rgba(0,0,0,.35)}
+.about-back-top:hover{transform:translateY(-2px);box-shadow:0 0 20px rgba(232,200,120,.4),0 6px 16px rgba(0,0,0,.12)}
+.about-back-top:active{transform:scale(.96)}
+.about-back-top svg{display:block}
 .about-sec{margin-bottom:14px;padding:16px;border-radius:var(--cr);background:var(--card);
   border:1px solid var(--bor)}
 .about-sec-hd{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
@@ -191,9 +290,9 @@ html,body{height:100%;overflow:hidden;background:var(--bg);
    PERSISTENT SOS — BOTTOM-RIGHT SOFT NEON
 ══════════════════════════════════════ */
 #sos-pill{
-  position:fixed;right:12px;bottom:calc(var(--nav-h) + 14px);left:auto;
-  z-index:45;max-width:220px;width:auto;
-  display:none;align-items:flex-start;gap:9px;padding:11px 14px;
+  position:fixed;right:12px;bottom:calc(var(--nav-h) + 14px);left:auto;top:auto;
+  z-index:120;max-width:220px;width:auto;
+  display:flex;align-items:flex-start;gap:9px;padding:11px 14px;
   background:rgba(255,252,247,.94);
   border:1px solid rgba(255,200,90,.32);
   border-radius:16px;cursor:pointer;
@@ -204,8 +303,9 @@ html,body{height:100%;overflow:hidden;background:var(--bg);
     0 4px 16px rgba(139,125,184,.12);
   font-family:'Noto Sans TC',sans-serif;
   animation:sosNeonBreathe 4.2s ease-in-out infinite;
-  transition:transform .22s ease,border-color .22s;
-  pointer-events:auto}
+  transition:transform .22s ease,border-color .22s,max-width .28s ease,width .28s ease,padding .28s ease,border-radius .28s ease,left .28s ease,right .28s ease;
+  pointer-events:auto;touch-action:none;user-select:none;
+  transform-origin:right center;justify-content:flex-end}
 .dark #sos-pill{background:rgba(30,34,48,.92);
   border-color:rgba(255,200,130,.22);
   box-shadow:
@@ -218,24 +318,893 @@ html,body{height:100%;overflow:hidden;background:var(--bg);
   background:linear-gradient(145deg,rgba(255,220,140,.65),rgba(140,200,245,.5));
   display:flex;align-items:center;justify-content:center;font-size:14px;
   box-shadow:0 0 16px rgba(255,210,100,.55),0 0 10px rgba(100,180,230,.4)}
-#sos-pill .sos-pill-text{flex:1;font-size:12px;line-height:1.55;color:var(--t1);font-weight:500;text-align:left}
-#sos-pill .sos-pill-chevron{display:none}
+#sos-pill .sos-pill-text{flex:1;font-size:12px;line-height:1.55;color:var(--t1);font-weight:500;text-align:left;padding-left:2px;padding-right:0;min-width:0}
+#sos-pill .sos-pill-close{
+  position:absolute;top:4px;right:4px;width:22px;height:22px;padding:0;
+  border:none;border-radius:50%;background:rgba(0,0,0,.06);color:var(--t3);
+  font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-family:inherit;z-index:2}
+.dark #sos-pill .sos-pill-close{background:rgba(255,255,255,.1);color:var(--t2)}
+#sos-pill .sos-pill-close:hover{background:rgba(0,0,0,.12);color:var(--t1)}
+#sos-pill.sos-collapsed{
+  max-width:48px;width:48px;height:48px;padding:0;border-radius:50%;
+  align-items:center;justify-content:center;gap:0}
+#sos-pill.sos-collapsed .sos-pill-text,
+#sos-pill.sos-collapsed .sos-pill-close{display:none!important}
+#sos-pill.sos-collapsed .sos-pill-icon{width:48px;height:48px;font-size:20px;box-shadow:none;background:transparent}
+#sos-pill.sos-dragging{animation:none;transition:none;cursor:grabbing;opacity:.95}
 @keyframes sosNeonBreathe{
   0%,100%{box-shadow:0 0 18px rgba(255,210,100,.4),0 0 38px rgba(90,175,230,.3),0 0 8px rgba(255,235,160,.45),0 4px 14px rgba(139,125,184,.1);opacity:.9}
   50%{box-shadow:0 0 32px rgba(255,210,100,.62),0 0 60px rgba(90,175,230,.48),0 0 14px rgba(255,235,160,.7),0 6px 20px rgba(139,125,184,.16);opacity:1}
 }
-/* 對話頁：縮成右側圖示，固定在輸入列上方，不遮擋發送鈕 */
-body.sos-chat-active #sos-pill{
+/* 對話頁：預設收合圓形，固定在輸入列上方，不遮擋發送鈕（可拖曳後覆寫位置） */
+body.sos-chat-active #sos-pill:not(.sos-pos-custom){
   bottom:calc(84px + env(safe-area-inset-bottom, 0px));
-  right:12px;left:auto;
-  max-width:48px;padding:10px;border-radius:50%;
-  justify-content:center}
-body.sos-chat-active #sos-pill .sos-pill-text{display:none}
+  right:12px;left:auto;top:auto}
 body.sos-chat-active #chat-msgs{padding-bottom:8px}
-body.sos-no-nav:not(.sos-chat-active) #sos-pill{bottom:calc(14px + env(safe-area-inset-bottom, 0px))}
-body.sos-breath-active #sos-pill{bottom:calc(14px + env(safe-area-inset-bottom, 0px));max-width:168px}
-body.sos-breath-active #sos-pill .sos-pill-text{font-size:11px;line-height:1.45}
+body.sos-no-nav:not(.sos-chat-active) #sos-pill:not(.sos-pos-custom){bottom:calc(14px + env(safe-area-inset-bottom, 0px))}
+body.sos-breath-active #sos-pill:not(.sos-collapsed):not(.sos-pos-custom){bottom:calc(14px + env(safe-area-inset-bottom, 0px));max-width:168px}
+body.sos-breath-active #sos-pill:not(.sos-collapsed) .sos-pill-text{font-size:11px;line-height:1.45}
 body.sos-splash #sos-pill{display:none!important}
+
+/* ══════════════════════════════════════
+   EMOTION GALLERY — 夜館柔光／淺色展廳
+══════════════════════════════════════ */
+#s-gallery{background:#12141a}
+.gal-shell{
+  flex:1;display:flex;flex-direction:column;min-height:0;position:relative;
+  background:#1A1C22;color:#E8E6E1;overflow:hidden;
+  font-family:'Noto Sans TC',sans-serif}
+.gal-theme-rain{background:#0a0e16;color:#d8dce6}
+.gal-theme-dawn{background:#1e1c1a}
+.gal-theme-white{background:#f4f3ef;color:#2a2c32}
+.gal-theme-beige{background:#ebe4d6;color:#3a342c}
+.gal-theme-black{background:#0a0a0c;color:#E8E6E1}
+.gal-top{display:flex;align-items:flex-start;gap:10px;padding:14px 14px 8px;
+  flex-shrink:0;z-index:5;background:linear-gradient(180deg,rgba(26,28,34,.96),transparent)}
+.gal-theme-white .gal-top{background:linear-gradient(180deg,rgba(244,243,239,.98),transparent)}
+.gal-theme-beige .gal-top{background:linear-gradient(180deg,rgba(235,228,214,.98),transparent)}
+.gal-theme-black .gal-top{background:linear-gradient(180deg,rgba(8,8,10,.98),transparent)}
+.gal-back-home{
+  display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:0 8px 0 2px;
+  border:none;border-radius:999px;background:rgba(255,255,255,.06);
+  color:inherit;cursor:pointer;flex-shrink:0;font-family:inherit}
+.gal-theme-white .gal-back-home,.gal-theme-beige .gal-back-home{background:rgba(0,0,0,.06)}
+.gal-back-chevron{font-size:22px;line-height:1;padding:0 2px}
+.gal-back-label{font-size:12px;font-weight:500;white-space:nowrap;padding-right:6px}
+.gal-top-mid{flex:1;min-width:0;text-align:center}
+.gal-title-btn{border:none;background:none;color:inherit;cursor:pointer;padding:0;width:100%}
+.gal-title{font-family:'Cormorant Garamond','Noto Serif TC',serif;font-size:26px;font-weight:600;
+  letter-spacing:.04em;line-height:1.25;color:#F2EFE8}
+.gal-theme-white .gal-title,.gal-theme-beige .gal-title{color:#1e1c1a}
+.gal-theme-black .gal-title{color:#f0eee8}
+.gal-edit-hint{font-size:11px;opacity:.45;margin-left:6px}
+.gal-sub{font-size:12px;color:rgba(232,230,225,.55);margin-top:4px}
+.gal-theme-white .gal-sub,.gal-theme-beige .gal-sub{color:rgba(42,44,50,.55)}
+.gal-theme-black .gal-sub{color:rgba(232,230,225,.5)}
+.gal-top-spacer{width:72px;flex-shrink:0}
+.gal-tour-btn{
+  flex-shrink:0;min-width:52px;min-height:36px;padding:0 12px;margin-top:4px;
+  border-radius:999px;border:1px solid rgba(240,217,160,.35);
+  background:rgba(240,217,160,.12);color:rgba(245,230,200,.92);
+  font-size:12px;font-family:inherit;cursor:pointer;letter-spacing:.04em}
+.gal-tour-btn:hover{background:rgba(240,217,160,.2);border-color:rgba(240,217,160,.5)}
+.gal-theme-white .gal-tour-btn,.gal-theme-beige .gal-tour-btn{
+  background:rgba(180,150,80,.12);border-color:rgba(140,110,50,.3);color:#5a4a28}
+.gal-adj-tools{display:inline-flex;gap:8px;flex:0 0 auto}
+.gal-hall{flex:1;min-height:0;position:relative;overflow-x:auto;overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+.gal-overview-stage{position:relative;z-index:2;min-height:100%;display:flex;align-items:flex-end}
+.gal-floor{position:absolute;left:0;right:0;bottom:0;height:28%;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.45) 40%,rgba(10,11,14,.85));
+  pointer-events:none;z-index:1}
+.gal-theme-white .gal-floor{
+  background:linear-gradient(180deg,transparent,rgba(200,198,190,.35) 40%,rgba(180,176,168,.55))}
+.gal-theme-beige .gal-floor{
+  background:linear-gradient(180deg,transparent,rgba(180,160,130,.3) 40%,rgba(150,130,100,.45))}
+.gal-aisle{position:absolute;left:0;right:0;bottom:18%;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+  pointer-events:none;z-index:1}
+.gal-theme-white .gal-aisle,.gal-theme-beige .gal-aisle{
+  background:linear-gradient(90deg,transparent,rgba(0,0,0,.08),transparent)}
+.gal-wall{display:flex;align-items:flex-end;gap:28px;padding:28px 36px 72px;
+  min-height:100%;position:relative;z-index:2;
+  background:linear-gradient(180deg,#242830 0%,#242830 62%,#1e2128 62%,#1A1C22 100%);
+  transition:transform .55s cubic-bezier(.4,0,.2,1),gap .4s ease}
+.gal-theme-dawn .gal-wall{background:linear-gradient(180deg,#2a2622 0%,#2a2622 62%,#221e1a 62%,#1e1c1a 100%)}
+.gal-theme-rain .gal-wall{
+  background:
+    radial-gradient(ellipse 55% 40% at 18% 12%,rgba(70,90,140,.14),transparent 70%),
+    radial-gradient(ellipse 40% 30% at 82% 8%,rgba(90,110,170,.1),transparent 70%),
+    linear-gradient(180deg,#10141c 0%,#0e121a 62%,#0a0e16 62%,#070a10 100%)}
+.gal-theme-rain .gal-floor{
+  background:linear-gradient(180deg,transparent,rgba(4,6,12,.55) 40%,rgba(2,3,8,.9))}
+.gal-theme-rain .gal-aisle{
+  background:linear-gradient(90deg,transparent,rgba(140,160,210,.08),transparent)}
+.gal-theme-rain .gal-top{
+  background:linear-gradient(180deg,rgba(8,10,16,.98),transparent)}
+.gal-theme-rain .gal-toolbar{
+  background:rgba(6,8,14,.96);border-top-color:rgba(120,140,190,.1)}
+.gal-theme-rain .gal-hall::after{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%,rgba(220,230,255,.55),transparent),
+    radial-gradient(1px 1px at 28% 8%,rgba(200,210,255,.4),transparent),
+    radial-gradient(1.5px 1.5px at 46% 14%,rgba(255,255,255,.5),transparent),
+    radial-gradient(1px 1px at 63% 6%,rgba(180,200,255,.35),transparent),
+    radial-gradient(1px 1px at 78% 16%,rgba(220,230,255,.45),transparent),
+    radial-gradient(1px 1px at 88% 10%,rgba(200,210,255,.3),transparent),
+    radial-gradient(1px 1px at 35% 22%,rgba(255,255,255,.25),transparent),
+    radial-gradient(1px 1px at 55% 4%,rgba(190,210,255,.4),transparent);
+  opacity:.7}
+body.sos-gallery-active:has(.gal-theme-rain) #s-gallery{background:#060810}
+.gal-theme-white .gal-wall{
+  background:linear-gradient(180deg,#fafaf7 0%,#fafaf7 62%,#efeee8 62%,#e8e6e0 100%)}
+.gal-theme-beige .gal-wall{
+  background:linear-gradient(180deg,#f3ebdc 0%,#f3ebdc 62%,#e6dcc8 62%,#ddd2bc 100%)}
+.gal-theme-black .gal-wall{
+  background:linear-gradient(180deg,#141418 0%,#141418 62%,#0e0e12 62%,#0a0a0c 100%)}
+.gal-theme-black .gal-floor{
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.65) 40%,rgba(0,0,0,.92))}
+.gal-theme-black .gal-toolbar{background:rgba(6,6,8,.96);border-top-color:rgba(255,255,255,.08)}
+body.sos-gallery-active:has(.gal-theme-black) #s-gallery{background:#050506}
+
+/* 遠距總覽：縮小整面展牆，像站在展廳後段 */
+.gal-view-overview .gal-hall{scroll-snap-type:none;display:flex;align-items:center;justify-content:center}
+.gal-view-overview .gal-overview-stage{
+  align-items:center;justify-content:center;width:100%;min-height:100%;
+  padding:12px 8px 48px;transform-origin:center center;
+  transform:perspective(900px) rotateX(6deg) scale(.46);
+  transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.gal-view-overview .gal-wall{
+  gap:16px;padding:36px 48px 56px;min-height:auto;
+  box-shadow:0 30px 60px rgba(0,0,0,.35),0 0 0 1px rgba(255,255,255,.04) inset;
+  border-radius:2px}
+.gal-view-overview .gal-slot{width:150px;scroll-snap-align:none}
+.gal-view-overview .gal-caption{pointer-events:none;transform:scale(.92);transform-origin:top center}
+.gal-view-overview .gal-cap-media,.gal-view-overview .gal-cap-dots{display:none}
+.gal-view-overview .gal-floor{opacity:.55;height:36%}
+.gal-view-overview .gal-aisle{bottom:22%}
+@media(min-width:768px){
+  .gal-view-overview .gal-overview-stage{transform:perspective(1100px) rotateX(5deg) scale(.55)}
+  .gal-view-overview .gal-slot{width:170px}
+}
+@media (prefers-reduced-motion: reduce){
+  .gal-view-overview .gal-overview-stage{transition:none}
+}
+.gal-slot{flex:0 0 auto;width:min(220px,72vw);position:relative;z-index:1;
+  scroll-snap-align:center;transition:transform .35s ease,filter .35s ease;
+  animation:galFadeUp .9s ease both}
+.gal-shell.gal-enter .gal-slot:nth-child(1){animation-delay:.05s}
+.gal-shell.gal-enter .gal-slot:nth-child(2){animation-delay:.12s}
+.gal-shell.gal-enter .gal-slot:nth-child(3){animation-delay:.19s}
+.gal-shell.gal-enter .gal-slot:nth-child(4){animation-delay:.26s}
+.gal-shell.gal-enter .gal-slot:nth-child(5){animation-delay:.33s}
+.gal-shell.gal-enter .gal-slot:nth-child(n+6){animation-delay:.4s}
+@keyframes galFadeUp{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.gal-reduced .gal-slot{animation:none}
+.gal-spotlight{position:absolute;left:50%;top:-18px;transform:translateX(-50%);
+  width:140%;height:90px;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at center top,rgba(255,244,220,.22) 0%,rgba(255,244,220,.06) 42%,transparent 70%);
+  opacity:0;transition:opacity 1s ease}
+.gal-shell.gal-enter .gal-spotlight{opacity:1}
+.gal-frame{position:relative;z-index:1;display:block;width:100%;padding:8px;
+  border:none;cursor:pointer;background:var(--gal-frame-c,#e8e2d4);
+  box-shadow:0 10px 28px rgba(0,0,0,.45),0 2px 0 rgba(255,255,255,.25) inset;
+  transition:transform .28s ease,box-shadow .28s,background .25s}
+.gal-frame-wrap{position:relative;z-index:1}
+.gal-frame:active{transform:scale(.985)}
+/* 畫框材質 */
+.gal-mat-wood{
+  background:
+    linear-gradient(105deg,rgba(255,255,255,.18),transparent 40%),
+    repeating-linear-gradient(90deg,transparent,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px),
+    var(--gal-frame-c,#e8e2d4);
+  box-shadow:0 10px 28px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 rgba(0,0,0,.15)}
+.gal-mat-metal{
+  background:
+    linear-gradient(160deg,rgba(255,255,255,.45),transparent 45%,rgba(0,0,0,.2)),
+    var(--gal-frame-c,#a8adb8);
+  box-shadow:0 8px 22px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 4px rgba(0,0,0,.25);
+  border:1px solid rgba(255,255,255,.25)}
+.gal-mat-linen{
+  background:
+    repeating-linear-gradient(0deg,rgba(0,0,0,.03),rgba(0,0,0,.03) 1px,transparent 1px,transparent 3px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.025),rgba(0,0,0,.025) 1px,transparent 1px,transparent 3px),
+    var(--gal-frame-c,#e8e2d4);
+  box-shadow:0 8px 20px rgba(0,0,0,.28),inset 0 0 0 1px rgba(0,0,0,.08);
+  padding:10px}
+.gal-mat-matte{
+  background:var(--gal-frame-c,#e8e2d4);
+  box-shadow:0 6px 18px rgba(0,0,0,.3);border-radius:1px}
+.gal-mat-ornate{
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.25),transparent 40%),
+    var(--gal-frame-c,#c4a574);
+  box-shadow:0 12px 32px rgba(0,0,0,.45),inset 0 0 0 2px rgba(255,255,255,.2),inset 0 0 0 4px rgba(0,0,0,.12);
+  padding:11px}
+.gal-detail-frame{margin:8px 8px 14px;padding:8px;background:var(--gal-frame-c,#e8e2d4);
+  box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.gal-detail-frame.gal-mat-wood,.gal-detail-frame.gal-mat-metal,
+.gal-detail-frame.gal-mat-linen,.gal-detail-frame.gal-mat-matte,.gal-detail-frame.gal-mat-ornate{
+  /* inherit material look from .gal-mat-* when combined */
+}
+.gal-detail-frame.gal-mat-wood{
+  background:linear-gradient(105deg,rgba(255,255,255,.18),transparent 40%),repeating-linear-gradient(90deg,transparent,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px),var(--gal-frame-c)}
+.gal-detail-frame.gal-mat-metal{
+  background:linear-gradient(160deg,rgba(255,255,255,.45),transparent 45%,rgba(0,0,0,.2)),var(--gal-frame-c)}
+.gal-detail-frame.gal-mat-linen{
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.03),rgba(0,0,0,.03) 1px,transparent 1px,transparent 3px),repeating-linear-gradient(90deg,rgba(0,0,0,.025),rgba(0,0,0,.025) 1px,transparent 1px,transparent 3px),var(--gal-frame-c);padding:10px}
+.gal-detail-frame.gal-mat-matte{background:var(--gal-frame-c)}
+.gal-detail-frame.gal-mat-ornate{
+  background:linear-gradient(135deg,rgba(255,255,255,.25),transparent 40%),var(--gal-frame-c);padding:11px;
+  box-shadow:0 12px 32px rgba(0,0,0,.45),inset 0 0 0 2px rgba(255,255,255,.2),inset 0 0 0 4px rgba(0,0,0,.12)}
+.gal-frame-preview{width:100%;height:72px;margin:8px 0 14px;display:flex;align-items:center;justify-content:center;
+  color:rgba(0,0,0,.35);font-size:13px;font-family:'Noto Serif TC',serif}
+.gal-swatch-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+.gal-swatch{width:44px;height:44px;border-radius:50%;border:2px solid transparent;cursor:pointer;
+  background:var(--sw,#ccc);box-shadow:inset 0 0 0 1px rgba(0,0,0,.12);padding:0}
+.gal-swatch.on{border-color:#f0d9a0;box-shadow:0 0 0 2px rgba(240,217,160,.35),inset 0 0 0 1px rgba(0,0,0,.12)}
+.gal-cv{display:block;width:100%;height:auto;aspect-ratio:8/5;background:#1a1c22;
+  opacity:0;transition:opacity .5s ease}
+.gal-cv.gal-cv-ready{opacity:1}
+.gal-frame-empty{min-height:140px;display:flex;align-items:center;justify-content:center;
+  border:1.5px dashed rgba(255,255,255,.22);background:rgba(255,255,255,.03);
+  box-shadow:none;color:rgba(232,230,225,.4);font-size:12px;line-height:1.7;text-align:center}
+.gal-theme-white .gal-frame-empty,.gal-theme-beige .gal-frame-empty{
+  border-color:rgba(0,0,0,.18);color:rgba(42,44,50,.4);background:rgba(0,0,0,.03)}
+.gal-curating .gal-frame-empty,.gal-curating .gal-slot[data-art-id] .gal-frame{
+  outline:1px dashed rgba(255,220,160,.35);outline-offset:6px;
+  animation:galBreathDash 2.4s ease-in-out infinite}
+@keyframes galBreathDash{0%,100%{outline-color:rgba(255,220,160,.2)}50%{outline-color:rgba(255,220,160,.5)}}
+.gal-dragging{transform:rotate(1.5deg) scale(1.02);opacity:.92;z-index:8}
+.gal-drop-target .gal-frame{box-shadow:0 0 0 2px rgba(255,220,160,.5),0 10px 28px rgba(0,0,0,.45)}
+.gal-shell.gal-focus .gal-slot:not(.gal-slot-focus){filter:brightness(.42);transition:filter .35s ease}
+.gal-shell.gal-focus .gal-slot-focus .gal-frame{transform:scale(1.03);z-index:4}
+.gal-parallax-wall{will-change:transform}
+.gal-parallax-floor{will-change:transform}
+@media (prefers-reduced-motion: reduce){
+  .gal-spotlight,.gal-slot,.gal-sticker,#tab-gallery .gal-nav-icon{animation:none!important;transition:none!important}
+  .gal-shell.gal-enter .gal-spotlight{opacity:1}
+  .gal-detail-sheet{transition:none}
+}
+.gal-caption{display:block;width:100%;margin-top:10px;padding:8px 6px 6px;border:none;
+  background:rgba(20,22,28,.72);text-align:left;cursor:pointer;color:#E8E6E1;
+  box-shadow:0 4px 12px rgba(0,0,0,.25);backdrop-filter:blur(4px)}
+.gal-theme-white .gal-caption,.gal-theme-beige .gal-caption{
+  background:rgba(255,255,255,.78);color:#2a2c32;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.gal-cap-title{font-family:'Cormorant Garamond','Noto Serif TC',serif;font-size:14px;font-weight:600;margin-bottom:2px}
+.gal-cap-media{font-size:10px;letter-spacing:.06em;color:rgba(232,230,225,.45);margin-bottom:6px}
+.gal-theme-white .gal-cap-media,.gal-theme-beige .gal-cap-media{color:rgba(42,44,50,.45)}
+.gal-cap-poem{font-family:'Noto Serif TC','Cormorant Garamond',serif;font-size:12px;line-height:1.7;
+  color:rgba(242,239,232,.88);font-weight:400;letter-spacing:.02em;min-height:2.4em}
+.gal-theme-white .gal-cap-poem,.gal-theme-beige .gal-cap-poem{color:rgba(42,44,50,.88)}
+.gal-cap-poem-empty{color:rgba(232,230,225,.38);font-size:11px;line-height:1.55;font-style:italic}
+.gal-cap-note{font-size:11px;line-height:1.55;color:rgba(232,230,225,.7)}
+.gal-detail-poem{margin:0 0 12px;padding:12px 14px;border-left:2px solid rgba(240,217,160,.45);
+  font-family:'Noto Serif TC','Cormorant Garamond',serif;font-size:15px;line-height:1.85;
+  color:rgba(242,239,232,.9);background:rgba(255,255,255,.03)}
+.gal-detail-poem-empty{margin-bottom:12px;line-height:1.7}
+.gal-poem-sheet{position:absolute;left:0;right:0;bottom:0;max-height:90%;overflow:auto;
+  background:#22252d;border-radius:22px 22px 0 0;padding:20px 18px calc(24px + env(safe-area-inset-bottom,0px));
+  transform:translateY(0);color:#E8E6E1;z-index:2}
+.gal-poem-hint{font-size:13px;line-height:1.7;color:rgba(232,230,225,.65);margin-bottom:14px}
+.gal-music-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.gal-music-item{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  width:100%;min-height:48px;padding:12px 14px;box-sizing:border-box;
+  border:1px solid rgba(255,255,255,.12);border-radius:12px;
+  background:rgba(255,255,255,.04);color:#E8E6E1;font-family:inherit;
+  font-size:14px;text-align:left;cursor:pointer}
+.gal-music-item:hover{background:rgba(255,255,255,.07)}
+.gal-music-item.on{border-color:rgba(240,217,160,.4);background:rgba(240,217,160,.12)}
+.gal-music-name{flex:1;line-height:1.4}
+.gal-music-playing{flex-shrink:0;font-size:11px;letter-spacing:.04em;color:rgba(240,217,160,.85)}
+.gal-theme-white .gal-music-item,.gal-theme-beige .gal-music-item{
+  color:#2a2c32;border-color:rgba(0,0,0,.12);background:rgba(255,255,255,.7)}
+.gal-theme-white .gal-music-item.on,.gal-theme-beige .gal-music-item.on{
+  border-color:rgba(140,110,50,.4);background:rgba(180,150,80,.14)}
+.gal-theme-white .gal-music-playing,.gal-theme-beige .gal-music-playing{color:#7a6540}
+
+/* 情緒紀錄片 */
+.gal-docu{
+  position:absolute;inset:0;z-index:40;display:flex;flex-direction:column;
+  background:#07080c;color:#F2EFE8;opacity:0;pointer-events:none;
+  transition:opacity .55s ease}
+.gal-docu.show{opacity:1;pointer-events:auto}
+.gal-docu-close{
+  position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:14px;z-index:3;
+  min-height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.45);color:rgba(242,239,232,.88);font-size:13px;font-family:inherit;cursor:pointer}
+.gal-docu-progress{
+  position:absolute;left:16px;right:16px;top:calc(10px + env(safe-area-inset-top,0px));
+  height:2px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden;z-index:2}
+.gal-docu-progress i{
+  display:block;height:100%;width:0;background:linear-gradient(90deg,rgba(240,217,160,.35),rgba(240,217,160,.9));
+  transition:width .8s ease}
+.gal-docu-stage{
+  flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;-webkit-tap-highlight-color:transparent}
+.gal-docu-card{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:40px 28px;opacity:0;transform:translateY(10px);
+  transition:opacity 1.2s ease,transform 1.2s ease;pointer-events:none}
+.gal-docu-card.on{opacity:1;transform:translateY(0)}
+.gal-docu-kicker{
+  font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(240,217,160,.7);margin-bottom:16px}
+.gal-docu-heading{
+  font-family:'Cormorant Garamond','Noto Serif TC',serif;font-size:clamp(28px,7vw,42px);
+  font-weight:600;letter-spacing:.04em;margin:0 0 14px;line-height:1.25}
+.gal-docu-sub{font-size:13px;color:rgba(232,230,225,.5);line-height:1.7;max-width:280px}
+.gal-docu-slide{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:56px 20px 72px;opacity:0;transition:opacity 1.6s ease}
+.gal-docu-slide.on{opacity:1}
+.gal-docu-slide.out{opacity:0;transition-duration:1.3s}
+.gal-docu-visual{
+  position:relative;width:min(92vw,520px);aspect-ratio:8/5;overflow:hidden;
+  border-radius:2px;box-shadow:0 24px 60px rgba(0,0,0,.55);
+  background:#111}
+.gal-docu-visual canvas{
+  width:100%;height:100%;display:block;object-fit:cover;
+  transform:scale(1.04);transform-origin:center center}
+.gal-docu-slide.on .gal-docu-visual.ken-0 canvas{
+  animation:galDocuKen0 12s ease-out forwards}
+.gal-docu-slide.on .gal-docu-visual.ken-1 canvas{
+  animation:galDocuKen1 12s ease-out forwards}
+.gal-docu-slide.on .gal-docu-visual.ken-2 canvas{
+  animation:galDocuKen2 12s ease-out forwards}
+.gal-docu-slide.on .gal-docu-visual.ken-3 canvas{
+  animation:galDocuKen3 12s ease-out forwards}
+@keyframes galDocuKen0{
+  from{transform:scale(1.05) translate(0,0)}
+  to{transform:scale(1.16) translate(-1.5%,1%)}
+}
+@keyframes galDocuKen1{
+  from{transform:scale(1.14) translate(1%,-1%)}
+  to{transform:scale(1.04) translate(0,0)}
+}
+@keyframes galDocuKen2{
+  from{transform:scale(1.06) translate(2%,0)}
+  to{transform:scale(1.15) translate(-1%,1.5%)}
+}
+@keyframes galDocuKen3{
+  from{transform:scale(1.12) translate(-2%,1%)}
+  to{transform:scale(1.05) translate(1%,-1%)}
+}
+.gal-docu-vignette{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 42%,rgba(7,8,12,.55) 100%),
+    linear-gradient(180deg,rgba(7,8,12,.15) 0%,transparent 30%,transparent 60%,rgba(7,8,12,.5) 100%)}
+.gal-docu-copy{
+  margin-top:28px;max-width:min(92vw,420px);text-align:center;
+  opacity:0;transform:translateY(12px);
+  transition:opacity 1.15s ease,transform 1.15s ease}
+.gal-docu-copy.on{opacity:1;transform:translateY(0)}
+.gal-docu-date{
+  font-size:11px;letter-spacing:.12em;color:rgba(240,217,160,.65);margin:0 0 12px}
+.gal-docu-poem{
+  font-family:'Noto Serif TC','Cormorant Garamond',serif;font-size:clamp(16px,4.2vw,20px);
+  line-height:1.9;color:rgba(242,239,232,.92);margin:0 0 14px;white-space:pre-line}
+.gal-docu-emos{font-size:12px;color:rgba(232,230,225,.42);letter-spacing:.06em;margin:0}
+.gal-docu-hint{
+  position:absolute;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));
+  text-align:center;font-size:11px;color:rgba(232,230,225,.32);pointer-events:none}
+.gal-docu-reduced .gal-docu-card,
+.gal-docu-reduced .gal-docu-slide,
+.gal-docu-reduced .gal-docu-copy{transition-duration:.35s!important}
+.gal-docu-reduced .gal-docu-visual canvas{animation:none!important;transform:scale(1.06)}
+body.gal-docu-playing #gallery-portal{visibility:hidden!important}
+
+/* 紀錄片／觀展游標金色魔法 */
+.gal-docu-magic,
+.gal-view-magic{
+  position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.gal-view-magic{z-index:7}
+.gal-docu-magic-glow{
+  position:absolute;left:0;top:0;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(240,217,160,.42) 0%,rgba(232,192,112,.18) 35%,transparent 70%);
+  opacity:0;transform:translate(-50%,-50%);
+  transition:opacity .25s ease;will-change:transform;mix-blend-mode:screen;
+  filter:blur(2px)}
+.gal-docu-magic-glow.on{opacity:1}
+.gal-docu-spark{
+  position:absolute;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,#fff6d8 0%,#f0d9a0 40%,rgba(232,192,112,.2) 70%,transparent 100%);
+  box-shadow:0 0 8px rgba(240,217,160,.85),0 0 16px rgba(232,192,112,.35);
+  animation:galDocuSpark .85s ease-out forwards;margin:0}
+.gal-docu-spark.mote{
+  background:radial-gradient(circle,#ffe9a8 0%,rgba(240,217,160,.7) 50%,transparent 100%);
+  box-shadow:0 0 10px rgba(255,230,160,.9)}
+.gal-docu-spark.cross{
+  border-radius:0;background:transparent;box-shadow:none;
+  background:
+    linear-gradient(90deg,transparent 42%,#f5e6c8 42%,#f5e6c8 58%,transparent 58%),
+    linear-gradient(0deg,transparent 42%,#f0d9a0 42%,#f0d9a0 58%,transparent 58%);
+  filter:drop-shadow(0 0 4px rgba(240,217,160,.9))}
+@keyframes galDocuSpark{
+  0%{opacity:.95;transform:translate(-50%,-50%) scale(1) rotate(0deg)}
+  100%{opacity:0;transform:translate(calc(-50% + var(--dx,0px)),calc(-50% + var(--dy,-12px))) scale(.25) rotate(40deg)}
+}
+.gal-docu-close{z-index:6}
+.gal-docu-progress{z-index:6}
+.gal-poem-label{display:block;font-size:11px;letter-spacing:.04em;color:rgba(232,230,225,.45);margin:10px 0 6px}
+.gal-poem-input,.gal-poem-area{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.25);color:#F2EFE8;border-radius:8px;padding:12px 14px;
+  font-family:'Noto Serif TC',serif;font-size:15px;line-height:1.7}
+.gal-poem-area{resize:vertical;min-height:96px}
+.gal-poem-input:focus,.gal-poem-area:focus{outline:none;border-color:rgba(240,217,160,.4)}
+.gal-poem-meta{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:10px}
+.gal-poem-meta span{font-size:12px;color:rgba(232,230,225,.45)}
+.gal-poem-meta span.gal-poem-over{color:#e8a0a0}
+.gal-poem-sample{border:none;background:none;color:rgba(240,217,160,.75);font-size:12px;
+  cursor:pointer;min-height:44px;padding:0 4px;font-family:inherit}
+.gal-cap-dots{display:flex;gap:4px;margin-top:6px}
+.gal-emo-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+.gal-caption-empty{background:transparent;box-shadow:none;min-height:36px}
+.gal-cap-line{display:block;height:1px;background:rgba(255,255,255,.08)}
+.gal-sticker{position:absolute;z-index:3;min-height:44px;min-width:44px;padding:8px 10px;border:none;
+  border-radius:2px;background:#f3ead8;color:#3a342c;font-size:11px;font-weight:500;
+  box-shadow:1px 2px 4px rgba(0,0,0,.25);cursor:grab;transform-origin:center;
+  touch-action:none;animation:galStick .16s ease;display:inline-flex;align-items:center;justify-content:center}
+@keyframes galStick{from{transform:scale(.85)}to{transform:scale(1)}}
+.gal-pin-badge{position:absolute;top:10px;right:10px;z-index:3;font-size:12px;
+  color:#f0d9a0;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.gal-wall-card{flex:0 0 auto;align-self:center;max-width:120px;padding:14px 12px;position:relative;z-index:1;
+  border-left:2px solid rgba(240,217,160,.45);color:rgba(242,239,232,.75);
+  font-family:'Cormorant Garamond','Noto Serif TC',serif;font-size:15px;line-height:1.5}
+.gal-theme-white .gal-wall-card,.gal-theme-beige .gal-wall-card{
+  border-left-color:rgba(120,100,60,.4);color:rgba(42,44,50,.7)}
+.gal-toolbar{display:flex;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));
+  background:rgba(12,13,16,.92);border-top:1px solid rgba(255,255,255,.06);flex-shrink:0;z-index:6;
+  overflow-x:auto}
+.gal-theme-white .gal-toolbar{background:rgba(255,255,255,.94);border-top-color:rgba(0,0,0,.08)}
+.gal-theme-beige .gal-toolbar{background:rgba(245,238,226,.96);border-top-color:rgba(0,0,0,.08)}
+.gal-tool{flex:0 0 auto;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);color:#E8E6E1;font-size:12px;font-family:inherit;cursor:pointer;white-space:nowrap}
+.gal-theme-white .gal-tool,.gal-theme-beige .gal-tool{
+  color:#2a2c32;border-color:rgba(0,0,0,.12);background:rgba(255,255,255,.65)}
+.gal-tool.on{background:rgba(240,217,160,.18);border-color:rgba(240,217,160,.35);color:#f5e6c8}
+.gal-theme-white .gal-tool.on,.gal-theme-beige .gal-tool.on{
+  background:rgba(180,150,80,.18);border-color:rgba(140,110,50,.35);color:#5a4a28}
+.gal-toolbar-sep{
+  width:1px;height:26px;align-self:center;flex-shrink:0;margin:0 2px 0 6px;
+  background:linear-gradient(180deg,transparent,rgba(240,217,160,.4),transparent)}
+/* 策展時：主功能鈕金色底，調整鈕較低調 */
+.gal-curating .gal-tool-main{
+  background:linear-gradient(165deg,rgba(245,230,190,.32) 0%,rgba(200,160,80,.2) 100%);
+  border-color:rgba(240,217,160,.5);
+  color:#f7ebd0;
+  box-shadow:inset 0 1px 0 rgba(255,245,220,.28),0 0 14px rgba(240,217,160,.1)}
+.gal-curating .gal-tool-main.on{
+  background:linear-gradient(165deg,rgba(250,235,190,.48) 0%,rgba(210,170,90,.32) 100%);
+  border-color:rgba(245,220,160,.7);
+  color:#fff8e8;
+  box-shadow:inset 0 1px 0 rgba(255,250,230,.4),0 0 18px rgba(240,217,160,.18)}
+.gal-curating .gal-tool-adj{
+  background:rgba(255,255,255,.04);
+  border-color:rgba(255,255,255,.1);
+  color:rgba(232,230,225,.68);
+  box-shadow:none}
+.gal-curating .gal-tool-adj.on{
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.18);
+  color:rgba(242,239,232,.88)}
+.gal-theme-white.gal-curating .gal-tool-main,
+.gal-theme-beige.gal-curating .gal-tool-main{
+  background:linear-gradient(165deg,rgba(210,180,100,.35) 0%,rgba(180,150,70,.22) 100%);
+  border-color:rgba(160,130,60,.45);
+  color:#5a4820;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.gal-theme-white.gal-curating .gal-tool-main.on,
+.gal-theme-beige.gal-curating .gal-tool-main.on{
+  background:linear-gradient(165deg,rgba(220,190,110,.5) 0%,rgba(190,160,80,.35) 100%);
+  border-color:rgba(150,120,50,.55);
+  color:#4a3a18}
+.gal-theme-white.gal-curating .gal-tool-adj,
+.gal-theme-beige.gal-curating .gal-tool-adj{
+  background:rgba(0,0,0,.04);
+  border-color:rgba(0,0,0,.1);
+  color:rgba(42,44,50,.62)}
+.gal-theme-white.gal-curating .gal-tool-adj.on,
+.gal-theme-beige.gal-curating .gal-tool-adj.on{
+  background:rgba(0,0,0,.07);
+  border-color:rgba(0,0,0,.16);
+  color:rgba(42,44,50,.85)}
+.gal-hint{position:absolute;left:0;right:0;bottom:62px;text-align:center;font-size:11px;
+  color:rgba(232,230,225,.4);pointer-events:none;z-index:4;padding:0 16px}
+.gal-theme-white .gal-hint,.gal-theme-beige .gal-hint{color:rgba(42,44,50,.4)}
+.gal-theme-white .gal-spotlight,.gal-theme-beige .gal-spotlight{
+  background:radial-gradient(ellipse at center top,rgba(255,250,235,.55) 0%,rgba(255,250,235,.12) 42%,transparent 70%)}
+.gal-theme-white .gal-detail-sheet,.gal-theme-beige .gal-detail-sheet,
+.gal-theme-white .gal-poem-sheet,.gal-theme-beige .gal-poem-sheet{
+  background:#f7f5f0;color:#2a2c32}
+.gal-theme-white .gal-detail-close,.gal-theme-beige .gal-detail-close{color:#2a2c32;background:rgba(0,0,0,.06)}
+.gal-theme-white .gal-detail-poem,.gal-theme-beige .gal-detail-poem{
+  color:#2a2c32;background:rgba(0,0,0,.03);border-left-color:rgba(140,110,50,.4)}
+.gal-theme-white .gal-poem-input,.gal-theme-white .gal-poem-area,
+.gal-theme-beige .gal-poem-input,.gal-theme-beige .gal-poem-area{
+  background:#fff;color:#2a2c32;border-color:rgba(0,0,0,.12)}
+.gal-theme-white .gal-muted,.gal-theme-beige .gal-muted{color:rgba(42,44,50,.4)}
+.gal-theme-white .gal-detail-date,.gal-theme-beige .gal-detail-date{color:rgba(42,44,50,.45)}
+.gal-theme-white .gal-detail-emo,.gal-theme-beige .gal-detail-emo{color:rgba(42,44,50,.7)}
+.gal-theme-white .gal-cap-line,.gal-theme-beige .gal-cap-line{background:rgba(0,0,0,.08)}
+#s-gallery.gal-theme-white,#s-gallery:has(.gal-theme-white){background:#eceae4}
+body.sos-gallery-active:has(.gal-theme-white) #s-gallery{background:#eceae4}
+body.sos-gallery-active:has(.gal-theme-beige) #s-gallery{background:#e0d6c4}
+#tab-gallery .gal-nav-icon{filter:drop-shadow(0 0 6px rgba(240,217,160,.35));
+  animation:galNavGlow 3.6s ease-in-out infinite}
+@keyframes galNavGlow{0%,100%{opacity:.85}50%{opacity:1;filter:drop-shadow(0 0 10px rgba(240,217,160,.55))}}
+.gal-detail-root,.gal-detail-root.show{position:absolute;inset:0;z-index:20;pointer-events:none}
+.gal-detail-root.show{pointer-events:auto}
+.gal-detail-mask{position:absolute;inset:0;background:rgba(0,0,0,.55);opacity:0;transition:opacity .3s}
+.gal-detail-root.show .gal-detail-mask{opacity:1}
+.gal-detail-sheet{position:absolute;left:0;right:0;bottom:0;max-height:88%;overflow:auto;
+  background:#22252d;border-radius:22px 22px 0 0;padding:20px 18px calc(24px + env(safe-area-inset-bottom,0px));
+  transform:translateY(110%);transition:transform .38s cubic-bezier(.4,0,.2,1);color:#E8E6E1}
+.gal-detail-root.show .gal-detail-sheet{transform:translateY(0)}
+.gal-detail-close{position:absolute;right:12px;top:12px;width:44px;height:44px;border:none;border-radius:50%;
+  background:rgba(255,255,255,.08);color:#fff;font-size:20px;cursor:pointer}
+.gal-detail-frame canvas{width:100%;height:auto;display:block;aspect-ratio:8/5;background:#1a1c22}
+.gal-detail-date{font-size:11px;color:rgba(232,230,225,.45);margin-bottom:4px}
+.gal-detail-title{font-family:'Cormorant Garamond','Noto Serif TC',serif;font-size:22px;margin-bottom:8px}
+.gal-detail-summary{font-size:13px;line-height:1.75;color:rgba(232,230,225,.75);margin-bottom:10px}
+.gal-detail-emos{font-size:12px;margin-bottom:12px;line-height:1.8}
+.gal-detail-emo{color:rgba(232,230,225,.7)}
+.gal-detail-labels{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.gal-detail-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;background:#f3ead8;
+  color:#3a342c;font-size:12px;border-radius:2px;min-height:36px}
+.gal-detail-chip button{border:none;background:none;cursor:pointer;font-size:14px;color:#6a5e52;min-width:28px;min-height:28px}
+.gal-detail-actions{display:flex;flex-wrap:wrap;gap:8px}
+.gal-detail-actions .gal-tool{
+  background:rgba(255,255,255,.1);color:#F2EFE8;border-color:rgba(255,255,255,.2)}
+.gal-detail-actions .gal-tool.on{
+  background:rgba(240,217,160,.22);color:#fff8e8;
+  border:2px solid #f0d9a0;
+  box-shadow:0 0 0 2px rgba(240,217,160,.35),0 0 14px rgba(232,200,120,.25);
+  font-weight:600}
+.gal-theme-white .gal-detail-actions .gal-tool,
+.gal-theme-beige .gal-detail-actions .gal-tool{
+  background:rgba(0,0,0,.05);color:#2a2c32;border-color:rgba(0,0,0,.12)}
+.gal-theme-white .gal-detail-actions .gal-tool.on,
+.gal-theme-beige .gal-detail-actions .gal-tool.on{
+  background:rgba(200,170,90,.2);color:#4a3a18;
+  border:2px solid #c4a35a;
+  box-shadow:0 0 0 2px rgba(180,140,60,.28),0 0 12px rgba(200,160,80,.2);
+  font-weight:600}
+.gal-swatch.on{
+  border-color:#f0d9a0;border-width:3px;
+  box-shadow:0 0 0 3px rgba(240,217,160,.4),inset 0 0 0 1px rgba(0,0,0,.12);
+  transform:scale(1.06)}
+.gal-theme-white .gal-swatch.on,.gal-theme-beige .gal-swatch.on{
+  border-color:#c4a35a;
+  box-shadow:0 0 0 3px rgba(180,140,60,.35),inset 0 0 0 1px rgba(0,0,0,.1)}
+.gal-wall-fx{
+  position:absolute;left:0;top:0;right:0;bottom:0;width:100%;min-height:100%;
+  pointer-events:none;z-index:0;overflow:visible}
+.gal-wall-fx[data-fx="none"],.gal-wall-fx:empty{display:none}
+.gal-fx-ambient{
+  position:absolute;inset:0;pointer-events:none;
+  opacity:.55;animation:galAmbientWash 7s ease-in-out infinite}
+.gal-wall-fx[data-fx="glitter"] .gal-fx-ambient{
+  background:
+    radial-gradient(ellipse 40% 30% at 20% 18%,rgba(255,244,220,.22),transparent 70%),
+    radial-gradient(ellipse 35% 28% at 78% 22%,rgba(255,255,255,.14),transparent 70%),
+    radial-gradient(ellipse 50% 25% at 50% 8%,rgba(240,217,160,.12),transparent 75%)}
+.gal-wall-fx[data-fx="magic"] .gal-fx-ambient{
+  background:
+    radial-gradient(ellipse 45% 35% at 25% 20%,rgba(168,153,212,.2),transparent 70%),
+    radial-gradient(ellipse 40% 30% at 75% 15%,rgba(125,184,200,.18),transparent 70%)}
+.gal-wall-fx[data-fx="geo"] .gal-fx-ambient{
+  background:
+    repeating-linear-gradient(135deg,transparent,transparent 18px,rgba(255,255,255,.03) 18px,rgba(255,255,255,.03) 19px)}
+.gal-wall-fx[data-fx="stardust"] .gal-fx-ambient{
+  background:radial-gradient(ellipse 60% 40% at 50% 12%,rgba(255,230,180,.16),transparent 70%)}
+.gal-wall-fx[data-fx="goldshine"] .gal-fx-ambient{
+  background:
+    radial-gradient(ellipse 50% 35% at 30% 15%,rgba(232,192,112,.28),transparent 70%),
+    radial-gradient(ellipse 40% 30% at 70% 20%,rgba(255,240,180,.18),transparent 70%);
+  animation:galAmbientGold 5.5s ease-in-out infinite}
+.gal-wall-fx[data-fx="silverrings"] .gal-fx-ambient{
+  background:
+    radial-gradient(ellipse 45% 35% at 20% 18%,rgba(200,215,235,.2),transparent 70%),
+    radial-gradient(ellipse 40% 30% at 80% 16%,rgba(220,230,245,.16),transparent 70%);
+  animation:galAmbientSilver 6s ease-in-out infinite}
+@keyframes galAmbientWash{0%,100%{opacity:.4}50%{opacity:.7}}
+@keyframes galAmbientGold{0%,100%{opacity:.45;filter:brightness(1)}50%{opacity:.85;filter:brightness(1.15)}}
+@keyframes galAmbientSilver{0%,100%{opacity:.4}50%{opacity:.75}}
+.gal-frame-edit-btn{
+  position:absolute;left:6px;bottom:6px;z-index:5;
+  width:44px;height:44px;min-width:44px;min-height:44px;padding:0;border-radius:50%;border:none;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:rgba(20,22,28,.82);color:#f5e6c8;cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,.4);backdrop-filter:blur(4px)}
+.gal-frame-edit-btn:active{transform:scale(.94)}
+.gal-theme-white .gal-frame-edit-btn,.gal-theme-beige .gal-frame-edit-btn{
+  background:rgba(255,255,255,.92);color:#5a4a28;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.gal-fx-spark{
+  position:absolute;width:4px;height:4px;border-radius:50%;
+  background:#fff;box-shadow:0 0 6px rgba(255,240,200,.9);opacity:.0;
+  animation:galSparkle 3.2s ease-in-out infinite}
+.gal-fx-orb{
+  position:absolute;border-radius:50%;filter:blur(1px);
+  animation:galOrbFloat 7s ease-in-out infinite}
+.gal-fx-geo{
+  position:absolute;border:1px solid rgba(255,255,255,.12);
+  animation:galGeoDrift 12s linear infinite}
+.gal-fx-geo.tri{
+  width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;
+  border-bottom:18px solid rgba(240,217,160,.18);border-top:none;background:none}
+.gal-fx-dust{
+  position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(255,220,160,.7);
+  animation:galDustFall 5.5s linear infinite}
+.gal-fx-gold{
+  position:absolute;width:5px;height:5px;
+  background:radial-gradient(circle,#fff6c8 0%,#e8c070 45%,transparent 70%);
+  box-shadow:0 0 8px rgba(232,192,112,.85),0 0 14px rgba(255,220,140,.4);
+  animation:galGoldSpin 4.5s ease-in-out infinite}
+.gal-fx-gold-flake{
+  position:absolute;top:-8%;width:3px;height:8px;border-radius:1px;
+  background:linear-gradient(180deg,#fff3c0,#c4a050);
+  box-shadow:0 0 6px rgba(232,192,112,.7);
+  animation:galGoldFall 6s linear infinite}
+.gal-fx-rings{
+  position:absolute;width:90px;height:90px;margin:-45px 0 0 -45px;
+  animation:galRingsPulse 5.5s ease-in-out infinite}
+.gal-fx-rings i{
+  position:absolute;left:50%;top:50%;border-radius:50%;
+  border:1.5px solid rgba(210,220,235,.55);
+  box-shadow:0 0 10px rgba(200,210,230,.35),inset 0 0 8px rgba(255,255,255,.12);
+  width:calc(var(--r) * 22px);height:calc(var(--r) * 22px);
+  margin:calc(var(--r) * -11px) 0 0 calc(var(--r) * -11px);
+  opacity:0;animation:galRingFade 5.5s ease-in-out infinite;
+  animation-delay:calc(var(--r) * 0.35s)}
+@keyframes galSparkle{
+  0%,100%{opacity:0;transform:scale(.4)}
+  40%{opacity:.95;transform:scale(1.2)}
+  70%{opacity:.2}
+}
+@keyframes galOrbFloat{
+  0%,100%{transform:translateY(0) scale(1);opacity:.35}
+  50%{transform:translateY(-18px) scale(1.15);opacity:.65}
+}
+@keyframes galGeoDrift{
+  from{transform:translateY(0) rotate(0deg);opacity:.25}
+  to{transform:translateY(-40px) rotate(40deg);opacity:.45}
+}
+@keyframes galDustFall{
+  0%{opacity:0;transform:translateY(-10px)}
+  20%{opacity:.8}
+  100%{opacity:0;transform:translateY(120px)}
+}
+@keyframes galGoldSpin{
+  0%,100%{opacity:.25;transform:scale(.6) rotate(0deg)}
+  45%{opacity:1;transform:scale(1.25) rotate(calc(var(--spin,1) * 180deg))}
+  70%{opacity:.4}
+}
+@keyframes galGoldFall{
+  0%{opacity:0;transform:translateY(0) rotate(0deg)}
+  15%{opacity:.95}
+  100%{opacity:0;transform:translateY(110vh) rotate(320deg)}
+}
+@keyframes galRingsPulse{
+  0%,100%{transform:scale(.85)}
+  50%{transform:scale(1.05)}
+}
+@keyframes galRingFade{
+  0%,100%{opacity:0;transform:scale(.7)}
+  35%{opacity:.85;transform:scale(1)}
+  65%{opacity:.25;transform:scale(1.15)}
+}
+@media (prefers-reduced-motion: reduce){
+  .gal-fx-spark,.gal-fx-orb,.gal-fx-geo,.gal-fx-dust,.gal-fx-gold,.gal-fx-gold-flake,.gal-fx-rings,.gal-fx-rings i,.gal-fx-ambient{animation:none!important;opacity:.35}
+}
+.gal-muted{font-size:12px;color:rgba(232,230,225,.4)}
+@media(min-width:768px){
+  .gal-wall{gap:40px;padding:40px 64px 88px;perspective:900px}
+  .gal-slot{width:260px}
+  .gal-slot:nth-child(odd){transform:translateZ(0)}
+  .gal-hall::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(ellipse 50% 40% at 50% 30%,rgba(255,244,220,.05),transparent 70%)}
+}
+#gal-detail-root{position:absolute;inset:0;z-index:20;pointer-events:none}
+#gal-detail-root.show{pointer-events:auto}
+#gal-detail-root .gal-detail-mask{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+#gal-detail-root .gal-detail-sheet{position:absolute;left:0;right:0;bottom:0;max-height:88%;overflow:auto;
+  background:#22252d;border-radius:22px 22px 0 0;padding:20px 18px calc(24px + env(safe-area-inset-bottom,0px));color:#E8E6E1}
+body.sos-gallery-active #sos-pill{
+  /* 藝廊內仍顯示一鍵求援 */
+  z-index:60}
+body.sos-gallery-active #sos-pill:not(.sos-pos-custom){
+  bottom:calc(14px + env(safe-area-inset-bottom, 0px));
+  right:12px}
+body.sos-gallery-active #app{max-width:min(920px,100vw)}
+
+/* ══════════════════════════════════════
+   RESPONSIVE — tablet / desktop（手機 <768 維持現況）
+══════════════════════════════════════ */
+.home-feature-grid{display:block}
+
+/* ── 平板 768–1023 ── */
+@media (min-width:768px){
+  html,body{
+    background:
+      radial-gradient(ellipse 70% 45% at 50% -10%,rgba(240,217,160,.1),transparent 55%),
+      var(--bg)}
+  #app{
+    max-width:min(760px,100%);
+    box-shadow:0 0 0 1px rgba(0,0,0,.04),0 16px 48px rgba(0,0,0,.07)}
+  .dark #app{box-shadow:0 0 0 1px rgba(255,255,255,.06),0 16px 48px rgba(0,0,0,.35)}
+  :root{--nav-h:72px}
+  .bnav{height:var(--nav-h)}
+  .ntab{padding:8px 4px 12px;gap:3px}
+  .ntab span{font-size:10px}
+  .ntab svg{width:22px;height:22px}
+  .pad{padding:0 28px}
+  .pb80{padding-bottom:88px}
+  .home-feature-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;align-items:stretch}
+  .home-feature-grid>.card{margin-bottom:0!important;height:100%}
+  .gallery-grid{gap:16px;padding:0 28px 88px}
+  .canvas-stage{max-width:520px}
+  .auth-shell{max-width:420px}
+  .overlay{align-items:center;justify-content:center}
+  .sheet{
+    max-width:min(520px,92vw);border-radius:22px;max-height:88vh;
+    transform:translateY(24px) scale(.98)}
+  .overlay.show .sheet{transform:translateY(0) scale(1)}
+  #gal-detail-root .gal-detail-sheet{
+    left:auto;right:0;top:0;bottom:0;width:min(400px,46%);
+    max-height:100%;border-radius:18px 0 0 18px;
+    padding:22px 20px calc(24px + env(safe-area-inset-bottom,0px))}
+  body.sos-gallery-active #app{max-width:min(920px,100vw)}
+  .gal-view-overview .gal-overview-stage{transform:perspective(1200px) rotateX(5deg) scale(.58)}
+}
+
+/* ── 桌機 ≥1024 ── */
+@media (min-width:1024px){
+  :root{--side-nav-w:92px}
+  html,body{
+    background:
+      radial-gradient(ellipse 55% 40% at 18% 0%,rgba(240,217,160,.12),transparent 50%),
+      radial-gradient(ellipse 50% 35% at 88% 100%,rgba(91,155,213,.08),transparent 55%),
+      var(--bg)}
+  #app{
+    max-width:min(1100px,96vw);
+    box-shadow:0 0 0 1px rgba(0,0,0,.05),0 20px 64px rgba(0,0,0,.08)}
+  body.sos-gallery-active #app{max-width:min(1280px,96vw)}
+
+  /* 主頁導覽：左側窄欄（其餘全螢幕流程仍無底欄） */
+  #s-main{
+    flex-direction:row}
+  #s-main>.bnav{
+    position:relative;left:auto;right:auto;bottom:auto;top:auto;
+    width:var(--side-nav-w);height:100%;flex-shrink:0;
+    flex-direction:column;justify-content:flex-start;
+    border-top:none;border-right:1px solid var(--bor);
+    padding:14px 0 18px;gap:2px}
+  #s-main>.bnav .ntab{
+    flex:0 0 auto;width:100%;padding:12px 6px;gap:4px}
+  #s-main>.bnav .ntab span{font-size:10px;letter-spacing:0}
+  #s-main>#main-scroll{
+    flex:1;min-width:0;padding-bottom:0!important}
+
+  /* 有側欄時 SOS／關於回到頂部改貼右下，不再預留底欄高度 */
+  body:not(.sos-no-nav) #sos-pill:not(.sos-pos-custom){bottom:22px;right:22px}
+  .about-back-top{
+    right:22px;
+    bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+  #toast{bottom:88px}
+
+  .pad{padding:0 36px}
+  .home-feature-grid{gap:20px}
+  .gallery-grid{grid-template-columns:repeat(3,1fr);gap:18px;padding:0 36px 48px}
+  .canvas-stage{max-width:560px}
+  .sheet{max-width:min(560px,90vw)}
+  #gal-detail-root .gal-detail-sheet{width:min(440px,38%)}
+
+  .gal-wall{gap:48px;padding:48px 80px 100px;perspective:1000px}
+  .gal-slot{width:300px}
+  .gal-view-overview .gal-slot{width:190px}
+  .gal-view-overview .gal-overview-stage{transform:perspective(1400px) rotateX(4deg) scale(.62)}
+
+  /* Hover 僅增強；點擊／鍵盤仍可用 */
+  .ntab:hover{color:var(--acc)}
+  .gitem{transition:transform .2s ease,box-shadow .2s ease}
+  .gitem:hover{transform:translateY(-3px);box-shadow:0 10px 28px var(--sha)}
+  .gal-slot:hover .gal-frame{transform:scale(1.02)}
+  .card-hover:hover{transform:translateY(-2px)}
+
+  #s-checkin .pad,#s-post .pad,#s-onboard .pad,#s-consent .privacy-consent{
+    max-width:680px;margin-left:auto;margin-right:auto}
+  #s-chat .scroll,#chat-msgs{max-width:720px;margin-left:auto;margin-right:auto;width:100%}
+}
+
+/* 桌機橫向更寬展場 */
+@media (min-width:1280px){
+  body.sos-gallery-active #app{max-width:min(1360px,96vw)}
+  .gal-slot{width:320px}
+  .gal-wall{gap:56px;padding:52px 96px 110px}
+}
+
+/* 展場進場過渡（偏慢、儀式感） */
+#gallery-portal{
+  position:fixed;inset:0;z-index:200;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;visibility:hidden;transition:opacity .85s ease,visibility .85s}
+#gallery-portal.show{opacity:1;visibility:visible;pointer-events:auto}
+.gal-portal-bg{
+  position:absolute;inset:0;background:#12141a;
+  transition:opacity 1.35s ease 1.35s}
+#gallery-portal.opening .gal-portal-bg{opacity:0}
+.gal-portal-doors{position:absolute;inset:0;display:flex;overflow:hidden}
+.gal-portal-door{
+  flex:1;background:
+    linear-gradient(90deg,#1a1c22 0%,#242830 40%,#1e2128 100%);
+  box-shadow:inset 0 0 40px rgba(0,0,0,.5);
+  transition:transform 2.65s cubic-bezier(.4,0,.2,1)}
+.gal-portal-door.left{
+  border-right:1px solid rgba(240,217,160,.12);
+  transform-origin:left center}
+.gal-portal-door.right{
+  border-left:1px solid rgba(240,217,160,.12);
+  transform-origin:right center;
+  background:linear-gradient(270deg,#1a1c22 0%,#242830 40%,#1e2128 100%)}
+#gallery-portal.opening .gal-portal-door.left{transform:translateX(-105%)}
+#gallery-portal.opening .gal-portal-door.right{transform:translateX(105%)}
+.gal-portal-light{
+  position:absolute;left:50%;top:42%;width:min(70vw,280px);height:min(70vw,280px);
+  margin:-20% 0 0 -35%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,244,220,.28) 0%,rgba(255,244,220,.06) 42%,transparent 70%);
+  opacity:0;transform:scale(.6);transition:opacity 1.5s ease .2s,transform 1.9s ease .15s}
+#gallery-portal.show .gal-portal-light{opacity:1;transform:scale(1)}
+.gal-portal-copy{position:relative;z-index:2;text-align:center;color:#E8E6E1;
+  opacity:0;transform:translateY(12px);transition:opacity 1.05s ease .35s,transform 1.05s ease .35s}
+#gallery-portal.show .gal-portal-copy{opacity:1;transform:translateY(0)}
+#gallery-portal.opening .gal-portal-copy{opacity:0;transform:translateY(-8px);transition-duration:.75s}
+.gal-portal-copy h2{
+  font-family:'Cormorant Garamond','Noto Serif TC',serif;font-size:28px;font-weight:600;
+  letter-spacing:.06em;margin-bottom:8px}
+.gal-portal-copy p{font-size:13px;color:rgba(232,230,225,.55)}
+@media (prefers-reduced-motion: reduce){
+  #gallery-portal,.gal-portal-door,.gal-portal-bg,.gal-portal-light,.gal-portal-copy{transition:none!important}
+}
+
+/* 心靈夥伴頭像：彩色環／自訂圖 */
+.companion-avatar-btn{
+  position:relative;width:48px;height:48px;border-radius:50%;border:none;
+  padding:0;cursor:pointer;flex-shrink:0;overflow:visible;
+  background:transparent;min-width:48px;min-height:48px}
+.companion-avatar-btn.lg{width:64px;height:64px;min-width:64px;min-height:64px}
+.companion-ring{
+  display:block;width:100%;height:100%;border-radius:50%;position:relative;overflow:hidden;
+  background:radial-gradient(circle at 42% 38%, rgba(255,252,247,.88) 0%, rgba(255,252,247,.2) 42%, transparent 62%);
+  box-shadow:0 0 14px rgba(232,168,136,.4),0 0 28px rgba(168,153,212,.28)}
+.companion-ring::before{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 0deg,#E8A888 0%,#E8C070 14%,#8FC4A8 28%,#7DB8C8 42%,#A899D4 57%,#D4A0C0 72%,#E8A888 100%);
+  animation:companionRingSpin 9s linear infinite}
+.companion-ring::after{
+  content:'';position:absolute;inset:18%;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,252,247,.8) 0%, rgba(255,252,247,.25) 55%, transparent 78%);
+  z-index:1;pointer-events:none}
+@keyframes companionRingSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.companion-avatar-img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
+.companion-avatar-edit{
+  position:absolute;right:0;bottom:0;z-index:2;
+  width:18px;height:18px;border-radius:50%;background:var(--card);color:var(--t2);
+  font-size:10px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 1px 4px rgba(0,0,0,.2);border:1px solid var(--bor);line-height:1}
+.companion-avatar-btn.lg .companion-avatar-edit{width:22px;height:22px;font-size:11px}
+#chat-avatar.companion-avatar-btn{width:42px;height:42px;min-width:42px;min-height:42px}
+#chat-avatar .companion-avatar-edit{display:none}
+@media (prefers-reduced-motion: reduce){
+  .companion-ring::before{animation:none}
+}
 
 /* ══════════════════════════════════════
    CONSENT PANEL (未成年同意)
@@ -398,6 +1367,73 @@ body.sos-splash #sos-pill{display:none!important}
   cursor:pointer;letter-spacing:.5px;text-align:center;
   transition:opacity .2s,transform .15s,background .3s}
 .bp:active{transform:scale(.97);opacity:.88}
+
+/* 主頁心靈夥伴卡＋開始對話動效 */
+.home-companion-card{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--acc-l) 0%,var(--sage-l) 100%);
+  border:1px solid transparent}
+.dark .home-companion-card{
+  background:
+    radial-gradient(ellipse 80% 70% at 12% 0%,rgba(232,200,120,.22) 0%,transparent 55%),
+    radial-gradient(ellipse 70% 60% at 100% 100%,rgba(180,190,210,.16) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 70% 20%,rgba(255,230,170,.08) 0%,transparent 60%),
+    linear-gradient(155deg,#12141a 0%,#1a1c24 42%,#161820 100%);
+  border-color:rgba(220,190,120,.22);
+  box-shadow:
+    0 0 0 1px rgba(200,210,230,.06) inset,
+    0 8px 28px rgba(0,0,0,.35),
+    0 0 32px rgba(232,200,120,.08)}
+.dark .home-companion-card::before{
+  content:'';position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background-image:
+    radial-gradient(1px 1px at 18% 22%,rgba(255,240,200,.7),transparent),
+    radial-gradient(1px 1px at 72% 18%,rgba(210,220,240,.55),transparent),
+    radial-gradient(1.5px 1.5px at 88% 48%,rgba(255,230,170,.5),transparent),
+    radial-gradient(1px 1px at 40% 78%,rgba(200,210,230,.45),transparent),
+    radial-gradient(1px 1px at 58% 36%,rgba(255,245,210,.4),transparent);
+  animation:homeCompanionTwinkle 5.5s ease-in-out infinite}
+@keyframes homeCompanionTwinkle{
+  0%,100%{opacity:.4} 50%{opacity:.7}
+}
+.home-start-wrap{
+  position:relative;display:block;isolation:isolate}
+.home-start-aura{
+  position:absolute;inset:-10px;border-radius:calc(var(--br) + 10px);
+  pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at center,rgba(139,125,184,.28) 0%,transparent 68%);
+  animation:homeStartAura 3.2s ease-in-out infinite}
+.dark .home-start-aura{
+  background:radial-gradient(ellipse at center,rgba(232,200,120,.28) 0%,rgba(160,180,220,.12) 42%,transparent 70%)}
+.home-start-ring{
+  position:absolute;inset:-4px;border-radius:calc(var(--br) + 4px);
+  pointer-events:none;z-index:0;
+  border:1.5px solid rgba(139,125,184,.35);
+  animation:homeStartRing 2.6s ease-out infinite}
+.dark .home-start-ring{border-color:rgba(240,217,160,.4)}
+.home-start-ring.r2{animation-delay:1.3s;inset:-8px;border-radius:calc(var(--br) + 8px);opacity:.7}
+.home-start-wrap .bp{
+  position:relative;z-index:1;
+  box-shadow:0 4px 18px rgba(139,125,184,.28)}
+.dark .home-start-wrap .bp{
+  background:linear-gradient(135deg,#c4a86a 0%,#a89060 45%,#8a7a9a 100%);
+  color:#1a1814;
+  box-shadow:0 4px 22px rgba(232,200,120,.28),0 0 16px rgba(180,190,220,.12)}
+@keyframes homeStartAura{
+  0%,100%{opacity:.55;transform:scale(.96)}
+  50%{opacity:1;transform:scale(1.04)}
+}
+@keyframes homeStartRing{
+  0%{opacity:.75;transform:scale(.96)}
+  70%{opacity:0;transform:scale(1.12)}
+  100%{opacity:0;transform:scale(1.12)}
+}
+@media (prefers-reduced-motion:reduce){
+  .home-start-aura,.home-start-ring,.dark .home-companion-card::before{animation:none!important}
+  .home-start-aura{opacity:.7;transform:none}
+  .home-start-ring{opacity:.45;transform:none}
+}
+
 .bo{display:block;width:100%;padding:14px;border-radius:var(--br);background:transparent;
   color:var(--acc);border:1.5px solid var(--acc);font-size:15px;font-weight:500;
   font-family:'Noto Sans TC',sans-serif;cursor:pointer;transition:background .2s,transform .15s;
@@ -441,8 +1477,22 @@ input[type=range]::-webkit-slider-thumb:active{transform:scale(1.15)}
 .etag{padding:9px 15px;border-radius:50px;font-size:13px;font-weight:500;
   border:1.5px solid var(--bor);cursor:pointer;transition:all .22s;
   background:var(--card);color:var(--t2);white-space:nowrap;
-  font-family:'Noto Sans TC',sans-serif}
+  font-family:'Noto Sans TC',sans-serif;display:inline-flex;align-items:center;gap:6px}
+.etag-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block}
 .etag:active{transform:scale(.95)}
+.etag.etag-on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.dark .etag.etag-on{
+  background:linear-gradient(145deg,rgba(255,230,160,.42),rgba(200,150,60,.55));
+  color:#fff8e6;border-color:rgba(240,217,160,.8);
+  box-shadow:
+    0 0 0 1px rgba(255,240,200,.25) inset,
+    0 0 14px rgba(232,200,120,.5),
+    0 0 28px rgba(200,160,80,.28);
+  animation:etagGoldMagic 2.6s ease-in-out infinite}
+@keyframes etagGoldMagic{
+  0%,100%{box-shadow:0 0 0 1px rgba(255,240,200,.2) inset,0 0 12px rgba(232,200,120,.4),0 0 22px rgba(200,160,80,.2)}
+  50%{box-shadow:0 0 0 1px rgba(255,240,200,.45) inset,0 0 20px rgba(232,200,120,.65),0 0 36px rgba(200,160,80,.38)}
+}
 .etag-cat{margin-bottom:18px}
 .etag-cat-hd{font-size:12px;font-weight:600;margin-bottom:8px;padding-left:2px;
   display:flex;align-items:center;gap:6px;line-height:1.4}
@@ -539,6 +1589,27 @@ input[type=range]::-webkit-slider-thumb:active{transform:scale(1.15)}
   box-shadow:0 1px 5px rgba(0,0,0,.22)}
 .tgl.off{background:var(--bor)}.tgl.off .knob{left:3px}
 .tgl.on{background:var(--acc)}.tgl.on .knob{left:25px}
+/* 日／夜開關：軌道內太陽／星星 */
+.tgl-dark{overflow:hidden}
+.tgl-dark.off{background:linear-gradient(135deg,#6eb8e0 0%,#8fd0ef 45%,#f2c86b 100%)}
+.tgl-dark.on{background:linear-gradient(135deg,#1a2030 0%,#2a3550 55%,#3d4a6a 100%)}
+.tgl-track-sun,.tgl-track-stars{
+  position:absolute;top:50%;transform:translateY(-50%);
+  pointer-events:none;line-height:0;
+  transition:opacity .25s ease,transform .25s ease}
+.tgl-track-sun{right:6px;color:#fff8d6;filter:drop-shadow(0 0 3px rgba(255,220,120,.9))}
+.tgl-track-stars{left:5px;width:16px;height:14px}
+.tgl-track-stars i{
+  position:absolute;width:3px;height:3px;border-radius:50%;
+  background:#e8ecff;box-shadow:0 0 4px rgba(200,210,255,.95)}
+.tgl-track-stars i:nth-child(1){left:1px;top:2px;width:4px;height:4px}
+.tgl-track-stars i:nth-child(2){left:9px;top:1px;width:2px;height:2px;opacity:.85}
+.tgl-track-stars i:nth-child(3){left:7px;top:8px;width:3px;height:3px;opacity:.9}
+.tgl-dark.off .tgl-track-sun{opacity:1;transform:translateY(-50%) scale(1)}
+.tgl-dark.off .tgl-track-stars{opacity:0;transform:translateY(-50%) scale(.6)}
+.tgl-dark.on .tgl-track-sun{opacity:0;transform:translateY(-50%) scale(.6)}
+.tgl-dark.on .tgl-track-stars{opacity:1;transform:translateY(-50%) scale(1)}
+.tgl-dark .knob{z-index:2}
 
 /* ══════════════════════════════════════
    PROGRESS DOTS
@@ -606,6 +1677,19 @@ canvas{display:block;border-radius:16px;width:100%}
 #crisis-modal{z-index:480}
 #crisis-modal .sheet,#concern-modal .sheet{max-height:90vh}
 #concern-modal{z-index:475}
+#policy-notice-modal{z-index:490}
+#policy-notice-modal.overlay{align-items:center;justify-content:center;padding:20px}
+.policy-notice-card{
+  width:min(420px,92vw);max-height:86vh;overflow:auto;
+  background:var(--card);border-radius:20px;padding:28px 24px 22px;
+  box-shadow:0 20px 60px rgba(0,0,0,.22);border:1px solid var(--bor);
+  text-align:left;position:relative;
+  transform:none;
+}
+.policy-notice-card h3{font-size:18px;font-weight:650;margin-bottom:12px;color:var(--t1);line-height:1.4}
+.policy-notice-card .notice-body{font-size:14px;line-height:1.85;color:var(--t2);margin-bottom:14px}
+.notice-resource-list{margin:0 0 16px;padding-left:18px;font-size:13px;line-height:1.75;color:var(--t2)}
+.notice-resource-list li{margin-bottom:4px}
 .concern-modal-actions{display:flex;flex-direction:column;gap:10px;margin-top:16px}
 .crisis-mode-hint{font-size:12px;color:var(--t3);line-height:1.7;margin-bottom:12px;padding:10px 12px;border-radius:12px;background:var(--bg);border:1px solid var(--bor)}
 .crisis-lead{font-size:14px;line-height:1.85;color:var(--t1);margin-bottom:16px}
@@ -1088,6 +2172,12 @@ body.breath-overlay-active{overflow:hidden}
 .tour-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:2px}
 .tour-actions .bg,.tour-actions .bp{flex:1;padding:10px 16px;font-size:13px;min-width:96px;max-width:160px}
 body.tour-active #sos-pill{z-index:40}
+body.tour-night-guide #feature-tour{pointer-events:none}
+body.tour-night-guide .tour-card{pointer-events:auto}
+body.tour-night-guide .tour-hole{
+  pointer-events:none;
+  border-color:rgba(240,217,160,.85);
+  box-shadow:0 0 0 9999px rgba(0,0,0,.62),0 0 0 3px rgba(240,217,160,.45)}
 </style>
 </head>
 <body>
@@ -1350,7 +2440,7 @@ body.tour-active #sos-pill{z-index:40}
   <div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between;
     border-bottom:1px solid var(--bor);background:var(--card);flex-shrink:0;transition:background .3s,border .3s">
     <div class="row gap12">
-      <div class="avatar" id="chat-avatar" style="width:42px;height:42px;background:var(--acc-l);color:var(--acc);font-size:13px">✦</div>
+      <button type="button" class="avatar companion-avatar-btn" id="chat-avatar" aria-label="心靈夥伴" onclick="triggerCompanionAvatarUpload()"></button>
       <div>
         <p class="fw6 f15" id="chat-companion-name">你的心靈夥伴</p>
         <p class="f12" style="color:var(--sage)">● 陪伴中</p>
@@ -1412,6 +2502,10 @@ body.tour-active #sos-pill{z-index:40}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
       <span>打卡牆</span>
     </button>
+    <button class="ntab" id="tab-gallery" onclick="switchTab('gallery')" aria-label="情緒藝廊">
+      <svg class="gal-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="7" height="9" rx="0.5"/><rect x="14" y="7" width="7" height="7" rx="0.5"/><path d="M3 19h18"/><path d="M6.5 5V3.5M17.5 7V5.5"/><circle cx="6.5" cy="3" r="0.8" fill="currentColor" stroke="none"/><circle cx="17.5" cy="5" r="0.8" fill="currentColor" stroke="none"/></svg>
+      <span>情緒藝廊</span>
+    </button>
     <button class="ntab" id="tab-settings" onclick="switchTab('settings')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
       <span>設定</span>
@@ -1421,6 +2515,11 @@ body.tour-active #sos-pill{z-index:40}
       <span>關於</span>
     </button>
   </nav>
+</div>
+
+<!-- ══ EMOTION GALLERY (全頁展場) ══ -->
+<div class="screen" id="s-gallery">
+  <div id="gallery-root" class="gal-shell" role="main" aria-label="情緒藝廊"></div>
 </div>
 
 <!-- ══ PIN SCREEN ══ -->
@@ -1439,11 +2538,30 @@ body.tour-active #sos-pill{z-index:40}
 
 </div><!-- #app -->
 
+<!-- 情緒藝廊進場過渡 -->
+<div id="gallery-portal" aria-hidden="true">
+  <div class="gal-portal-bg"></div>
+  <div class="gal-portal-doors" aria-hidden="true">
+    <div class="gal-portal-door left"></div>
+    <div class="gal-portal-door right"></div>
+  </div>
+  <div class="gal-portal-light" aria-hidden="true"></div>
+  <div class="gal-portal-copy">
+    <h2>情緒藝廊</h2>
+    <p>正在走進你的 SEL 數位展場…</p>
+  </div>
+</div>
+
+<input type="file" id="companion-avatar-input" accept="image/*" style="display:none" aria-hidden="true">
+
 <!-- Persistent SOS Pill -->
-<button type="button" id="sos-pill" aria-label="一鍵求援：你不是一個人，如果需要幫助就在這裡" onclick="openSOSResources()">
-  <span class="sos-pill-icon" aria-hidden="true">🤝</span>
+<div id="sos-pill" role="button" tabindex="0"
+  aria-label="一鍵求援：你不是一個人，如果需要幫助就在這裡"
+  aria-expanded="true">
+  <button type="button" class="sos-pill-close" aria-label="收合求援按鈕" onclick="event.stopPropagation();collapseSosPill()">×</button>
   <span class="sos-pill-text">你不是一個人，如果需要幫助就在這裡。</span>
-</button>
+  <span class="sos-pill-icon" aria-hidden="true">🤝</span>
+</div>
 
 <!-- Feature Tour -->
 <div id="feature-tour" aria-hidden="true" role="dialog" aria-labelledby="tour-title" aria-modal="true">
@@ -1477,6 +2595,25 @@ body.tour-active #sos-pill{z-index:40}
     <div id="sos-list"></div>
     <button type="button" class="btn-canva-secondary mt14 mb8" onclick="openBreathingFromSOS()">先做幾次呼吸練習 🌬️</button>
     <button class="bp mt8" onclick="hideOverlay('sos-modal')">關閉</button>
+  </div>
+</div>
+
+<!-- 首次導覽後：邀請試試夜間模式 -->
+<div class="overlay" id="night-mode-prompt" role="dialog" aria-modal="true" aria-labelledby="night-mode-prompt-title">
+  <div class="sheet">
+    <span class="sheet-handle"></span>
+    <div class="row gap12 mb16">
+      <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#1a2030,#3d4a6a);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 12px rgba(232,200,120,.25)">
+        <span style="font-size:18px" aria-hidden="true">✦</span>
+      </div>
+      <div>
+        <h3 class="fw6" id="night-mode-prompt-title" style="font-size:17px">要不要試試夜間模式？</h3>
+        <p class="f13 t2" style="line-height:1.7;margin-top:4px">深色介面較柔和，適合夜晚或光線較暗時。</p>
+      </div>
+    </div>
+    <p class="f14 t2 mb20" style="line-height:1.85">若選擇試試，接下來會框起右上角開關，請你自己點一下開啟。也可以這次先不要，繼續使用日間模式。</p>
+    <button type="button" class="bp mb10" onclick="acceptNightModePrompt()">好，帶我去點開關</button>
+    <button type="button" class="bg w100" onclick="skipNightModePrompt()">這次先不要，繼續日間</button>
   </div>
 </div>
 
@@ -1548,6 +2685,17 @@ body.tour-active #sos-pill{z-index:40}
   </div>
 </div>
 
+<!-- 醫療免責／安全提示（Gemini 風格置中） -->
+<div class="overlay" id="policy-notice-modal" role="dialog" aria-modal="true" aria-labelledby="notice-modal-title"
+  onclick="if(event.target===this)closePolicyNoticeModal()">
+  <div class="policy-notice-card" onclick="event.stopPropagation()">
+    <h3 id="notice-modal-title">重要提醒</h3>
+    <div class="notice-body" id="notice-modal-body"></div>
+    <div id="notice-modal-resources"></div>
+    <button type="button" class="bp w100" id="notice-modal-confirm" onclick="closePolicyNoticeModal()">我知道了</button>
+  </div>
+</div>
+
 <!-- Crisis override modal（自傷／輕生：凍結對話） -->
 <div class="overlay" id="crisis-modal" role="dialog" aria-modal="true" aria-labelledby="crisis-modal-title">
   <div class="sheet">
@@ -1598,12 +2746,16 @@ body.tour-active #sos-pill{z-index:40}
 <script src="school-resources.js"></script>
 <script src="university-list.js"></script>
 <script src="lib/crisis-guard.js"></script>
+<script src="lib/safety-notices.js"></script>
 <script src="lib/quick-replies.js"></script>
 <script src="lib/breathing.js"></script>
 <script src="lib/regulation-activities.js"></script>
 <script src="lib/voice-input.js"></script>
 <script src="lib/emotion-tagger.js"></script>
 <script src="lib/emotion-wheel.js"></script>
+<script src="lib/mind-canvas.js"></script>
+<script src="lib/emotion-gallery.js"></script>
+<script src="lib/app-music.js"></script>
 <script src="lib/scenario-play.js"></script>
 <script>
 /* ════════════════════════════════════════
@@ -1637,9 +2789,13 @@ function buildSelIndex(data){
 function resolveEmotion(id){
   var tag=SEL_INDEX.emotionById[id]; if(!tag) return null;
   var cat=SEL_INDEX.emotionCatById[tag.categoryId]; if(!cat) return null;
+  var moodCat=tag.moodCat||(cat&&cat.moodCat)||'positive';
+  var psychColor=tag.color||(cat.colors&&(cat.colors.canvas||cat.colors.chip))||'#B8A0CC';
+  var chipBg=lightenHex(psychColor,0.88)||(cat.colors&&cat.colors.chipBg)||'#F5F2EF';
   return {
     id:tag.id, label:tag.label, categoryId:tag.categoryId,
-    color:cat.colors.chip, bg:cat.colors.chipBg, canvas:cat.colors.canvas,
+    moodCat:moodCat,
+    color:psychColor, bg:chipBg, canvas:psychColor,
     category:cat
   };
 }
@@ -1648,8 +2804,23 @@ function resolveEvent(id){
   var cat=SEL_INDEX.eventCatById[tag.categoryId];
   return {id:tag.id, label:tag.label, categoryId:tag.categoryId, category:cat};
 }
+function categoryToMoodCat(categoryId){
+  var map={
+    high_neg_anger:'anger', high_neg_anxiety:'anxiety', low_neg_sadness:'sad',
+    complex_self:'self', buffer_positive:'buffer', positive_emotions:'positive'
+  };
+  return map[categoryId]||'positive';
+}
 function syncEmotionState(){
   S.emotions=S.emotionIds.map(function(id){return resolveEmotion(id);}).filter(Boolean);
+  S.emotionColors=S.emotions.map(function(e){return e.color||e.canvas;}).filter(Boolean);
+  if(S.emotions.length){
+    var last=S.emotions[S.emotions.length-1];
+    S.lastMoodCat=last.moodCat||categoryToMoodCat(last.categoryId);
+  }else{
+    S.lastMoodCat='positive';
+    S.emotionColors=[];
+  }
 }
 function syncEventState(){
   S.triggers=S.eventIds.map(function(id){return resolveEvent(id);}).filter(Boolean);
@@ -1666,15 +2837,27 @@ function emoChipHtml(em,small){
   var d=emoDisplay(em);
   var fs=small?'11px':'12px', pad=small?'2px 7px':'4px 10px';
   return '<span style="font-size:'+fs+';color:'+d.color+';background:'+d.bg+
-    ';padding:'+pad+';border-radius:50px;font-weight:500">'+he(d.label)+'</span>';
+    ';padding:'+pad+';border-radius:50px;font-weight:500;border:1.5px solid '+d.color+
+    ';box-shadow:inset 0 0 0 1px '+hexAlpha(d.color,0.15)+'">'+
+    '<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:'+d.color+
+    ';margin-right:5px;vertical-align:middle"></span>'+he(d.label)+'</span>';
 }
 function hexToRgb(hex){
-  var h=hex.replace('#','');
+  var h=String(hex||'').replace('#','');
   if(h.length===3) h=h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
   if(h.length===8) h=h.slice(0,6);
   var n=parseInt(h,16);
   if(isNaN(n)) return null;
   return {r:(n>>16)&255,g:(n>>8)&255,b:n&255};
+}
+function lightenHex(hex,t){
+  var rgb=hexToRgb(hex); if(!rgb) return null;
+  t=typeof t==='number'?t:0.85;
+  var r=Math.round(rgb.r+(255-rgb.r)*t);
+  var g=Math.round(rgb.g+(255-rgb.g)*t);
+  var b=Math.round(rgb.b+(255-rgb.b)*t);
+  function h(n){var s=n.toString(16);return s.length===1?'0'+s:s;}
+  return '#'+h(r)+h(g)+h(b);
 }
 function hexAlpha(hex,a){
   var rgb=hexToRgb(hex);
@@ -1705,12 +2888,12 @@ function updateAmbientGlow(ids){
   }
   var resolved=ids.map(function(id){return resolveEmotion(id);}).filter(Boolean);
   if(!resolved.length){el.classList.remove('active','pulse-fast','pulse-slow');return;}
-  var primaries=resolved.map(function(e){return e.category.colors.primary;});
+  var primaries=resolved.map(function(e){return e.color||e.category.colors.primary;});
   var weights=resolved.map(function(e){
     return e.category.glowProfile.intensity*(e.category.arousal==='high'?1.2:1);
   });
   var main=mixColors(primaries,weights);
-  var secondary=resolved.length>1?resolved[resolved.length-1].category.colors.primary:primaries[0];
+  var secondary=resolved.length>1?(resolved[resolved.length-1].color||resolved[resolved.length-1].category.colors.primary):primaries[0];
   var avgI=weights.reduce(function(a,b){return a+b;},0)/weights.length;
   var maxHigh=resolved.some(function(e){return e.category.arousal==='high';});
   var secRgb=hexToRgb(secondary);
@@ -1724,8 +2907,14 @@ function updateAmbientGlow(ids){
 }
 function clearAmbientGlow(){updateAmbientGlow([]);}
 function getSessionColors(){
-  if(S.emotions.length) return S.emotions.map(function(e){return e.canvas||e.color;});
-  return ['#8B7DB8','#789E8A','#C2876A'];
+  syncEmotionState();
+  if(S.emotionColors&&S.emotionColors.length) return S.emotionColors.slice();
+  if(S.emotions.length) return S.emotions.map(function(e){return e.color||e.canvas;});
+  return ['#FFD54F','#81C784','#FFAB91'];
+}
+function getSessionMoodCat(){
+  syncEmotionState();
+  return S.lastMoodCat||'positive';
 }
 function countNegativeEmotions(){
   return S.emotions.filter(function(e){
@@ -1938,6 +3127,10 @@ function fetchChatReply(){
     return Promise.reject(new Error('Chat API disabled'));
   }
   var label=getChatProviderLabel(getStoredChatProvider());
+  var lastUser='';
+  for(var i=S.messages.length-1;i>=0;i--){
+    if(S.messages[i].role==='user'){lastUser=S.messages[i].text;break;}
+  }
   return fetch(getChatApiUrl(),{
     method:'POST',
     headers:chatApiHeaders(),
@@ -1948,6 +3141,17 @@ function fetchChatReply(){
       if(!data.reply) throw new Error('空回覆');
       S.chatApiOnline=true;
       updateChatApiStatus(true,label+' 回覆成功');
+      if(data.has_misconception||data.misconception_alert||data.note_for_supporter){
+        S._misconceptionAlert=data.note_for_supporter||data.misconception_alert||'';
+        S._misconceptionType=data.misconception_type||'';
+        S._riskLevel=data.risk_level||'Level 0';
+        S._systemAction=data.system_action||'none';
+      }
+      S._lastValence=data.valence||'';
+      S._lastConsistency=data.consistency||'';
+      if(typeof processPolicyNoticesFromTurn==='function'){
+        processPolicyNoticesFromTurn(lastUser,data);
+      }
       return data.reply;
     });
   });
@@ -2085,17 +3289,51 @@ function buildRegulation(userTxt,theme,turn){
   var tip=pickFrom(reg.tips,turn+11);
   return '若你願意試一個小方法（'+reg.cat+'）：'+tip;
 }
+function inferSessionValence(userTxt){
+  var posKw=/開心|快樂|愉快|興奮|喜悅|有希望|期待|輕鬆|幸福|感恩|滿足|解脫|完成了|好棒|太好了|挺開心|好期待/;
+  var negKw=/難過|傷心|焦慮|害怕|生氣|憤怒|失望|委屈|崩潰|痛苦|不好受|累翻|不想|討厭|害怕/;
+  var pos=0,neg=0;
+  (S.emotions||[]).forEach(function(e){
+    var v=e.category&&e.category.valence;
+    var m=e.moodCat||'';
+    if(v==='positive'||m==='positive'||m==='buffer') pos++;
+    else if(v==='negative'||m==='anger'||m==='anxiety'||m==='sad') neg++;
+    else if(v==='mixed'||m==='self'){ pos+=0.3; neg+=0.3; }
+  });
+  var txt=String(userTxt||'');
+  if(posKw.test(txt)) pos+=2;
+  if(negKw.test(txt)) neg+=2;
+  if(pos>neg+0.5) return 'positive';
+  if(neg>pos+0.5) return 'negative';
+  if(pos>0&&neg>0) return 'mixed';
+  return 'unclear';
+}
 function generateContextualOpening(){
   var events=getEventLabels();
   var emotions=S.emotions.map(function(e){return e.label;});
   var evt=events.length?events.join('、'):'最近的事';
-  var emo=emotions.length?emotions.join('、'):'複雜的感受';
-  var openings=[
-    '看到你選了「'+evt+'」，心裡也有「'+emo+'」——今天是不是遇到什麼讓你特別難受的事了？',
-    '嗯，關於「'+evt+'」這件事，你感覺到「'+emo+'」，願意跟我說說具體發生了什麼嗎？',
-    '你因為「'+evt+'」而覺得「'+emo+'」，對嗎？我想多聽一點你的感受。'
-  ];
-  return openings[Math.abs((evt+emo).length)%openings.length];
+  var emo=emotions.length?emotions.join('、'):'';
+  var valence=inferSessionValence('');
+  if(valence==='positive'&&emo){
+    var posOpenings=[
+      '看到你選了「'+evt+'」，心裡是「'+emo+'」——聽起來挺開心的，願意說說是什麼讓你有這種感覺嗎？',
+      '關於「'+evt+'」，你感覺到「'+emo+'」，好像有點期待或解脫？想跟我分享一下嗎？',
+      '「'+evt+'」配上「'+emo+'」，聽起來這對你是個好消息——是完成了、鬆一口氣，還是對接下來有新期待呢？'
+    ];
+    return posOpenings[Math.abs((evt+emo).length)%posOpenings.length];
+  }
+  if(valence==='negative'&&emo){
+    var negOpenings=[
+      '看到你選了「'+evt+'」，心裡也有「'+emo+'」——願意跟我說說具體發生了什麼嗎？',
+      '嗯，關於「'+evt+'」這件事，你感覺到「'+emo+'」，我在這裡聽。',
+      '你因為「'+evt+'」而覺得「'+emo+'」，對嗎？我想多聽一點你的感受。'
+    ];
+    return negOpenings[Math.abs((evt+emo).length)%negOpenings.length];
+  }
+  if(emo){
+    return '看到你選了「'+evt+'」，也標了「'+emo+'」——願意用自己的話說說現在心裡是什麼樣子嗎？';
+  }
+  return '今天想聊聊「'+evt+'」嗎？你願意從任何地方開始說。';
 }
 function generateCounselorReply(userTxt){
   var turn=S.aiIdx;
@@ -2103,14 +3341,30 @@ function generateCounselorReply(userTxt){
   var theme=detectCounselorTheme(userTxt);
   var events=getEventLabels();
   var emoLabels=S.emotions.map(function(e){return e.label;});
+  var valence=inferSessionValence(userTxt);
   var parts=[];
+  if(valence==='positive'){
+    var core=extractUserCore(userTxt);
+    if(core.length>=4) parts.push('「'+core+'」——聽起來你挺開心的，我聽見了。');
+    else parts.push(buildMirror(userTxt,theme,turn));
+    if(stage==='acknowledge'){
+      var evtBit=events.length?'「'+events[0]+'」':'這件事';
+      var emoBit=emoLabels.length>=2?emoLabels.slice(0,2).join('、'):(emoLabels[0]||'開心');
+      parts.push(evtBit+'配上'+emoBit+'，好像有解脫、完成，或對接下來的期待——是什麼讓你特別有感覺呢？');
+    }else if(stage==='inquire'){
+      parts.push('是什麼讓你這麼期待或開心？願意多說一點嗎？');
+    }else{
+      parts.push('如果願意，也可以說說接下來你最想記住的一件小事。');
+    }
+    return parts.filter(Boolean).join('\n\n');
+  }
   parts.push(buildMirror(userTxt,theme,turn));
   parts.push(buildEmpathy(theme,turn));
   if(stage==='acknowledge'){
     if(turn===0&&emoLabels.length){
-      var evtBit=events.length?'「'+events[0]+'」':'這件事';
-      var emoBit=emoLabels.length>=2?emoLabels.slice(0,2).join('又'):emoLabels[0];
-      parts.push('聽起來除了'+emoBit+'，'+evtBit+'也讓你很不好受——願意多說一點嗎？');
+      var evtN=events.length?'「'+events[0]+'」':'這件事';
+      var emoN=emoLabels.length>=2?emoLabels.slice(0,2).join('又'):emoLabels[0];
+      parts.push('關於'+evtN+'，你標了'+emoN+'——願意多說一點此刻的感受嗎？');
     }else{
       parts.push('我在這裡。你願意再多說一點剛才的感受嗎？');
     }
@@ -2401,11 +3655,88 @@ function getCompanionInitial(){
   var n=getCompanionName();
   return n?n.charAt(0):'✦';
 }
+function companionAvatarInnerHtml(){
+  if(S.companionAvatar){
+    return '<img class="companion-avatar-img" src="'+S.companionAvatar+'" alt="">';
+  }
+  return '<span class="companion-ring" aria-hidden="true"></span>';
+}
+function companionAvatarButtonHtml(opts){
+  opts=opts||{};
+  var cls='companion-avatar-btn'+(opts.lg?' lg':'');
+  var label=S.companionAvatar?'更換心靈夥伴圖片':'上傳心靈夥伴圖片';
+  return '<button type="button" class="'+cls+'" onclick="triggerCompanionAvatarUpload()" aria-label="'+label+'">' +
+    companionAvatarInnerHtml() +
+    '<span class="companion-avatar-edit" aria-hidden="true">'+(S.companionAvatar?'✎':'+')+'</span>' +
+  '</button>';
+}
 function updateChatHeader(){
   var nameEl=document.getElementById('chat-companion-name');
   var avEl=document.getElementById('chat-avatar');
   if(nameEl) nameEl.textContent=getCompanionName();
-  if(avEl) avEl.textContent=getCompanionInitial();
+  if(avEl){
+    avEl.className='avatar companion-avatar-btn';
+    avEl.innerHTML=companionAvatarInnerHtml();
+    avEl.setAttribute('aria-label',getCompanionName());
+  }
+}
+function triggerCompanionAvatarUpload(){
+  var inp=document.getElementById('companion-avatar-input');
+  if(!inp) return;
+  inp.value='';
+  inp.onchange=function(){
+    var file=inp.files&&inp.files[0];
+    if(!file) return;
+    if(!/^image\//.test(file.type||'')){
+      showToast('請選擇圖片檔案');
+      return;
+    }
+    compressCompanionAvatar(file,function(dataUrl){
+      if(!dataUrl){ showToast('圖片讀取失敗，請再試一次'); return; }
+      S.companionAvatar=dataUrl;
+      saveProfile();
+      updateChatHeader();
+      if(S.curTab==='home'||S.curTab==='settings') renderMain();
+      showToast('心靈夥伴圖片已更新 ✨');
+    });
+  };
+  inp.click();
+}
+function clearCompanionAvatar(){
+  S.companionAvatar='';
+  saveProfile();
+  updateChatHeader();
+  if(S.curTab==='home'||S.curTab==='settings') renderMain();
+  showToast('已恢復為彩色環預設圖');
+}
+function compressCompanionAvatar(file,cb){
+  var reader=new FileReader();
+  reader.onerror=function(){ cb(null); };
+  reader.onload=function(){
+    var img=new Image();
+    img.onerror=function(){ cb(null); };
+    img.onload=function(){
+      var max=256;
+      var w=img.width,h=img.height;
+      if(w>max||h>max){
+        if(w>=h){ h=Math.round(h*(max/w)); w=max; }
+        else{ w=Math.round(w*(max/h)); h=max; }
+      }
+      var cv=document.createElement('canvas');
+      cv.width=w; cv.height=h;
+      var ctx=cv.getContext('2d');
+      ctx.drawImage(img,0,0,w,h);
+      var out=null;
+      try{ out=cv.toDataURL('image/jpeg',0.82); }catch(e){ out=null; }
+      // 過大則再壓
+      if(out&&out.length>180000){
+        try{ out=cv.toDataURL('image/jpeg',0.65); }catch(e2){}
+      }
+      cb(out);
+    };
+    img.src=reader.result;
+  };
+  reader.readAsDataURL(file);
 }
 function logProfileUpdate(section,summary){
   if(!S.profileUpdateLog) S.profileUpdateLog=[];
@@ -2602,7 +3933,7 @@ function loadProfile(){
    APPLICATION STATE
 ════════════════════════════════════════ */
 var S = {
-  dark:false, user:'', nick:'', email:'', companionName:'',
+  dark:false, user:'', nick:'', email:'', companionName:'', companionAvatar:'',
   userRole:'college', userType:'', school:'', schoolId:'', schoolOwnership:'', schoolRegion:'',
   parentConsentGiven:false, consentChoice:'',
   privacyConsentAccepted:false, privacyConsentAt:'',
@@ -2614,12 +3945,14 @@ var S = {
   ],
   preScore:5, postScore:5,
   emotionIds:[], eventIds:[],
+  emotionColors:[], lastMoodCat:'positive',
+  _misconceptionAlert:'', _misconceptionType:'', _riskLevel:'Level 0', _systemAction:'none',
   triggers:[], emotions:[],
   messages:[], aiIdx:0,
   diary:[],
   curTab:'home', obStep:0, ciStep:0, postStep:0,
-  sessionColors:[], canvasStyle:'watercolor', sessionAiImageUrl:null,
-  sessionSummary:'', dailyTips:[], _summaryLoading:false, _activeSessionId:null,
+  sessionColors:[], canvasStyle:'positive', moodCat:'positive', sessionAiImageUrl:null,
+  sessionSummary:'', dailyTips:[], teacherAdvice:'', _summaryLoading:false, _activeSessionId:null,
   _sessionFinalized:false, _sessionCanvasDataUrl:null,
   sessionRating:0, sessionFeedback:'',
   _sessionShared:false, _skippedRating:false,
@@ -2632,6 +3965,7 @@ var S = {
   profileUpdateLog:[],
   account:'', authView:'login', authProvider:'local', onboardComplete:false,
   featureTourSeen:false,
+  nightModePromptSeen:false,
   isCrisisTriggered:false,
   isConcernPaused:false,
   _breathOffered:false,
@@ -2655,7 +3989,7 @@ function enterFromSplash(){
   SPLASH_OPENING=false;
 }
 function showScreen(id,dir){
-  var all=['splash','login','consent','onboard','checkin','breath-screen','chat','scenario','post','main','pin-screen'];
+  var all=['splash','login','consent','onboard','checkin','breath-screen','chat','scenario','post','main','gallery','pin-screen'];
   var old = CUR_SCREEN;
   all.forEach(function(s){
     var el=document.getElementById('s-'+s)||document.getElementById(s+'-screen')||document.getElementById(s);
@@ -2672,19 +4006,20 @@ function showScreen(id,dir){
     }
   });
   CUR_SCREEN=id;
-  var pill=document.getElementById('sos-pill');
-  if(pill) pill.style.display=(id==='splash'||id==='consent')?'none':'flex';
   document.body.classList.toggle('sos-splash',id==='splash'||id==='consent');
   document.body.classList.toggle('sos-no-nav',id!=='main');
+  document.body.classList.toggle('sos-gallery-active',id==='gallery');
   document.body.classList.toggle('sos-breath-active',id==='breath-screen');
   document.body.classList.toggle('sos-chat-active',id==='chat');
   document.body.classList.toggle('sos-scenario-active',id==='scenario');
+  if(typeof syncSosPillVisibility==='function') syncSosPillVisibility(id);
   if(id==='login'){
     switchAuthView(S.authView||'login');
     prefetchLoginForm();
     updateAuthOriginHint();
   }
   resetPrivacyTimer();
+  if(typeof syncAppMusic==='function') syncAppMusic();
 }
 
 /* ════════════════════════════════════════
@@ -2709,9 +4044,17 @@ function hideOverlay(id){document.getElementById(id).classList.remove('show');}
 function toggleDark(){
   S.dark=!S.dark;
   document.documentElement.classList.toggle('dark',S.dark);
-  document.querySelectorAll('.tgl').forEach(function(el){
-    el.className='tgl '+(S.dark?'on':'off');
+  document.querySelectorAll('.tgl-dark').forEach(function(el){
+    el.classList.toggle('on',S.dark);
+    el.classList.toggle('off',!S.dark);
   });
+  if(TOUR.active&&TOUR.mode==='night-guide'){
+    setTimeout(function(){
+      endFeatureTour();
+      showToast(S.dark?'已切換夜間模式，之後也可再點這裡調整 ✦':'已切回日間模式',3000);
+    },120);
+    return;
+  }
   if(TOUR.active) setTimeout(renderTourStep, 150);
 }
 
@@ -3202,12 +4545,14 @@ function resetTestAccountAsFirstUse(){
   S._privacyConsentNext=null;
   S.onboardComplete=false;
   S.featureTourSeen=false;
+  S.nightModePromptSeen=false;
   S.obStep=0;
   // 清空個人／學校／支持對象，避免 autoSkip 跳過表單，只剩「繼續／跳過」
   S.user='';
   S.nick='';
   S.email='';
   S.companionName='';
+  S.companionAvatar='';
   S.userRole='college';
   S.userType='';
   S.school='';
@@ -3224,9 +4569,9 @@ function ensureTestAccount(){
   var acc=accounts[TEST_LOGIN.account];
   if(!acc){
     acc={passwordHash:hashPassword(TEST_LOGIN.password),authProvider:'local',profile:{
-      user:'',nick:'',email:'',companionName:'',
+      user:'',nick:'',email:'',companionName:'',companionAvatar:'',
       userRole:'college',userType:'',school:'',schoolId:'',onboardComplete:false,
-      privacyConsentAccepted:false,privacyConsentAt:'',featureTourSeen:false,
+      privacyConsentAccepted:false,privacyConsentAt:'',featureTourSeen:false,nightModePromptSeen:false,
       contacts:[{name:'',rel:'',nickname:'',email:'',school:''},{name:'',rel:'',nickname:'',email:'',school:''}],
       diary:[],profileUpdateLog:[]
     }};
@@ -3247,12 +4592,12 @@ function switchAuthView(view){
   if(scroll) scroll.scrollTop=0;
 }
 function resetProfileState(){
-  S.user=''; S.nick=''; S.email=''; S.companionName='';
+  S.user=''; S.nick=''; S.email=''; S.companionName=''; S.companionAvatar='';
   S.userType=''; S.school=''; S.schoolId=''; S.schoolOwnership=''; S.schoolRegion='';
   S.userRole='college'; S.parentConsentGiven=false; S.consentChoice='';
   S.privacyConsentAccepted=false; S.privacyConsentAt=''; S._privacyConsentNext=null;
   S.contacts=[{name:'',rel:'',nickname:'',email:'',school:''},{name:'',rel:'',nickname:'',email:'',school:''}];
-  S.diary=[]; S.profileUpdateLog=[]; S.onboardComplete=false; S.featureTourSeen=false;
+  S.diary=[]; S.profileUpdateLog=[]; S.onboardComplete=false; S.featureTourSeen=false; S.nightModePromptSeen=false;
 }
 function applyProfileData(p){
   if(!p) return;
@@ -3260,6 +4605,8 @@ function applyProfileData(p){
   if(p.nick) S.nick=p.nick;
   if(p.email) S.email=p.email;
   if(p.companionName) S.companionName=p.companionName;
+  if(p.companionAvatar) S.companionAvatar=p.companionAvatar;
+  else S.companionAvatar='';
   if(p.userRole) S.userRole=p.userRole;
   else if(p.userType==='student') S.userRole='college';
   if(p.userType) S.userType=p.userType;
@@ -3277,18 +4624,20 @@ function applyProfileData(p){
   if(p.onboardComplete) S.onboardComplete=p.onboardComplete;
   if(typeof p.featureTourSeen==='boolean') S.featureTourSeen=p.featureTourSeen;
   else if(p.onboardComplete) S.featureTourSeen=true;
+  if(typeof p.nightModePromptSeen==='boolean') S.nightModePromptSeen=p.nightModePromptSeen;
   if(p.authProvider) S.authProvider=p.authProvider;
 }
 function profilePayload(){
   return{
-    user:S.user,nick:S.nick,email:S.email,companionName:S.companionName,
+    user:S.user,nick:S.nick,email:S.email,companionName:S.companionName,companionAvatar:S.companionAvatar||'',
     userRole:S.userRole,userType:S.userType,school:S.school,schoolId:S.schoolId,
     schoolOwnership:S.schoolOwnership,schoolRegion:S.schoolRegion,
     parentConsentGiven:S.parentConsentGiven,consentChoice:S.consentChoice,
     privacyConsentAccepted:!!S.privacyConsentAccepted,privacyConsentAt:S.privacyConsentAt||'',
     contacts:S.contacts,diary:S.diary,profileUpdateLog:S.profileUpdateLog,
     onboardComplete:S.onboardComplete,authProvider:S.authProvider,
-    featureTourSeen:S.featureTourSeen
+    featureTourSeen:S.featureTourSeen,
+    nightModePromptSeen:!!S.nightModePromptSeen
   };
 }
 function normalizeEmailForAuth(e){
@@ -3872,7 +5221,7 @@ function ciRender(){
   document.getElementById('ci-label').textContent=CI_LABELS[s];
   var dots=''; for(var i=0;i<3;i++) dots+='<div class="dot'+(i===s?' on':'')+'"></div>';
   document.getElementById('ci-dots').innerHTML=dots;
-  document.getElementById('ci-back').style.display=s>0?'inline-block':'none';
+  document.getElementById('ci-back').style.display='inline-block';
   document.getElementById('ci-next').textContent=s===2?'開始對話 💬':'繼續';
   var c=document.getElementById('ci-content');
   if(s===0){
@@ -3893,7 +5242,7 @@ function ciRender(){
     var evtHtml=SEL_INDEX.evtCategories.map(function(cat){
       var tags=(SEL_INDEX.tagsByEvtCat[cat.id]||[]).map(function(t){
         var sel=S.eventIds.indexOf(t.id)>=0;
-        return '<button class="etag" style="'+(sel?'background:var(--acc);color:#fff;border-color:var(--acc)':'')+'" '+
+        return '<button type="button" class="etag'+(sel?' etag-on':'')+'" '+
           'onclick="toggleEvent(\''+t.id+'\',this)">'+he(t.label)+'</button>';
       }).join('');
       return '<div class="etag-cat"><p class="etag-cat-hd"><span>'+cat.icon+'</span>'+he(cat.name)+'</p>'+
@@ -3930,8 +5279,8 @@ function updatePreColor(v){
 }
 function toggleEvent(id,btn){
   var idx=S.eventIds.indexOf(id);
-  if(idx>=0){S.eventIds.splice(idx,1);btn.style.cssText='';}
-  else{S.eventIds.push(id);btn.style.background='var(--acc)';btn.style.color='#fff';btn.style.borderColor='var(--acc)';}
+  if(idx>=0){S.eventIds.splice(idx,1);btn.classList.remove('etag-on');}
+  else{S.eventIds.push(id);btn.classList.add('etag-on');}
   syncEventState();
 }
 function toggleEmotion(id,btn){
@@ -3942,6 +5291,7 @@ function toggleEmotion(id,btn){
     btn.style.background='';btn.style.borderColor=em.color;btn.style.color=em.color;btn.style.fontWeight='';
   }else{
     S.emotionIds.push(id);
+    S.lastMoodCat=em.moodCat||categoryToMoodCat(em.categoryId);
     btn.style.background=em.bg;btn.style.borderColor=em.color;btn.style.color=em.color;btn.style.fontWeight='600';
   }
   syncEmotionState();
@@ -3976,6 +5326,12 @@ function startChat(){
   S.isCrisisTriggered=false;
   S.isConcernPaused=false;
   S._breathOffered=false;
+  S._misconceptionAlert='';
+  S._misconceptionType='';
+  S._riskLevel='Level 0';
+  S._systemAction='none';
+  if(typeof resetSafetySessionState==='function') resetSafetySessionState();
+  _medToastShown=false;
   _concernResumeFn=null;
   syncEmotionState();
   updateAmbientGlow(S.emotionIds);
@@ -4059,7 +5415,10 @@ function dispatchChatReply(){
       for(var i=S.messages.length-1;i>=0;i--){
         if(S.messages[i].role==='user'){lastUser=S.messages[i].text;break;}
       }
-      setTimeout(function(){done(generateCounselorReply(lastUser));},800+Math.random()*600);
+      setTimeout(function(){
+        if(typeof processLocalPolicyNotices==='function') processLocalPolicyNotices(lastUser);
+        done(generateCounselorReply(lastUser));
+      },800+Math.random()*600);
     }else{
       S.messages=S.messages.filter(function(m){return m.role!=='typing';});
       S.messages.push({role:'ai',text:'連線暫時不穩定，請確認已啟動 npm run dev 並設定 API Key。'});
@@ -4077,8 +5436,10 @@ function sendMsg(prefilledText){
   document.getElementById('send-btn').style.background='var(--bor)';
   var scan=typeof crisisScanMessage==='function'?crisisScanMessage(txt):{level:'none'};
   var isRisk=scan.level==='crisis';
-  var isConcern=scan.level==='concern';
-  var isMed=MEDICAL.some(function(w){return txt.indexOf(w)>=0;});
+  var safetyCats=typeof detectSafetyCategories==='function'?detectSafetyCategories(txt):[];
+  var hasSafetyTopic=safetyCats.some(function(c){return c!=='medical';});
+  var isMed=safetyCats.indexOf('medical')>=0||
+    MEDICAL.some(function(w){return txt.indexOf(w)>=0;});
   if(isRisk){
     S.messages.push({role:'user',text:txt});
     S.messages=S.messages.filter(function(m){return m.role!=='typing';});
@@ -4086,7 +5447,13 @@ function sendMsg(prefilledText){
     if(typeof triggerCrisisModal==='function') triggerCrisisModal();
     return;
   }
-  if(isMed&&!_medToastShown){ _medToastShown=true; addChatAlert('amber','⚕️','溫馨提醒','本系統僅提供情緒支持，不具備醫療診斷功能，若有需要請尋求專業醫師協助。','med'); }
+  // 醫療／安全提示（本機關鍵字先彈；API 回覆時會去重）
+  if(typeof processLocalPolicyNotices==='function'){
+    processLocalPolicyNotices(txt);
+  }else if(isMed&&!_medToastShown){
+    _medToastShown=true;
+    addChatAlert('amber','⚕️','溫馨提醒','本系統僅提供情緒支持，不具備醫療診斷功能，若有需要請尋求專業醫師協助。','med');
+  }
   S.messages.push({role:'user',text:txt});
   renderChat();
   if(!S._breathOffered&&(S.preScore>=8||/焦慮|恐慌|喘不過氣|胸口很緊|快崩潰/.test(txt))){
@@ -4096,12 +5463,9 @@ function sendMsg(prefilledText){
       '<div style="margin-top:10px"><button class="bp" style="padding:8px 14px;font-size:13px" onclick="startGuidedBreathing({pattern:\'box\',mode:\'overlay\',fade:true,showBodyScan:true})">開始呼吸練習</button></div>',
       'breath-offer');
   }
-  if(isConcern){
-    if(typeof triggerConcernModal==='function'){
-      triggerConcernModal(scan, function(){ dispatchChatReply(); });
-    }else{
-      dispatchChatReply();
-    }
+  // 霸凌／性侵等改由安全提示 modal；不再用舊 concern 暫停流程（避免雙彈窗）
+  if(scan.level==='concern'&&!hasSafetyTopic&&typeof triggerConcernModal==='function'){
+    triggerConcernModal(scan, function(){ dispatchChatReply(); });
     return;
   }
   dispatchChatReply();
@@ -4133,7 +5497,10 @@ function endChat(){
   S._skippedRating=false;
   S._activeSessionId=Date.now();
   S.sessionColors=getSessionColors();
-  S.canvasStyle=pickCanvasStyle(S.emotionIds.join('')+Date.now());
+  S.emotionColors=S.sessionColors.slice();
+  S.moodCat=getSessionMoodCat();
+  S.lastMoodCat=S.moodCat;
+  S.canvasStyle=S.moodCat;
   S.sessionAiImageUrl=null;
   S.sessionRating=0;
   S.sessionFeedback='';
@@ -4141,7 +5508,9 @@ function endChat(){
   var sessionContent=generateSessionContent();
   S.sessionSummary=sessionContent.summary;
   S.dailyTips=sessionContent.tips;
-  S._summaryLoading=false;
+  S.teacherAdvice=sessionContent.teacherAdvice||'';
+  if(sessionContent.closing) S._quote=sessionContent.closing;
+  S._summaryLoading=true;
   generateMultimodalCanvas();
   enrichSessionWithLLM();
   document.getElementById('post-date').textContent=new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric'});
@@ -4151,15 +5520,23 @@ function endChat(){
 /* ════════════════════════════════════════
    SESSION SUMMARY & DAILY TIPS
 ════════════════════════════════════════ */
-var SUMMARY_AI_CONFIG={enabled:false,proxyEndpoint:'',model:'gpt-4o-mini'};
+var SUMMARY_FALLBACK={
+  summary:'今天完成了情緒探索，把心裡的話說出來是很棒的嘗試喔！',
+  advice:['給自己一個大大的擁抱','喝杯溫水休息一下'],
+  closing:'你願意把今天心裡的感受說出來，這本身就很有力量。你並不是無能為力，你已經在練習看見自己。接下來只要先為自己安排十分鐘好好休息，就夠了——你值得被這樣好好對待。',
+  teacherAdvice:'請持續給予關懷與溫暖的陪伴。',
+  powerWord:'被看見',
+  nextStep:'為自己安排十分鐘好好休息'
+};
 var SUMMARY_SYSTEM_PROMPT=
-  '你是 SEL 情緒支持系統的資深心理諮商師。根據使用者對話，產出兩部分 JSON：'+
-  '1) summary：一段繁體中文客觀紀錄摘要，採第三人稱或中性敘述（如「本次對話中，使用者…」），'+
-  '禁止直呼暱稱、禁止第二人稱「你」。需包含：具體事件、主要情緒、心理動力觀察。'+
-  '禁止空泛鼓勵（如「展現勇氣」「值得被重視」）。'+
-  '2) tips：陣列 1-2 項，每項含 title 與 body，為可操作的自我安撫或心理界線練習。'+
-  '範例 summary：「本次對話中，使用者因作業截止未繳交而感到自責與焦躁，並擔心影響成績；此反應與自我要求及對失控的擔憂有關。」'+
-  '僅輸出合法 JSON：{"summary":"...","tips":[{"title":"...","body":"..."}]}';
+  '任務：提供 JSON { "summary": "...", "advice": ["..."], "closing": "...", "teacherAdvice": "...", "power_word": "...", "next_step": "..." }。'+
+  '妳是專業心理諮商師。總結要直接對使用者說「你今天...」。'+
+  '1. summary: 回顧事件並命名深層情緒。'+
+  '2. advice: 提供 2 個與 SEL 或心理相關、具體可做的小練習或覺察方式；不要兩條都只做情緒調節；'+
+  '可混搭：身體覺察、想法覺察、自我關懷、人際表達、價值意義；必要時才給調適練習。每條短句、口語、繁體中文。'+
+  '3. closing: 今日鼓勵一段（60～120字），依序融入看見（具體處境）＋力量（已展現的能力）＋建設（一個可執行小步驟）；禁止空泛雞湯如「妳是最棒的」。'+
+  '4. teacherAdvice: 給暖心支持對象信件的具體建議（約30字）。'+
+  '必須只輸出合法 JSON，不要 markdown code fence。語氣溫和、堅定、有力量、繁體中文。';
 
 var DYNAMICS_MAP=[
   {kw:['秘密','背叛','出賣','告訴大家','說出去','洩漏'],
@@ -4351,8 +5728,8 @@ function ensureSessionCanvasDataUrl(){
     host.width=360; host.height=225;
     host.style.cssText='position:fixed;left:-9999px;top:0;width:360px;height:225px;opacity:0;pointer-events:none';
     document.body.appendChild(host);
-    var colors=(S.sessionColors&&S.sessionColors.length)?S.sessionColors:['#B8A0CC','#9DC4A8'];
-    drawCanvas('_offscreen-mind-cv',colors,360,225,S.canvasStyle||'watercolor');
+    var colors=(S.emotionColors&&S.emotionColors.length)?S.emotionColors:((S.sessionColors&&S.sessionColors.length)?S.sessionColors:['#FFD54F','#81C784']);
+    drawCanvas('_offscreen-mind-cv',colors,360,225,S.moodCat||S.lastMoodCat||S.canvasStyle||'positive');
     url=captureCanvasDataUrl('_offscreen-mind-cv');
     if(url) S._sessionCanvasDataUrl=url;
   }catch(err){}
@@ -4400,10 +5777,10 @@ function generateSessionSummaryLocal(){
   var eventPart=buildEventNarrative(userTexts,evtLabels);
   var emoPart=buildEmotionNarrative();
   var dyn=inferDeepDynamics(allText);
-  var evtCtx=evtLabels.length?'（標記情境：'+evtLabels.slice(0,3).join('、')+'）':'';
-  var fearPart=dyn.fear?'，並出現對「'+dyn.fear.replace(/^擔心/,'')+'」的擔憂':'';
-  return '本次對話記錄顯示，主要情緒為「'+emoPart+'」，與「'+eventPart+'」相關'+evtCtx+
-    '。使用者表達'+dyn.core+fearPart+'，心理狀態呈現「'+dyn.label+'」。';
+  var evtCtx=evtLabels.length?'（你標記了：'+evtLabels.slice(0,3).join('、')+'）':'';
+  var fearPart=dyn.fear?'，也帶著「'+dyn.fear.replace(/^擔心|^害怕/,'')+'」的擔心':'';
+  return '你今天談到「'+eventPart+'」，心裡主要是「'+emoPart+'」'+evtCtx+
+    '。這背後像是'+dyn.core+fearPart+'，整體呈現「'+dyn.label+'」的狀態。';
 }
 function generateDailyTipsLocal(){
   var allText=collectUserChatTexts().join(' ');
@@ -4411,22 +5788,66 @@ function generateDailyTipsLocal(){
   var pool=TIPS_LIBRARY[key]||TIPS_LIBRARY.general;
   return pool.slice(0,2);
 }
+function adviceToTips(advice){
+  if(!advice||!advice.length) return generateDailyTipsLocal();
+  return advice.slice(0,2).map(function(a,i){
+    if(a&&typeof a==='object'&&(a.title||a.body)){
+      return{title:a.title||('今日小練習 '+(i+1)),body:a.body||''};
+    }
+    var text=String(a||'').trim();
+    return{title:'今日小練習 '+(i+1),body:text};
+  }).filter(function(t){return t.body;});
+}
 function generateSessionContent(){
-  return{summary:generateSessionSummaryLocal(),tips:generateDailyTipsLocal()};
+  return{
+    summary:generateSessionSummaryLocal(),
+    tips:generateDailyTipsLocal(),
+    closing:'',
+    teacherAdvice:SUMMARY_FALLBACK.teacherAdvice
+  };
+}
+function buildSummaryTranscript(){
+  var uname=getUserDisplayName()||'學生';
+  var cname=getCompanionName()||'心靈夥伴';
+  return (S.messages||[])
+    .filter(function(m){return m&&(m.role==='user'||m.role==='ai')&&m.text;})
+    .map(function(m){
+      if(m.role==='ai') return cname+':: '+m.text;
+      return uname+': '+m.text;
+    })
+    .join('\n');
 }
 function buildSummaryLLMPayload(){
-  return{
-    system:SUMMARY_SYSTEM_PROMPT,
-    messages:[{
-      role:'user',
-      content:JSON.stringify({
-        nickname:getUserDisplayName(),
-        emotions:S.emotions.map(function(e){return e.label;}),
-        events:getEventLabels(),
-        chat:collectUserChatTexts()
-      })
-    }]
+  var payload={
+    userName:getUserDisplayName(),
+    companionName:getCompanionName(),
+    transcript:buildSummaryTranscript(),
+    emotions:(S.emotions||[]).map(function(e){return e.label;}),
+    events:typeof getEventLabels==='function'?getEventLabels():[],
+    provider:typeof getStoredChatProvider==='function'?getStoredChatProvider():'gemini'
   };
+  var k=typeof getStoredChatApiKey==='function'?getStoredChatApiKey():'';
+  if(k) payload.clientApiKey=k;
+  return payload;
+}
+function applySessionSummaryResult(data){
+  if(!data||!data.summary) return false;
+  S.sessionSummary=data.summary;
+  S.dailyTips=adviceToTips(data.advice||data.tips);
+  if(data.closing) S._quote=data.closing;
+  S.teacherAdvice=data.teacherAdvice||SUMMARY_FALLBACK.teacherAdvice;
+  S._powerWord=data.powerWord||data.power_word||'';
+  S._nextStep=data.nextStep||data.next_step||'';
+  updatePostSummaryUI();
+  patchDiaryEntryById(S._activeSessionId,{
+    summary:S.sessionSummary,
+    dailyTips:S.dailyTips.slice(),
+    quote:S._quote||'',
+    teacherAdvice:S.teacherAdvice,
+    powerWord:S._powerWord,
+    nextStep:S._nextStep
+  });
+  return true;
 }
 function ensureSessionSummaryText(){
   var s=String(S.sessionSummary||'').trim();
@@ -4455,7 +5876,6 @@ function refreshDiaryThumbnails(attempt){
       if(!el||el.tagName!=='CANVAS') return;
       var w=el.clientWidth||el.offsetWidth||176;
       renderEntryCanvas('th-'+e.id,e,Math.max(w,120),112);
-      // 首次繪製後把縮圖寫回日記，下次立刻有圖
       if(!e.canvasDataUrl){
         var url=captureCanvasDataUrl('th-'+e.id);
         if(url){
@@ -4473,26 +5893,28 @@ function refreshDiaryThumbnails(attempt){
   if(attempt<4) setTimeout(function(){refreshDiaryThumbnails(attempt+1);},attempt?220:60);
 }
 function enrichSessionWithLLM(){
-  if(!SUMMARY_AI_CONFIG.enabled||!SUMMARY_AI_CONFIG.proxyEndpoint) return Promise.resolve(null);
-  S._summaryLoading=true;
-  return fetch(SUMMARY_AI_CONFIG.proxyEndpoint,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify(buildSummaryLLMPayload())
-  }).then(function(res){return res.json();}).then(function(data){
+  var base=typeof getChatApiBase==='function'?getChatApiBase():'';
+  if(!base){
     S._summaryLoading=false;
-    if(data&&data.summary){
-      S.sessionSummary=data.summary;
-      S.dailyTips=(data.tips&&data.tips.length)?data.tips:generateDailyTipsLocal();
-      updatePostSummaryUI();
-      patchDiaryEntryById(S._activeSessionId,{
-        summary:S.sessionSummary,
-        dailyTips:S.dailyTips.slice()
-      });
-      return data;
-    }
+    return Promise.resolve(null);
+  }
+  S._summaryLoading=true;
+  return fetch(base+'/api/summary',{
+    method:'POST',
+    headers:typeof chatApiHeaders==='function'?chatApiHeaders():{'Content-Type':'application/json'},
+    body:JSON.stringify(buildSummaryLLMPayload())
+  }).then(function(res){return res.json().then(function(data){return{ok:res.ok,data:data};});}).then(function(r){
+    S._summaryLoading=false;
+    var loadingEl=document.getElementById('summary-loading');
+    if(loadingEl) loadingEl.remove();
+    if(r.ok&&r.data&&applySessionSummaryResult(r.data)) return r.data;
     return null;
-  }).catch(function(){S._summaryLoading=false;return null;});
+  }).catch(function(){
+    S._summaryLoading=false;
+    var loadingEl=document.getElementById('summary-loading');
+    if(loadingEl) loadingEl.remove();
+    return null;
+  });
 }
 function renderDailyTipsHtml(tips){
   if(!tips||!tips.length) return '';
@@ -4506,8 +5928,12 @@ function updatePostSummaryUI(){
   if(S.postStep!==1) return;
   var sp=document.getElementById('session-summary-p');
   var tb=document.getElementById('daily-tips-wrap');
+  var cp=document.getElementById('session-closing-p');
+  var loadingEl=document.getElementById('summary-loading');
+  if(loadingEl&&!S._summaryLoading) loadingEl.remove();
   if(sp&&S.sessionSummary) sp.textContent=S.sessionSummary;
   if(tb&&S.dailyTips) tb.innerHTML=renderDailyTipsHtml(S.dailyTips);
+  if(cp&&S._quote) cp.textContent=S._quote;
 }
 
 /* ════════════════════════════════════════
@@ -4530,7 +5956,7 @@ function renderPost(){
       '</div>' +
       '<button class="bp" onclick="S.postStep=1;renderPost()">查看心靈畫布 🎨</button>';
   } else if(S.postStep===1){
-    var quote=WARM_QUOTES[Math.floor(Math.random()*WARM_QUOTES.length)];
+    var quote=S._quote||WARM_QUOTES[Math.floor(Math.random()*WARM_QUOTES.length)];
     S._quote=quote;
     var emoTags=S.emotions.length>0?S.emotions.map(function(e){return emoChipHtml(e);}).join(''):'';
     var summaryText=S.sessionSummary||generateSessionSummaryLocal();
@@ -4557,7 +5983,7 @@ function renderPost(){
       '<div id="daily-tips-wrap">'+tipsHtml+'</div>' +
       '<div class="card mb14" style="background:var(--acc-l);border-color:var(--acc-m)">' +
         '<p class="f13 fw5 tacc mb6">✨ 今日鼓勵</p>' +
-        '<p class="f14 tacc" style="line-height:1.85;font-weight:500">'+he(quote)+'</p>' +
+        '<p class="f14 tacc" style="line-height:1.85;font-weight:500" id="session-closing-p">'+he(quote)+'</p>' +
       '</div>' +
       '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:8px">' +
         '<div style="display:flex;gap:10px">' +
@@ -4699,6 +6125,10 @@ function buildShareEmailContent(){
   var quote=S._quote||WARM_QUOTES[0];
   var tips=(S.dailyTips&&S.dailyTips.length)?S.dailyTips:generateDailyTipsLocal();
   var tipsText=tips.map(function(t,idx){return (idx+1)+'. '+t.title+'：'+t.body;}).join('\n');
+  var teacherTip=S.teacherAdvice||SUMMARY_FALLBACK.teacherAdvice;
+  var misconceptionBlock=S._misconceptionAlert
+    ?('\n【錯誤概念提醒（僅供支持對象參考，請勿直接唸給孩子聽）】\n'+S._misconceptionAlert+'\n')
+    :'';
   var body=
     '嗨，這封信來自「'+sender+'」透過心靈夥伴分享的今日心情摘要。\n\n'+
     '寄件人：'+sender+'\n'+
@@ -4706,7 +6136,9 @@ function buildShareEmailContent(){
     '【今日深度摘要】\n'+summary+'\n\n'+
     '【今日鼓勵】\n'+quote+'\n\n'+
     '【今日小錦囊】\n'+tipsText+'\n\n'+
-    '（此信件不包含對話原文，僅分享摘要與鼓勵內容）\n';
+    '【給支持對象的小提醒】\n'+teacherTip+'\n'+
+    misconceptionBlock+
+    '\n（此信件不包含對話原文，僅分享摘要與鼓勵內容）\n';
   return{subject:subject,body:body};
 }
 function sendShareEmailToContacts(picked){
@@ -4866,18 +6298,21 @@ function buildDiaryEntryFromSession(now){
     messages:snapshotChatMessages(),
     emotionIds:S.emotionIds.slice(),
     emotions:S.emotions.map(function(em){
-      return{id:em.id,label:em.label,categoryId:em.categoryId,color:em.color,bg:em.bg,canvas:em.canvas};
+      return{id:em.id,label:em.label,categoryId:em.categoryId,moodCat:em.moodCat,color:em.color,bg:em.bg,canvas:em.canvas};
     }),
     eventIds:S.eventIds.slice(),
     preScore:S.preScore, postScore:S.postScore,
     summary:summary||('本次對話記錄：'+(topic||'今日心情對話')),
     dailyTips:tips,
     triggers:S.triggers.map(function(t){return{id:t.id,label:t.label};}),
-    colors:(S.sessionColors&&S.sessionColors.length)?S.sessionColors.slice():['#B8A0CC','#9DC4A8'],
-    canvasStyle:S.canvasStyle||'watercolor',
+    colors:(S.sessionColors&&S.sessionColors.length)?S.sessionColors.slice():(S.emotionColors&&S.emotionColors.length?S.emotionColors.slice():['#FFD54F','#81C784']),
+    emotionColors:(S.emotionColors&&S.emotionColors.length)?S.emotionColors.slice():((S.sessionColors&&S.sessionColors.length)?S.sessionColors.slice():['#FFD54F','#81C784']),
+    moodCat:S.moodCat||S.lastMoodCat||'positive',
+    canvasStyle:S.moodCat||S.canvasStyle||'positive',
     canvasDataUrl:canvasDataUrl,
-    aiImageUrl:S.sessionAiImageUrl||null,
+    aiImageUrl:null,
     quote:S._quote||WARM_QUOTES[0],
+    teacherAdvice:S.teacherAdvice||SUMMARY_FALLBACK.teacherAdvice,
     satisfactionRating:S.sessionRating||0,
     satisfactionFeedback:S.sessionFeedback||''
   };
@@ -4887,7 +6322,7 @@ function forceReturnToMain(toastMsg){
   try{
     S.emotionIds=[]; S.eventIds=[]; S.emotions=[]; S.triggers=[];
     S.messages=[]; S.aiIdx=0;
-    S.sessionSummary=''; S.dailyTips=[]; S._sessionCanvasDataUrl=null;
+    S.sessionSummary=''; S.dailyTips=[]; S.teacherAdvice=''; S._sessionCanvasDataUrl=null;
     S.sessionRating=0; S.sessionFeedback='';
     S.selectedDiary=null;
     S.preScore=5; S.postScore=5;
@@ -4946,61 +6381,20 @@ function completeFinishSession(){
 }
 
 /* ════════════════════════════════════════
-   CANVAS ART ENGINE
+   CANVAS ART ENGINE — 情緒色票 + moodCat（lib/mind-canvas.js）
 ════════════════════════════════════════ */
-var CANVAS_STYLES=['watercolor','pastel','fluid','mandala','sand'];
-var CANVAS_AI_CONFIG={
-  enabled:false,
-  provider:'openai',
-  proxyEndpoint:'',
-  model:'dall-e-3'
-};
-function buildCanvasAIPrompt(){
-  var styleMap={watercolor:'柔和水彩暈染',pastel:'粉彩塗抹',fluid:'流體畫',mandala:'曼陀羅圖騰',sand:'沙畫軌跡'};
-  var emo=S.emotions.map(function(e){return e.label;}).join('、')||'平靜';
-  var st=styleMap[S.canvasStyle]||'藝術治療風格';
-  var userBits=S.messages.filter(function(m){return m.role==='user';}).slice(-3).map(function(m){return m.text;}).join('；');
-  var summary=userBits?' session mood: '+userBits+'.':'';
-  return 'Soft art therapy illustration, '+st+', pastel muted colors, calming and safe, emotions: '+emo+summary+
-    ', abstract expressive painting, no text, no faces, gentle light';
-}
+var CANVAS_AI_CONFIG={enabled:false,provider:'',proxyEndpoint:'',model:''};
 function generateMultimodalCanvas(){
   S.sessionAiImageUrl=null;
-  if(!CANVAS_AI_CONFIG.enabled||!CANVAS_AI_CONFIG.proxyEndpoint){
-    return Promise.resolve(null);
-  }
-  return fetch(CANVAS_AI_CONFIG.proxyEndpoint,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      prompt:buildCanvasAIPrompt(),
-      colors:S.sessionColors,
-      style:S.canvasStyle,
-      provider:CANVAS_AI_CONFIG.provider,
-      model:CANVAS_AI_CONFIG.model
-    })
-  }).then(function(res){return res.json();}).then(function(data){
-    if(data&&data.url){
-      S.sessionAiImageUrl=data.url;
-      patchDiaryEntryById(S._activeSessionId,{aiImageUrl:data.url});
-      return data.url;
-    }
-    return null;
-  }).catch(function(){return null;});
+  return Promise.resolve(null);
+}
+function normalizeMoodStyle(style){
+  var ok={anger:1,anxiety:1,sad:1,self:1,buffer:1,positive:1};
+  if(ok[style]) return style;
+  return S.moodCat||S.lastMoodCat||'positive';
 }
 function drawCanvasFromImage(id,url,W,H,fallbackColors,fallbackStyle){
-  var cv=document.getElementById(id); if(!cv||!url) return;
-  W=W||cv.offsetWidth||360; H=H||cv.offsetHeight||200;
-  cv.width=W; cv.height=H;
-  var ctx=cv.getContext('2d');
-  var img=new Image();
-  img.crossOrigin='anonymous';
-  img.onload=function(){
-    fillCanvasBg(ctx,W,H);
-    ctx.drawImage(img,0,0,W,H);
-  };
-  img.onerror=function(){drawCanvas(id,fallbackColors||S.sessionColors,W,H,fallbackStyle||S.canvasStyle);};
-  img.src=url;
+  drawCanvas(id,fallbackColors||S.sessionColors,W,H,fallbackStyle||S.moodCat);
 }
 function drawCanvasFromDataUrl(id,dataUrl,W,H,fallbackColors,fallbackStyle){
   var cv=document.getElementById(id); if(!cv||!dataUrl) return false;
@@ -5011,22 +6405,21 @@ function drawCanvasFromDataUrl(id,dataUrl,W,H,fallbackColors,fallbackStyle){
   var ctx=cv.getContext('2d');
   if(!ctx) return false;
   var img=new Image();
-  img.onload=function(){fillCanvasBg(ctx,W,H);ctx.drawImage(img,0,0,W,H);};
+  img.onload=function(){ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);ctx.drawImage(img,0,0,W,H);};
   img.onerror=function(){drawCanvas(id,fallbackColors,W,H,fallbackStyle);};
   img.src=dataUrl;
   return true;
 }
 function renderEntryCanvas(id,entry,W,H){
-  var colors=entry.colors&&entry.colors.length?entry.colors:['#B8A0CC','#9DC4A8'];
-  var style=entry.canvasStyle||'watercolor';
+  var colors=entry.emotionColors&&entry.emotionColors.length?entry.emotionColors:(entry.colors&&entry.colors.length?entry.colors:['#FFD54F','#81C784']);
+  var style=entry.moodCat||entry.canvasStyle||'positive';
   var el=document.getElementById(id);
   if(!el) return;
   if(entry.canvasDataUrl){
     if(el.tagName==='IMG'){el.src=entry.canvasDataUrl;return;}
     if(drawCanvasFromDataUrl(id,entry.canvasDataUrl,W,H,colors,style)) return;
   }
-  if(entry.aiImageUrl) drawCanvasFromImage(id,entry.aiImageUrl,W,H,colors,style);
-  else drawCanvas(id,colors,W,H,style);
+  drawCanvas(id,colors,W,H,style);
 }
 function persistMindCanvasThumb(){
   var url=captureCanvasDataUrl('mind-canvas');
@@ -5058,7 +6451,7 @@ function scheduleMindCanvasRender(quote){
   function draw(){
     try{
       renderMindCanvas('mind-canvas');
-      drawExportCanvas(S.sessionColors,quote,S.canvasStyle,S.sessionAiImageUrl);
+      drawExportCanvas(S.sessionColors,quote,S.moodCat||S.canvasStyle,null);
       persistMindCanvasThumb();
     }catch(e){
       markCanvasReady();
@@ -5067,7 +6460,6 @@ function scheduleMindCanvasRender(quote){
   draw();
   requestAnimationFrame(function(){requestAnimationFrame(draw);});
   [80,250,500,900].forEach(function(ms){setTimeout(draw,ms);});
-  // Watchdog：避免某些環境 canvas API 例外導致永遠空白
   setTimeout(function(){
     if(S.postStep!==1) return;
     var ph=document.getElementById('canvas-placeholder');
@@ -5089,294 +6481,46 @@ function scheduleMindCanvasRender(quote){
     });
     S._canvasRO.observe(stage);
   }
-  if(CANVAS_AI_CONFIG.enabled&&!S.sessionAiImageUrl){
-    generateMultimodalCanvas().then(function(url){
-      if(url&&S.postStep===1) scheduleMindCanvasRender(quote);
-    });
-  }
 }
 function renderMindCanvas(id){
   var size=getMindCanvasSize();
   var cv=document.getElementById(id);
   var imgEl=document.getElementById('mind-canvas-img');
-  var colors=S.sessionColors&&S.sessionColors.length?S.sessionColors:['#8B7DB8','#789E8A'];
-  if(S.sessionAiImageUrl&&imgEl){
-    imgEl.onload=function(){markCanvasReady();};
-    imgEl.onerror=function(){
-      imgEl.style.display='none';
-      if(cv){cv.style.display='block';drawCanvas(id,colors,size.W,size.H,S.canvasStyle);markCanvasReady();}
-    };
-    imgEl.src=S.sessionAiImageUrl;
-    imgEl.style.display='block';
-    if(cv) cv.style.display='block';
-    return;
-  }
+  var colors=S.emotionColors&&S.emotionColors.length?S.emotionColors:(S.sessionColors&&S.sessionColors.length?S.sessionColors:['#FFD54F','#81C784']);
+  var style=normalizeMoodStyle(S.moodCat||S.lastMoodCat||S.canvasStyle);
   if(imgEl) imgEl.style.display='none';
   if(cv) cv.style.display='block';
-  drawCanvas(id,colors,size.W,size.H,S.canvasStyle);
+  drawCanvas(id,colors,size.W,size.H,style);
   markCanvasReady();
   persistMindCanvasThumb();
 }
-function pickCanvasStyle(seed){
-  var h=0;
-  (seed||'').split('').forEach(function(c){h=(h*31+c.charCodeAt(0))%997;});
-  S.emotionIds.forEach(function(id){h=(h*17+id.charCodeAt(0))%997;});
-  return CANVAS_STYLES[h%CANVAS_STYLES.length];
-}
-function artRand(seed,i){var x=Math.sin((seed||1)*12.9898+(i||0)*78.233)*43758.5453;return x-Math.floor(x);}
 function fillCanvasBg(ctx,W,H){
-  ctx.fillStyle=S.dark?'#1A1E2C':'#F5F2EF'; ctx.fillRect(0,0,W,H);
-}
-function renderCanvasArt(ctx,colors,W,H,style,seed){
-  style=style||'watercolor';
-  colors=colors&&colors.length?colors:['#B8A0CC','#9DC4A8','#D9C9A8'];
-  seed=seed||(colors.join('')+style);
-  if(style==='pastel') drawPastelStyle(ctx,colors,W,H,seed);
-  else if(style==='fluid') drawFluidStyle(ctx,colors,W,H,seed);
-  else if(style==='mandala') drawMandalaStyle(ctx,colors,W,H,seed);
-  else if(style==='sand') drawSandStyle(ctx,colors,W,H,seed);
-  else drawWatercolorStyle(ctx,colors,W,H,seed);
-  drawCanvasForeground(ctx,colors,W,H,style,seed);
-}
-function drawCanvasForeground(ctx,colors,W,H,style,seed){
-  var cx=W/2,cy=H/2;
-  colors.forEach(function(col,ci){
-    var bx=cx+(artRand(seed,ci*7)-0.5)*W*0.55;
-    var by=cy+(artRand(seed,ci*7+1)-0.5)*H*0.5;
-    var br=36+artRand(seed,ci*7+2)*Math.min(W,H)*0.24;
-    var g=ctx.createRadialGradient(bx,by,br*0.05,bx,by,br);
-    g.addColorStop(0,canvasColor(col,0.78));
-    g.addColorStop(0.42,canvasColor(col,0.42));
-    g.addColorStop(1,canvasColor(col,0));
-    ctx.fillStyle=g;
-    ctx.beginPath(); ctx.arc(bx,by,br,0,Math.PI*2); ctx.fill();
-  });
-  colors.forEach(function(col,ci){
-    for(var i=0;i<5;i++){
-      ctx.save();
-      ctx.globalAlpha=0.38+artRand(seed,ci*11+i)*0.38;
-      ctx.strokeStyle=col;
-      ctx.lineWidth=3+artRand(seed,i+ci*3)*7;
-      ctx.lineCap='round'; ctx.lineJoin='round';
-      ctx.beginPath();
-      var sx=artRand(seed,i+ci*13)*W,sy=artRand(seed,i+ci*13+2)*H;
-      ctx.moveTo(sx,sy);
-      ctx.bezierCurveTo(
-        artRand(seed,i+30)*W,artRand(seed,i+31)*H,
-        artRand(seed,i+32)*W,artRand(seed,i+33)*H,
-        artRand(seed,i+34)*W,artRand(seed,i+35)*H
-      );
-      ctx.stroke(); ctx.restore();
-    }
-  });
-  if(style==='mandala') drawMandalaFocal(ctx,colors,W,H,seed);
-  else if(style==='sand') drawSandRings(ctx,colors,W,H,seed);
-  else drawFloatingShapes(ctx,colors,W,H,seed);
-}
-function drawFloatingShapes(ctx,colors,W,H,seed){
-  for(var i=0;i<14;i++){
-    var col=colors[i%colors.length];
-    ctx.save();
-    ctx.globalAlpha=0.45+artRand(seed,i+50)*0.4;
-    ctx.fillStyle=col;
-    var x=artRand(seed,i+60)*W,y=artRand(seed,i+61)*H;
-    var rw=14+artRand(seed,i+62)*W*0.12,rh=10+artRand(seed,i+63)*H*0.1;
-    ctx.translate(x,y); ctx.rotate(artRand(seed,i+64)*Math.PI);
-    ctx.beginPath(); ctx.ellipse(0,0,rw,rh,0,0,Math.PI*2); ctx.fill();
-    ctx.restore();
-  }
-}
-function drawMandalaFocal(ctx,colors,W,H,seed){
-  var cx=W/2,cy=H/2,r=Math.min(W,H)*0.18;
-  var petals=8+Math.floor(artRand(seed,88)*4);
-  colors.forEach(function(col,ci){
-    for(var p=0;p<petals;p++){
-      var ang=(p/petals)*Math.PI*2+ci*0.2;
-      ctx.save(); ctx.translate(cx,cy); ctx.rotate(ang);
-      ctx.globalAlpha=0.55+artRand(seed,p+ci)*0.25;
-      ctx.fillStyle=col;
-      ctx.strokeStyle=canvasColor(col,0.85); ctx.lineWidth=1.2;
-      ctx.beginPath();
-      ctx.moveTo(0,0);
-      ctx.quadraticCurveTo(r*0.2,-r*0.12,r*0.95,0);
-      ctx.quadraticCurveTo(r*0.2,r*0.12,0,0);
-      ctx.fill(); ctx.stroke();
-      ctx.restore();
-    }
-  });
-  ctx.save(); ctx.globalAlpha=0.7; ctx.fillStyle=colors[0];
-  ctx.beginPath(); ctx.arc(cx,cy,r*0.22,0,Math.PI*2); ctx.fill();
-  ctx.strokeStyle=canvasColor(colors[colors.length-1]||colors[0],0.9);
-  ctx.lineWidth=2; ctx.beginPath(); ctx.arc(cx,cy,r*1.05,0,Math.PI*2); ctx.stroke();
-  ctx.restore();
-}
-function drawSandRings(ctx,colors,W,H,seed){
-  var cx=W/2,cy=H/2;
-  for(var ring=0;ring<4;ring++){
-    var col=colors[ring%colors.length];
-    var rad=(0.15+ring*0.12)*Math.min(W,H);
-    ctx.save();
-    ctx.globalAlpha=0.5-ring*0.08;
-    ctx.strokeStyle=col; ctx.lineWidth=2.5+ring*0.8;
-    ctx.setLineDash([6+ring*3,4+ring*2]);
-    ctx.beginPath(); ctx.arc(cx,cy,rad,0,Math.PI*2); ctx.stroke();
-    ctx.restore();
-  }
-}
-function drawWatercolorStyle(ctx,colors,W,H,seed){
-  colors.forEach(function(col,ci){
-    var cx=W*(0.15+artRand(seed,ci)*0.7),cy=H*(0.2+artRand(seed,ci+3)*0.6),rad=W*(0.38+artRand(seed,ci+7)*0.38);
-    var gx=ctx.createRadialGradient(cx,cy,0,cx,cy,rad);
-    gx.addColorStop(0,canvasColor(col,0.58)); gx.addColorStop(0.5,canvasColor(col,0.28)); gx.addColorStop(1,canvasColor(col,0));
-    ctx.fillStyle=gx; ctx.fillRect(0,0,W,H);
-  });
-  colors.forEach(function(col,ci){
-    for(var i=0;i<12;i++){
-      var x=artRand(seed,ci*20+i)*W,y=artRand(seed,ci*20+i+50)*H,r=22+artRand(seed,i+99)*W*0.2;
-      ctx.save(); ctx.globalAlpha=0.22+artRand(seed,i)*0.28; ctx.fillStyle=col;
-      try{
-        ctx.filter='blur('+(3+artRand(seed,i+7)*8)+'px)';
-      }catch(e){}
-      ctx.beginPath(); ctx.ellipse(x,y,r,r*(0.4+artRand(seed,i+3)*0.45),artRand(seed,i+5)*Math.PI,0,Math.PI*2);
-      ctx.fill(); ctx.restore();
-    }
-  });
-  try{ctx.filter='none';}catch(e){}
-}
-function drawPastelStyle(ctx,colors,W,H,seed){
-  ctx.save(); ctx.globalCompositeOperation='multiply';
-  colors.forEach(function(col,ci){
-    for(var i=0;i<10;i++){
-      ctx.save(); ctx.globalAlpha=0.28+artRand(seed,ci*8+i)*0.32;
-      ctx.strokeStyle=col; ctx.lineWidth=32+artRand(seed,i)*48; ctx.lineCap='round';
-      ctx.beginPath();
-      var x1=artRand(seed,i)*W,y1=artRand(seed,i+20)*H;
-      ctx.moveTo(x1,y1);
-      ctx.quadraticCurveTo(artRand(seed,i+40)*W,artRand(seed,i+60)*H,artRand(seed,i+80)*W,artRand(seed,i+100)*H);
-      ctx.stroke(); ctx.restore();
-    }
-  });
-  ctx.restore();
-  colors.forEach(function(col,i){
-    for(var k=0;k<28;k++){
-      ctx.save(); ctx.globalAlpha=0.32+artRand(seed,k+i)*0.38; ctx.fillStyle=col;
-      ctx.beginPath(); ctx.arc(artRand(seed,k*3+i)*W,artRand(seed,k*3+i+1)*H,3+artRand(seed,k)*6,0,Math.PI*2);
-      ctx.fill(); ctx.restore();
-    }
-  });
-}
-function drawFluidStyle(ctx,colors,W,H,seed){
-  var cx=W/2,cy=H/2;
-  colors.forEach(function(col,ci){
-    for(var i=0;i<8;i++){
-      ctx.save(); ctx.globalAlpha=0.32+artRand(seed,ci*6+i)*0.38;
-      var g=ctx.createLinearGradient(0,0,W,H);
-      g.addColorStop(0,canvasColor(col,0.15)); g.addColorStop(0.5,col); g.addColorStop(1,canvasColor(colors[(ci+1)%colors.length],0.15));
-      ctx.strokeStyle=g; ctx.lineWidth=6+artRand(seed,i)*14;
-      ctx.lineCap='round';
-      ctx.beginPath();
-      var a=artRand(seed,i)*Math.PI*2, len=50+artRand(seed,i+10)*Math.min(W,H)*0.38;
-      ctx.moveTo(cx+Math.cos(a)*len*0.25,cy+Math.sin(a)*len*0.25);
-      for(var j=0;j<5;j++){
-        var t=j/4, ang=a+t*Math.PI*1.6+artRand(seed,i+j)*0.8;
-        ctx.lineTo(cx+Math.cos(ang)*len*(0.5+t*0.5),cy+Math.sin(ang)*len*(0.5+t*0.5));
-      }
-      ctx.stroke(); ctx.restore();
-    }
-  });
-  colors.forEach(function(col,ci){
-    var gx=ctx.createRadialGradient(cx+(ci-1)*W*0.15,cy,0,cx,cy,W*0.55);
-    gx.addColorStop(0,canvasColor(col,0.38)); gx.addColorStop(1,canvasColor(col,0));
-    ctx.fillStyle=gx; ctx.fillRect(0,0,W,H);
-  });
-}
-function drawMandalaStyle(ctx,colors,W,H,seed){
-  var cx=W/2,cy=H/2,rMax=Math.min(W,H)*0.42;
-  colors.forEach(function(col,ci){
-    var petals=6+Math.floor(artRand(seed,ci)*6), rings=3+Math.floor(artRand(seed,ci+5)*3);
-    for(var ring=1;ring<=rings;ring++){
-      var r=rMax*(ring/rings);
-      for(var p=0;p<petals;p++){
-        var ang=(p/petals)*Math.PI*2+artRand(seed,p+ring)*0.3;
-        ctx.save(); ctx.translate(cx,cy); ctx.rotate(ang);
-        ctx.globalAlpha=0.28+artRand(seed,p*ring)*0.32; ctx.fillStyle=col;
-        ctx.strokeStyle=canvasColor(col,0.75); ctx.lineWidth=0.8;
-        ctx.beginPath();
-        ctx.moveTo(0,0);
-        ctx.quadraticCurveTo(r*0.15,-r*0.08,r*0.9,0);
-        ctx.quadraticCurveTo(r*0.15,r*0.08,0,0);
-        ctx.fill(); ctx.stroke();
-        ctx.restore();
-      }
-    }
-  });
-  for(var ri=1;ri<=3;ri++){
-    ctx.save(); ctx.globalAlpha=0.35+ri*0.1; ctx.strokeStyle=colors[ri%colors.length];
-    ctx.lineWidth=1.2+ri*0.4; ctx.beginPath(); ctx.arc(cx,cy,rMax*(ri/3.2),0,Math.PI*2); ctx.stroke(); ctx.restore();
-  }
-}
-function drawSandStyle(ctx,colors,W,H,seed){
-  colors.forEach(function(col,ci){
-    for(var trail=0;trail<6;trail++){
-      var steps=90+Math.floor(artRand(seed,trail)*70);
-      var x=artRand(seed,trail)*W,y=artRand(seed,trail+9)*H;
-      var ang=artRand(seed,trail+3)*Math.PI*2;
-      for(var s=0;s<steps;s++){
-        x+=Math.cos(ang+(artRand(seed,s+trail)-0.5)*0.55)*2.2;
-        y+=Math.sin(ang+(artRand(seed,s+trail+1)-0.5)*0.55)*2.2;
-        if(x<0||x>W||y<0||y>H) break;
-        ctx.save(); ctx.globalAlpha=0.35+artRand(seed,s)*0.45; ctx.fillStyle=col;
-        var sz=1.2+artRand(seed,s+trail)*3.5;
-        ctx.beginPath(); ctx.arc(x,y,sz,0,Math.PI*2); ctx.fill(); ctx.restore();
-      }
-    }
-  });
+  var style=normalizeMoodStyle(S.moodCat||S.lastMoodCat||S.canvasStyle);
+  if(typeof fillMoodCanvasBg==='function') fillMoodCanvasBg(ctx,W,H,style,!!S.dark);
+  else{ ctx.fillStyle=S.dark?'#1A1E2C':'#FFFBF2'; ctx.fillRect(0,0,W,H); }
 }
 function drawCanvas(id,colors,W,H,style){
-  var cv=document.getElementById(id); if(!cv) return false;
-  var stage=cv.closest('.canvas-stage');
-  var rect=cv.getBoundingClientRect();
-  W=W||Math.round(rect.width)||(stage&&stage.clientWidth)||cv.clientWidth||cv.offsetWidth||0;
-  H=H||Math.round(rect.height)||(stage&&Math.round(stage.clientWidth*0.625))||cv.clientHeight||cv.offsetHeight||0;
-  if(W<50&&stage){
-    var sw=stage.clientWidth||stage.offsetWidth||0;
-    if(sw>50){W=sw;H=Math.round(sw*0.625);}
+  style=normalizeMoodStyle(style||S.moodCat||S.canvasStyle);
+  colors=colors&&colors.length?colors:(S.emotionColors&&S.emotionColors.length?S.emotionColors:['#FFD54F','#81C784']);
+  if(typeof drawSavedCanvas==='function'){
+    return drawSavedCanvas(id,colors,style,W,H,{dark:!!S.dark,seed:colors.join('')+style});
   }
-  if(W<50){W=280;H=175;}
-  cv.width=W; cv.height=H;
-  cv.style.width='100%';
-  cv.style.height='100%';
-  var ctx=cv.getContext('2d');
-  if(!ctx) return false;
-  fillCanvasBg(ctx,W,H);
-  renderCanvasArt(ctx,colors,W,H,style||S.canvasStyle,colors&&colors.join('')+(style||S.canvasStyle));
-  return true;
+  return false;
 }
 function drawExportCanvas(colors,quote,style,aiUrl){
   var cv=document.getElementById('export-canvas'); if(!cv) return;
   var W=800,H=600; cv.width=W; cv.height=H;
   var ctx=cv.getContext('2d');
-  var url=aiUrl||S.sessionAiImageUrl;
-  if(url){
-    var img=new Image();
-    img.crossOrigin='anonymous';
-    img.onload=function(){
-      fillCanvasBg(ctx,W,H);
-      ctx.drawImage(img,0,0,W,H);
-      drawExportQuoteOverlay(ctx,W,H,quote);
-    };
-    img.onerror=function(){
-      fillCanvasBg(ctx,W,H);
-      renderCanvasArt(ctx,colors,W,H,style||S.canvasStyle,colors&&colors.join('')+(style||''));
-      drawExportQuoteOverlay(ctx,W,H,quote);
-    };
-    img.src=url;
-    return;
+  style=normalizeMoodStyle(style||S.moodCat||S.canvasStyle);
+  colors=colors&&colors.length?colors:(S.emotionColors||['#FFD54F','#81C784']);
+  if(typeof generateMindPainting==='function'){
+    generateMindPainting(ctx,colors,style,W,H,{dark:!!S.dark,seed:colors.join('')+style});
+  }else{
+    fillCanvasBg(ctx,W,H);
   }
-  fillCanvasBg(ctx,W,H);
-  renderCanvasArt(ctx,colors,W,H,style||S.canvasStyle,colors&&colors.join('')+(style||''));
   drawExportQuoteOverlay(ctx,W,H,quote);
 }
+
 function drawExportQuoteOverlay(ctx,W,H,quote){
   var panelH=160;
   ctx.save();
@@ -5472,12 +6616,18 @@ function goMain(){
   maybeShowFeatureTour();
 }
 function switchTab(tab){
+  if(tab==='gallery'){
+    if(typeof enterEmotionGallery==='function') enterEmotionGallery();
+    return;
+  }
   S.curTab=tab; S.selectedDiary=null;
   updateTabUI(); renderMain();
-  document.getElementById('main-scroll').scrollTop=0;
+  var ms=document.getElementById('main-scroll');
+  if(ms) ms.scrollTop=0;
+  if(typeof syncAppMusic==='function') syncAppMusic();
 }
 function updateTabUI(){
-  ['home','diary','stats','settings','about'].forEach(function(t){
+  ['home','diary','stats','gallery','settings','about'].forEach(function(t){
     var el=document.getElementById('tab-'+t);
     if(el) el.className='ntab'+(S.curTab===t?' on':'');
   });
@@ -5521,16 +6671,22 @@ function renderHome(){
   }).join('');
   return '<div class="pad" style="padding-top:26px;padding-bottom:16px;display:flex;align-items:center;justify-content:space-between">' +
       '<div><p class="f12 t3 mb4">'+today+'</p><h1 style="font-size:22px;font-weight:600">你好，'+he(S.nick||S.user||'朋友')+' 🌿</h1></div>' +
-      '<button class="tgl '+(S.dark?'on':'off')+'" id="tour-dark-toggle-home" onclick="toggleDark()"><div class="knob"></div></button>' +
+      headerControlsHtml('tour-dark-toggle-home') +
     '</div>' +
     '<div class="pad">' +
-      '<div class="card mb16" style="background:linear-gradient(135deg,var(--acc-l) 0%,var(--sage-l) 100%)">' +
+      '<div class="home-feature-grid">' +
+      '<div class="card mb16 home-companion-card">' +
         '<div class="row gap12 mb12">' +
-          '<div style="width:48px;height:48px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:24px">🌸</div>' +
-          '<div><p class="fw6 f15">'+he(getCompanionName())+'</p><p class="f12 t2">隨時陪你說話</p></div>' +
+          companionAvatarButtonHtml({}) +
+          '<div><p class="fw6 f15">'+he(getCompanionName())+'</p><p class="f12 t2">點頭像可上傳喜歡的圖 · 隨時陪你說話</p></div>' +
         '</div>' +
-        '<p class="f14 mb16" style="color:var(--t2);line-height:1.85">今天過得如何？不管是小小的煩惱還是大大的擔憂，都可以來聊聊。</p>' +
-        '<button class="bp" id="tour-start-chat" onclick="S.ciStep=0;S.emotionIds=[];S.eventIds=[];syncEmotionState();syncEventState();clearAmbientGlow();ciRender();showScreen(\'checkin\')">開始今天的對話</button>' +
+        '<p class="f14 mb16" style="color:var(--t2);line-height:1.85">今天過得如何？開心、平靜，或心裡有點小故事，都歡迎來聊聊。</p>' +
+        '<div class="home-start-wrap">' +
+          '<span class="home-start-aura" aria-hidden="true"></span>' +
+          '<span class="home-start-ring" aria-hidden="true"></span>' +
+          '<span class="home-start-ring r2" aria-hidden="true"></span>' +
+          '<button class="bp" id="tour-start-chat" onclick="S.ciStep=0;S.emotionIds=[];S.eventIds=[];syncEmotionState();syncEventState();clearAmbientGlow();ciRender();showScreen(\'checkin\')">開始今天的對話</button>' +
+        '</div>' +
       '</div>' +
       '<div class="card mb16">' +
         '<div class="row gap12 mb12">' +
@@ -5539,6 +6695,7 @@ function renderHome(){
         '</div>' +
         '<p class="f14 mb14" style="color:var(--t2);line-height:1.85">進入後會先說明 I-message 句型，再隨機抽一個生活情境練習，每次狀況都不一樣。</p>' +
         '<button class="btn-canva-secondary" onclick="openScenarioHub()">進入情境練習</button>' +
+      '</div>' +
       '</div>' +
       (S.diary.length>0?'<p class="f13 fw5 t2 mb10">最近的心情</p>'+recent:'') +
       '<div class="divider"></div>' +
@@ -5557,7 +6714,7 @@ function renderDiaryTab(){
   if(S.diary.length===0){
     return '<div class="pad" style="padding-top:26px;padding-bottom:16px;display:flex;align-items:center;justify-content:space-between">' +
       '<h1 style="font-size:22px;font-weight:600">我的日記 📖</h1>' +
-      '<button class="tgl '+(S.dark?'on':'off')+'" onclick="toggleDark()"><div class="knob"></div></button>' +
+      headerControlsHtml() +
     '</div>' +
     '<div class="center" style="padding:72px 28px;max-width:320px;margin:0 auto">' +
       '<div style="font-size:52px;margin-bottom:20px;opacity:.9">🌱</div>' +
@@ -5590,7 +6747,7 @@ function renderDiaryTab(){
   }).join('');
   return '<div class="pad" style="padding-top:26px;padding-bottom:16px;display:flex;align-items:center;justify-content:space-between">' +
     '<h1 style="font-size:22px;font-weight:600">我的日記 📖</h1>' +
-    '<button class="tgl '+(S.dark?'on':'off')+'" onclick="toggleDark()"><div class="knob"></div></button>' +
+    headerControlsHtml() +
   '</div>' +
   '<div class="pad" style="padding-top:0;padding-bottom:12px"><p class="f12 t2" style="line-height:1.75">每次完成對話後，系統會自動記錄日期、時間、主題與摘要，並同步至打卡牆。</p></div>' +
   '<div class="gallery-grid">'+items+'</div>';
@@ -5642,8 +6799,7 @@ function renderEntryDetail(e){
     '</div>' +
     '<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:8px">' +
       '<div style="display:flex;gap:10px">' +
-        '<button class="export-btn flex1" onclick="openExportEntry('+e.id+')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>匯出畫布</button>' +
-        '<button class="bo flex1" style="font-size:13px;padding:12px">匯出輔導報告</button>' +
+        '<button class="export-btn w100" onclick="openExportEntry('+e.id+')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>匯出畫布</button>' +
       '</div>' +
     '</div>' +
   '</div>';
@@ -5802,7 +6958,7 @@ function renderStatsTab(){
 
   return '<div class="pad" style="padding-top:26px;padding-bottom:16px;display:flex;align-items:center;justify-content:space-between">' +
     '<h1 style="font-size:22px;font-weight:600">打卡牆 📅</h1>' +
-    '<button class="tgl '+(S.dark?'on':'off')+'" onclick="toggleDark()"><div class="knob"></div></button>' +
+    headerControlsHtml() +
   '</div>' +
   '<div class="pad pb80">' +
     '<div class="streak-banner">' +
@@ -5835,7 +6991,7 @@ function renderStatsTab(){
         statCard('總記錄次數',S.diary.length,'次','var(--acc)') +
         statCard('平均改善分數',avg(),'分','var(--sage)') +
         statCard('最常出現情緒',topEmo(),'','var(--rose)') +
-        statCard('最常觸發事件',topTrigger(),'','var(--warm)') +
+        statCard('最常觸發類型',topTrigger(),'','var(--warm)') +
       '</div>' +
     '</div>' +
   '</div>';
@@ -5856,16 +7012,48 @@ function topEmo(){
   var top=Object.keys(map).sort(function(a,b){return map[b]-map[a];})[0];
   return top||'—';
 }
+/** 統計「事件類型」分類（如學業與課業），而非細項標籤 */
+function eventCategoryLabelFromTrigger(t){
+  if(!t) return '';
+  if(typeof t==='object'){
+    if(t.category&&t.category.name) return t.category.name;
+    if(t.categoryId&&SEL_INDEX.eventCatById[t.categoryId]) return SEL_INDEX.eventCatById[t.categoryId].name;
+    if(t.id){
+      var ev=resolveEvent(t.id);
+      if(ev&&ev.category) return ev.category.name;
+    }
+    if(t.label&&SEL_INDEX){
+      var tags=SEL_DATA&&SEL_DATA.eventTaxonomy&&SEL_DATA.eventTaxonomy.tags||[];
+      for(var i=0;i<tags.length;i++){
+        if(tags[i].label===t.label){
+          var cat=SEL_INDEX.eventCatById[tags[i].categoryId];
+          return cat?cat.name:'';
+        }
+      }
+    }
+  }
+  if(typeof t==='string'&&SEL_DATA&&SEL_DATA.eventTaxonomy){
+    var list=SEL_DATA.eventTaxonomy.tags||[];
+    for(var j=0;j<list.length;j++){
+      if(list[j].label===t){
+        var c2=SEL_INDEX.eventCatById[list[j].categoryId];
+        return c2?c2.name:'';
+      }
+    }
+  }
+  return '';
+}
 function topTrigger(){
   var map={};
   S.diary.forEach(function(e){
-    (e.triggers||[]).forEach(function(t){
-      var lbl=typeof t==='string'?t:(t.label||'');
-      if(lbl) map[lbl]=(map[lbl]||0)+1;
-    });
     (e.eventIds||[]).forEach(function(id){
       var ev=resolveEvent(id);
-      if(ev) map[ev.label]=(map[ev.label]||0)+1;
+      var name=ev&&ev.category?ev.category.name:'';
+      if(name) map[name]=(map[name]||0)+1;
+    });
+    (e.triggers||[]).forEach(function(t){
+      var name=eventCategoryLabelFromTrigger(t);
+      if(name) map[name]=(map[name]||0)+1;
     });
   });
   return Object.keys(map).sort(function(a,b){return map[b]-map[a];})[0]||'—';
@@ -6044,8 +7232,29 @@ function scrollAboutTo(id){
   var top=el.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-12;
   sc.scrollTo({top:Math.max(0,top),behavior:'smooth'});
 }
+function scrollAboutTop(){
+  var sc=document.getElementById('main-scroll');
+  if(!sc) return;
+  sc.scrollTo({top:0,behavior:'smooth'});
+}
+function getUiHandbookUrl(query){
+  var base='docs/ui-design-handbook.html';
+  return query?base+'?'+query:base;
+}
+/** 關於頁：新分頁預覽介面設計手冊 */
+function openUiHandbookPreview(){
+  window.open(getUiHandbookUrl(),'_blank','noopener,noreferrer');
+}
+/** 關於頁：開啟手冊並列印／另存 PDF */
+function downloadUiHandbookPdf(){
+  window.open(getUiHandbookUrl('print=1'),'_blank','noopener,noreferrer');
+}
 function renderAboutTab(){
-  return '<div class="pad" style="padding-top:22px;padding-bottom:8px">' +
+  return '<div class="pad" id="about-top" style="padding-top:26px;padding-bottom:8px;display:flex;align-items:center;justify-content:space-between">' +
+    '<h1 style="font-size:22px;font-weight:600">關於</h1>' +
+    headerControlsHtml() +
+  '</div>' +
+  '<div class="pad" style="padding-top:8px;padding-bottom:8px">' +
     '<div class="about-hero">' +
       '<p class="about-kicker">大專生 AI 情緒覺察 App</p>' +
       '<h1>讓情緒被看見<br>讓安全被接住</h1>' +
@@ -6053,6 +7262,7 @@ function renderAboutTab(){
     '</div>' +
     '<div class="about-toc" aria-label="關於內容快速導覽">' +
       '<button type="button" onclick="scrollAboutTo(\'about-bg\')">計畫背景</button>' +
+      '<button type="button" onclick="scrollAboutTo(\'about-handbook\')">設計手冊</button>' +
       '<button type="button" onclick="scrollAboutTo(\'about-feat\')">系統特色</button>' +
       '<button type="button" onclick="scrollAboutTo(\'about-team\')">開發團隊</button>' +
       '<button type="button" onclick="scrollAboutTo(\'about-fund\')">計畫支持</button>' +
@@ -6066,6 +7276,17 @@ function renderAboutTab(){
       '<p>此外，受限於預約專業輔導的時間差或害怕被貼標籤的社會污名壓力，學生常面臨難以言說的困境，使得傳統優先處理顯性行為個案的校園支持系統，容易忽略安靜、向內退縮的「隱性壓力群體」，凸顯出大專階段與國中小相比之下，輔導資源銜接上的落差。</p>' +
       '<p>為解決上述痛點並落實聯合國永續發展目標（SDGs 3、4、10、17），本計畫致力開發一款專為大專生設計的「行動支持 APP」，做為正式輔導前的低負荷情緒覺察與求助導引前哨站。該系統定位為<strong>非診斷性的動態引導</strong>，導入 RULER 情緒引導邏輯協助使用者辨識與表達情緒，並首創「心靈畫布」多模態回饋機制，將抽象的壓力狀態轉化為直觀的視覺意象圖，以深化自我覺察能力。</p>' +
       '<p>在支持網絡建構上，系統嚴守數位倫理並以「使用者為中心」，讓學生能自主設定信賴的「暖心支持對象」，僅在取得明確同意後才會發送心情摘要。若系統辨識出高度壓力或求助訊號，則會即時提供校內輔導中心、1925 安心專線與 1995 生命線等專業資源，引導學生建立正確求助觀念，將被動通報轉化為科技賦權的自主求助歷程。</p>' +
+    '</section>' +
+
+    '<section class="about-sec" id="about-handbook">' +
+      '<div class="about-sec-hd"><div class="about-sec-icon" aria-hidden="true">📘</div><h2>介面設計手冊</h2></div>' +
+      '<p>本手冊依實際產品實作整理設計系統、資訊架構、逐頁規格、響應式斷點（手機維持現況，平板／桌機向上適配）、動效與合規要點，作為設計對齊與驗收依據。</p>' +
+      '<p>內容涵蓋色彩 tokens、情緒心理學色票、導覽與主流程、情緒藝廊／心靈畫布／SOS 等關鍵介面，以及 375／768／1024／1440 驗收清單。</p>' +
+      '<div class="about-handbook-actions">' +
+        '<button type="button" class="about-hb-btn" onclick="openUiHandbookPreview()">網頁預覽</button>' +
+        '<button type="button" class="about-hb-btn" onclick="downloadUiHandbookPdf()">下載 PDF</button>' +
+      '</div>' +
+      '<p class="f12 t3" style="margin-top:10px;line-height:1.7">下載 PDF：將開啟手冊並喚起瀏覽器列印視窗，請選擇「另存為 PDF」或「儲存為 PDF」。</p>' +
     '</section>' +
 
     '<section class="about-sec" id="about-feat">' +
@@ -6120,13 +7341,14 @@ function renderAboutTab(){
       '<div class="about-sec-hd"><div class="about-sec-icon" aria-hidden="true">🤖</div><h2>生成式 AI 透明度與合規聲明</h2></div>' +
       '<div class="about-ai-banner">' +
         '<h3>大專生 AI 情緒覺察 App</h3>' +
-        '<p>本應用程式係臺北市立大學學習與媒材設計學系團隊執行「校園 SEL 情緒安全網的數位補位」計畫所開發之數位支持平台。為提升數位陪伴品質並提供即時情緒引導體驗，開發團隊於產製過程中採用多款生成式人工智慧技術（包含 ChatGPT、Claude、Gemini 以及 Cursor 等 AI 輔助開發工具）進行協作。依據國際人工智慧監管趨勢與透明度原則，特此聲明 AI 技術之應用範疇。</p>' +
+        '<p>本應用程式係臺北市立大學學習與媒材設計學系團隊執行「校園 SEL 情緒安全網的數位補位」計畫所開發之數位支持平台。為提升數位陪伴品質並提供即時情緒引導體驗，開發團隊於產製過程中採用多款生成式人工智慧技術（包含 ChatGPT、Claude、Gemini、Suno AI 以及 Cursor 等 AI 輔助開發工具）進行協作。依據國際人工智慧監管趨勢與透明度原則，特此聲明 AI 技術之應用範疇。</p>' +
       '</div>' +
       '<p class="fw5 f13 mb8" style="color:var(--t1)">AI 技術應用範疇</p>' +
       '<ol class="about-ai-list">' +
         '<li><strong>系統架構與開發優化：</strong>本應用程式之程式源碼、數位互動機制及動態鷹架邏輯，部分利用 Cursor 等 AI 程式碼編輯器輔助撰寫、性能優化與自動化除錯；系統後端亦透過 OpenRouter 平台介接大型語言模型 API，以確保平台在不同設備上之運行穩定性及語意生成的流暢度。</li>' +
         '<li><strong>情緒引導與陪伴腳本產製：</strong>本專案內之部分共感對話腳本、情緒引導語句、以及 RULER 情緒邏輯框架的轉譯，係由 ChatGPT、Claude 與 Gemini 共同協作生成初步框架。所有 AI 產出之內容均以 CASEL 社會情緒學習架構與發展心理學相關專業學理為核心參考依據。</li>' +
         '<li><strong>視覺設計與多模態情緒回饋：</strong>專案中獨創的「心靈畫布」多模態視覺回饋及部分介面概念草圖，係經由 AI 工具輔助生成視覺基礎，並由專案設計團隊依據色彩心理學進行深度編輯與美術風格統一化，以符合低負荷、無壓力的視覺體驗。</li>' +
+        '<li><strong>SEL 曲集音樂產製：</strong>情緒藝廊展場背景音樂（SEL 曲集）係以 Suno AI 生成式音樂工具輔助創作，對應自我覺察、自我管理、社會覺察、人際技巧與負責任決策等 SEL 核心能力主題；曲目經團隊聆聽篩選與氣氛調整後納入展場，作為觀展與紀錄片播放時的情緒氛圍陪伴，非用於診斷或治療。</li>' +
       '</ol>' +
       '<p class="fw5 f13 mb8" style="color:var(--t1)">知識正確性保證與責任聲明</p>' +
       '<div class="about-check-list">' +
@@ -6143,21 +7365,27 @@ function renderAboutTab(){
             '<tr><td>專業學理研析</td><td>Claude / Gemini</td><td>蒐集並總結大專生壓力來源、隱性壓力群體特徵及最新社會情緒學習（SEL）相關學術文獻。</td><td>經由團隊成員進行學術文獻校對，確保理論應用符合心理學界之實證數據與現狀。</td></tr>' +
             '<tr><td>網頁與系統開發</td><td>Cursor / OpenRouter / ChatGPT / Gemini</td><td>透過 Cursor 輔助編寫前端介面與邏輯程式碼、除錯（Debug）；透過 OpenRouter 串接 API 整合 AI 共感夥伴對話與系統後端運算。</td><td>所有程式碼片段均經過開發人員逐行審核，並確認 API 串接符合校園支持網路系統整合之資訊安全性。</td></tr>' +
             '<tr><td>內容與腳本產製</td><td>Claude / ChatGPT / Gemini</td><td>轉化發展心理學文獻為易懂的陪伴文案、設計共感對話腳本及多情境的危機資源導引語。</td><td>100% 人工覆核：參照 CASEL 架構進行學理查核，並由專業顧問調整語氣，以確保符合無評價之輔導倫理與受眾需求。</td></tr>' +
+            '<tr><td>SEL 曲集音樂</td><td>Suno AI</td><td>生成情緒藝廊「SEL 曲集」展場背景音樂，依 CASEL 五大能力主題（Self-awareness、Self-management、Social awareness、Relationship skills、Responsible Decision Making）產製氛圍曲目，供觀展與紀錄片播放使用。</td><td>由團隊聆聽篩選、調整曲目順序與展場搭配；確認音樂僅作為情緒氛圍陪伴，不涉及診斷、治療或商業販售用途。</td></tr>' +
           '</tbody>' +
         '</table>' +
       '</div>' +
-      '<p class="about-updated">最後更新日期：2026 年 7 月 14 日</p>' +
+      '<p class="about-updated">最後更新日期：2026 年 7 月 18 日</p>' +
     '</section>' +
 
     '<p class="about-footer-note">本 App 為非診斷性輔助工具，無法取代專業心理諮商與醫療資源。<br>若你正經歷危機，請立即尋求身邊可信賴的人、校內輔導單位，或撥打 1925／1995。</p>' +
-  '</div>';
+  '</div>' +
+  '<button type="button" class="about-back-top" onclick="scrollAboutTop()" aria-label="回到最上方" title="回到最上方">' +
+    '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M12 19V5"/><path d="M5 12l7-7 7 7"/>' +
+    '</svg>' +
+  '</button>';
 }
 
 function renderSettingsTab(){
   var ed=S.settingsEdit;
   return '<div class="pad" style="padding-top:26px;padding-bottom:16px;display:flex;align-items:center;justify-content:space-between">' +
     '<h1 style="font-size:22px;font-weight:600">設定 ⚙️</h1>' +
-    '<button class="tgl '+(S.dark?'on':'off')+'" id="tour-dark-toggle-st" onclick="toggleDark()"><div class="knob"></div></button>' +
+    headerControlsHtml('tour-dark-toggle-st') +
   '</div>' +
   '<div class="pad pb80">' +
     '<div class="card mb16" id="tour-st-ai" style="border-color:var(--acc-m)">' +
@@ -6166,7 +7394,7 @@ function renderSettingsTab(){
     '</div>' +
     '<div class="card mb16" id="tour-st-guide">' +
       '<p class="fw6 f15 mb8">📖 使用導覽</p>' +
-      '<p class="f12 t3 mb12" style="line-height:1.75">重新瀏覽主要功能介紹，包含對話、日記、打卡牆與一鍵求援。</p>' +
+      '<p class="f12 t3 mb12" style="line-height:1.75">重新瀏覽主要功能介紹，包含對話、日記、打卡牆、情緒藝廊與一鍵求援。</p>' +
       '<button type="button" class="bo w100" style="font-size:14px;padding:11px" onclick="startFeatureTour(true)">重新觀看使用導覽</button>' +
     '</div>' +
     '<div class="card mb16" id="tour-st-profile">' +
@@ -6177,13 +7405,24 @@ function renderSettingsTab(){
       '<div class="st-section-hd"><p class="fw6 f15">專屬陪伴者</p>'+(ed.companion?'':settingsPenBtn('companion'))+'</div>' +
       (ed.companion?
         '<div style="display:flex;flex-direction:column;gap:12px">' +
+          '<div class="row gap12" style="align-items:center">' +
+            companionAvatarButtonHtml({lg:true}) +
+            '<div style="flex:1">' +
+              '<p class="f13 t2 mb6" style="line-height:1.6">點頭像從裝置上傳圖片；也可還原為登入前的彩色環。</p>' +
+              '<button type="button" class="bo" style="width:auto;padding:8px 12px;font-size:12px" onclick="clearCompanionAvatar()">還原彩色環</button>' +
+            '</div>' +
+          '</div>' +
           '<div><label>你想怎麼稱呼你的專屬陪伴者？</label>' +
           '<input class="inp" id="st-companion" type="text" placeholder="例如：小樹、阿光、心靈夥伴"></div>' +
           '<div style="display:flex;gap:8px">' +
             '<button class="bp flex1" onclick="saveSettingsSection(\'companion\')">儲存</button>' +
             '<button class="bg" onclick="cancelSettingsEdit(\'companion\')">取消</button>' +
           '</div></div>' :
-        stViewRow('名稱',S.companionName||'','尚未命名（對話中將顯示為「你的心靈夥伴」）')
+        '<div class="row gap12 mb10" style="align-items:center">' +
+          companionAvatarButtonHtml({}) +
+          '<div style="flex:1">'+stViewRow('名稱',S.companionName||'','尚未命名（對話中將顯示為「你的心靈夥伴」）')+'</div>' +
+        '</div>' +
+        '<p class="f12 t3" style="line-height:1.65">預設為彩色環；點頭像可上傳裝置上的圖片作為心靈夥伴圖。</p>'
       ) +
     '</div>' +
     '<div class="card mb16" id="tour-st-contacts">' +
@@ -6208,7 +7447,8 @@ function renderSettingsTab(){
       '<p class="fw6 f15 mb12">🎨 外觀</p>' +
       '<div class="row" style="justify-content:space-between">' +
         '<div><p class="f14 fw5">夜間模式</p><p class="f12 t3">深色低眼壓介面</p></div>' +
-        '<button class="tgl '+(S.dark?'on':'off')+'" id="tour-dark-toggle" onclick="toggleDark()"><div class="knob"></div></button>' +
+        (typeof darkModeToggleHtml==='function'?darkModeToggleHtml('tour-dark-toggle'):
+          '<button class="tgl tgl-dark '+(S.dark?'on':'off')+'" id="tour-dark-toggle" onclick="toggleDark()"><div class="knob"></div></button>') +
       '</div>' +
     '</div>' +
     // Resources
@@ -6227,8 +7467,225 @@ function toggleAutoLock(){
 /* ════════════════════════════════════════
    SOS — PERSISTENT PILL → RESOURCE SHEET
 ════════════════════════════════════════ */
+var SOS_PILL_POS_KEY='sel_sos_pill_pos';
+var SOS_PILL_COLLAPSED_KEY='sel_sos_pill_collapsed';
+var _sosDrag={active:false,moved:false,startX:0,startY:0,origLeft:0,origTop:0,pointerId:null};
+
+function isSosPillCollapsed(){
+  var pill=document.getElementById('sos-pill');
+  return !!(pill&&pill.classList.contains('sos-collapsed'));
+}
+function isSosPillPosValid(rightInset, bottomInset){
+  var vw=window.innerWidth||0;
+  var vh=window.innerHeight||0;
+  if(!vw||!vh) return false;
+  if(typeof rightInset!=='number'||typeof bottomInset!=='number') return false;
+  if(!isFinite(rightInset)||!isFinite(bottomInset)) return false;
+  // 過大 inset 代表先前在 display:none 時量到錯誤座標，會把按鈕推到畫面外
+  if(rightInset<8||bottomInset<8) return false;
+  if(rightInset>vw-40||bottomInset>vh-40) return false;
+  return true;
+}
+/** 以右緣／底緣定位，收合展開時寬度變化只會往左長出 */
+function pinSosPillByRightBottom(rightInset, bottomInset, markCustom){
+  var pill=document.getElementById('sos-pill');
+  if(!pill) return;
+  if(!isSosPillPosValid(rightInset, bottomInset)){
+    clearSosPillInlinePos();
+    try{ localStorage.removeItem(SOS_PILL_POS_KEY); }catch(e){}
+    return;
+  }
+  pill.style.left='auto';
+  pill.style.top='auto';
+  pill.style.right=rightInset+'px';
+  pill.style.bottom=bottomInset+'px';
+  if(markCustom){
+    pill.classList.add('sos-pos-custom');
+    try{ localStorage.setItem(SOS_PILL_POS_KEY,JSON.stringify({right:rightInset,bottom:bottomInset})); }catch(e){}
+  }
+}
+function clearSosPillInlinePos(){
+  var pill=document.getElementById('sos-pill');
+  if(!pill) return;
+  pill.style.left='';
+  pill.style.top='';
+  pill.style.right='';
+  pill.style.bottom='';
+  pill.classList.remove('sos-pos-custom');
+}
+function collapseSosPill(){
+  var pill=document.getElementById('sos-pill');
+  if(!pill) return;
+  var wasCustom=pill.classList.contains('sos-pos-custom');
+  var rect=pill.getBoundingClientRect();
+  var measurable=rect.width>0&&rect.height>0;
+  pill.classList.add('sos-collapsed');
+  pill.setAttribute('aria-expanded','false');
+  pill.setAttribute('aria-label','求援按鈕（點一下展開）');
+  if(wasCustom&&measurable){
+    var rightInset=Math.max(8, window.innerWidth-rect.right);
+    var bottomInset=Math.max(8, window.innerHeight-rect.bottom);
+    pinSosPillByRightBottom(rightInset, bottomInset, true);
+  }else if(!wasCustom){
+    pill.style.left='auto';
+    pill.style.top='auto';
+    pill.style.right='12px';
+    pill.style.bottom='';
+  }
+  try{ localStorage.setItem(SOS_PILL_COLLAPSED_KEY,'1'); }catch(e){}
+}
+function expandSosPill(){
+  var pill=document.getElementById('sos-pill');
+  if(!pill) return;
+  var wasCustom=pill.classList.contains('sos-pos-custom');
+  var rect=pill.getBoundingClientRect();
+  var measurable=rect.width>0&&rect.height>0;
+  pill.classList.remove('sos-collapsed');
+  pill.setAttribute('aria-expanded','true');
+  pill.setAttribute('aria-label','一鍵求援：你不是一個人，如果需要幫助就在這裡');
+  if(wasCustom&&measurable){
+    var rightInset=Math.max(8, window.innerWidth-rect.right);
+    var bottomInset=Math.max(8, window.innerHeight-rect.bottom);
+    pinSosPillByRightBottom(rightInset, bottomInset, true);
+  }else if(!wasCustom){
+    pill.style.left='auto';
+    pill.style.top='auto';
+    pill.style.right='12px';
+    pill.style.bottom='';
+  }
+  try{ localStorage.setItem(SOS_PILL_COLLAPSED_KEY,'0'); }catch(e){}
+}
+function applySosPillPosition(left,top){
+  var pill=document.getElementById('sos-pill');
+  if(!pill) return;
+  var w=pill.offsetWidth||48;
+  var h=pill.offsetHeight||48;
+  var maxL=Math.max(8,window.innerWidth-w-8);
+  var maxT=Math.max(8,window.innerHeight-h-8);
+  left=Math.min(maxL,Math.max(8,left));
+  top=Math.min(maxT,Math.max(8,top));
+  var rightInset=Math.max(8, window.innerWidth-(left+w));
+  var bottomInset=Math.max(8, window.innerHeight-(top+h));
+  pinSosPillByRightBottom(rightInset, bottomInset, true);
+}
+function restoreSosPillState(){
+  var pill=document.getElementById('sos-pill');
+  if(!pill) return;
+  var collapsed=false;
+  try{ collapsed=localStorage.getItem(SOS_PILL_COLLAPSED_KEY)==='1'; }catch(e){}
+  if(CUR_SCREEN==='chat') collapsed=true;
+
+  var hasCustom=false;
+  try{
+    var raw=localStorage.getItem(SOS_PILL_POS_KEY);
+    if(raw){
+      var pos=JSON.parse(raw);
+      if(pos&&typeof pos.right==='number'&&typeof pos.bottom==='number'&&isSosPillPosValid(pos.right,pos.bottom)){
+        pinSosPillByRightBottom(pos.right, pos.bottom, true);
+        hasCustom=true;
+      }else if(pos&&typeof pos.left==='number'&&typeof pos.top==='number'){
+        applySosPillPosition(pos.left, pos.top);
+        hasCustom=pill.classList.contains('sos-pos-custom');
+      }else{
+        try{ localStorage.removeItem(SOS_PILL_POS_KEY); }catch(e2){}
+      }
+    }
+  }catch(e){}
+
+  if(!hasCustom) clearSosPillInlinePos();
+
+  if(collapsed) collapseSosPill();
+  else expandSosPill();
+}
+/** 登入後各頁顯示一鍵求援；僅開場／知情同意隱藏。並校正可能跑出畫面外的座標 */
+function syncSosPillVisibility(id){
+  var pill=document.getElementById('sos-pill');
+  if(!pill) return;
+  var hide=(id==='splash'||id==='consent');
+  pill.style.display=hide?'none':'flex';
+  if(hide) return;
+  // 下一幀再恢復位置，避免 display:none 時量測錯誤
+  requestAnimationFrame(function(){
+    restoreSosPillState();
+    if(id==='chat') collapseSosPill();
+    // 若仍不可見（座標異常），強制回到右下角預設位置
+    var r=pill.getBoundingClientRect();
+    var off=(r.bottom<8||r.right<8||r.top>window.innerHeight-8||r.left>window.innerWidth-8||r.width<8);
+    if(off){
+      try{
+        localStorage.removeItem(SOS_PILL_POS_KEY);
+        if(id!=='chat') localStorage.removeItem(SOS_PILL_COLLAPSED_KEY);
+      }catch(e){}
+      clearSosPillInlinePos();
+      if(id==='chat') collapseSosPill();
+      else expandSosPill();
+    }
+  });
+}
 function openSOSResources(){
   showSOS();
+}
+function onSosPillActivate(){
+  if(_sosDrag.moved) return;
+  if(isSosPillCollapsed()){
+    expandSosPill();
+    return;
+  }
+  openSOSResources();
+}
+function initSosPillInteractions(){
+  var pill=document.getElementById('sos-pill');
+  if(!pill||pill._sosInited) return;
+  pill._sosInited=true;
+  restoreSosPillState();
+
+  pill.addEventListener('click',function(e){
+    if(e.target&&e.target.closest&&e.target.closest('.sos-pill-close')) return;
+    onSosPillActivate();
+  });
+  pill.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){
+      e.preventDefault();
+      onSosPillActivate();
+    }
+  });
+
+  function onPointerDown(e){
+    if(e.target&&e.target.closest&&e.target.closest('.sos-pill-close')) return;
+    if(e.button!=null&&e.button!==0) return;
+    var rect=pill.getBoundingClientRect();
+    _sosDrag.active=true;
+    _sosDrag.moved=false;
+    _sosDrag.startX=e.clientX;
+    _sosDrag.startY=e.clientY;
+    _sosDrag.origLeft=rect.left;
+    _sosDrag.origTop=rect.top;
+    _sosDrag.pointerId=e.pointerId;
+    try{ pill.setPointerCapture(e.pointerId); }catch(err){}
+    pill.classList.add('sos-dragging');
+  }
+  function onPointerMove(e){
+    if(!_sosDrag.active) return;
+    if(_sosDrag.pointerId!=null&&e.pointerId!==_sosDrag.pointerId) return;
+    var dx=e.clientX-_sosDrag.startX;
+    var dy=e.clientY-_sosDrag.startY;
+    if(!_sosDrag.moved&&(Math.abs(dx)>6||Math.abs(dy)>6)) _sosDrag.moved=true;
+    if(!_sosDrag.moved) return;
+    applySosPillPosition(_sosDrag.origLeft+dx,_sosDrag.origTop+dy);
+  }
+  function onPointerUp(e){
+    if(!_sosDrag.active) return;
+    if(_sosDrag.pointerId!=null&&e.pointerId!==_sosDrag.pointerId) return;
+    _sosDrag.active=false;
+    pill.classList.remove('sos-dragging');
+    try{ pill.releasePointerCapture(e.pointerId); }catch(err){}
+    // 短時間內保留 moved，避免 click 誤開；下一幀清掉
+    setTimeout(function(){ _sosDrag.moved=false; },0);
+  }
+  pill.addEventListener('pointerdown',onPointerDown);
+  pill.addEventListener('pointermove',onPointerMove);
+  pill.addEventListener('pointerup',onPointerUp);
+  pill.addEventListener('pointercancel',onPointerUp);
 }
 function refreshSOSModalContent(){
   document.getElementById('sos-list').innerHTML=
@@ -6243,12 +7700,13 @@ function showSOS(){
 /* ════════════════════════════════════════
    FEATURE TOUR
 ════════════════════════════════════════ */
-var TOUR={active:false,step:0,replay:false,_touchX:null,_switching:false};
+var TOUR={active:false,step:0,replay:false,mode:'main',_touchX:null,_switching:false,_galleryPrevCurate:false};
 var TOUR_STEPS=[
   {intro:true,title:'歡迎來到心靈夥伴 🌿',text:'這裡是你的私密情緒空間。接下來會帶你認識主要功能，你可以用下方按鈕、圓點或左右滑動切換步驟，隨時也能跳過。'},
   {tab:'home',selector:'#tour-start-chat',title:'開始今天的對話',text:'從這裡進入每日情緒 check-in：先選擇當下的感受與事件，再與專屬陪伴者聊聊心事，結束後會自動生成心靈畫布與摘要。'},
   {tab:'home',selector:'#tab-diary',title:'心情日記',text:'每次對話結束後，系統會自動記錄日期、主題、摘要與心靈畫布。你可以在這裡回顧過往心情，點開任一筆日記查看完整內容。'},
   {tab:'home',selector:'#tab-stats',title:'打卡牆',text:'月曆與趨勢圖幫你看見情緒節奏：有紀錄的日子會標記出來，連續打卡也會給你溫暖的鼓勵，提醒持續照顧自己。'},
+  {tab:'home',selector:'#tab-gallery',title:'情緒藝廊',text:'把近日的心靈畫布策展成私人數位展場。點進去可沿展牆漫遊、為作品寫小絕句或短詩、貼標籤，也能開啟策展模式安排畫位。'},
   {tab:'settings',selector:'#tab-settings',title:'進入設定',text:'底部「設定」分頁集中管理個人化選項。接下來會逐一介紹每個區塊的用途，方便你依需求調整。'},
   {tab:'settings',selector:'#tour-st-ai',title:'專屬陪伴',text:'這裡查看 AI 對話連線狀態。若需進階設定，可點鉛筆圖示填入 API Key，讓陪伴者以雲端模型回覆；未設定時仍可使用離線陪伴模板。'},
   {tab:'settings',selector:'#tour-st-guide',title:'使用導覽',text:'若忘記某項功能在哪裡，可隨時點「重新觀看使用導覽」，再次瀏覽完整教學，不必擔心漏掉重要功能。'},
@@ -6261,6 +7719,67 @@ var TOUR_STEPS=[
   {tab:'home',selector:'#sos-list',title:'支援資源與專線',text:'這裡列出全國心理專線與你的校園輔導資訊。點選「🌐 官網」標籤會外連至官方網站；點「📞 電話」可直接撥打專線。校園資源可「閱讀更多」查看地址、服務時間與注意事項。',sosOpen:true},
   {intro:true,title:'準備好了 ✨',text:'想再看一次導覽，可至「設定 → 使用導覽」重新觀看。願你在這裡感到安全、被接住。',sosClose:true}
 ];
+var GALLERY_TOUR_KEY='sel_gallery_tour_seen';
+var GALLERY_TOUR_STEPS=[
+  {intro:true,title:'歡迎來到情緒藝廊',text:'這裡是你的私人 SEL 數位展場。接下來會帶你認識展牆漫遊、紀錄片、策展與音樂等功能；可隨時跳過。'},
+  {selector:'#gal-hall',title:'展牆漫遊',text:'左右滑動可沿展牆欣賞心靈畫布。點畫作可看細節；銘牌上會有專屬短詩。'},
+  {selector:'#gal-btn-view',title:'近觀／遠距',text:'切換「近觀漫遊」與「遠距總覽」：近觀適合慢慢細看，遠距可一眼看見整面牆。'},
+  {selector:'#gal-btn-docu',title:'紀錄片',text:'一鍵把近期畫布編成慢節奏影像紀錄片，搭配展場音樂，像一場小小的情緒放映。'},
+  {selector:'#gal-btn-curate',title:'策展模式',text:'開啟後可拖曳畫作換位、更換畫框顏色與材質，並解鎖牆飾、主題與 SEL 曲集等調整工具。'},
+  {selector:'#gal-adj-tools',title:'牆飾・主題・音樂',text:'策展時可循環牆飾特效、切換展場主題，並選擇 SEL 曲集背景音樂（也可設為不要音樂）。',needCurate:true},
+  {selector:'.gal-slot .gal-caption',title:'銘牌詩句',text:'點銘牌可改寫短詩；策展時也能在詳情中換詩、釘選主視覺或調整畫框。'},
+  {selector:'#gal-tour-btn',title:'隨時再看導覽',text:'右上角「導覽」可隨時重看這份說明，之後需要時再回來就好。'},
+  {intro:true,title:'開始逛展吧 ✦',text:'慢慢看、慢慢感受。若需要協助，隨時點右上角「導覽」。'}
+];
+var NIGHT_GUIDE_STEPS=[
+  {selector:'#tour-dark-toggle-home',title:'請自行開啟夜間模式',text:'右上角這個開關可切換日間／夜間。請點選被框起來的按鈕，自己開啟夜間模式。',tryIt:'點一下聚光處的日／夜開關即可切換。'}
+];
+function getTourSteps(){
+  if(TOUR.mode==='gallery') return GALLERY_TOUR_STEPS;
+  if(TOUR.mode==='night-guide') return NIGHT_GUIDE_STEPS;
+  return TOUR_STEPS;
+}
+function isGalleryTourSeen(){
+  try{ return localStorage.getItem(GALLERY_TOUR_KEY)==='1'; }catch(e){ return false; }
+}
+function markGalleryTourSeen(){
+  try{ localStorage.setItem(GALLERY_TOUR_KEY,'1'); }catch(e){}
+}
+function maybeShowGalleryTour(){
+  if(isGalleryTourSeen()||TOUR.active) return;
+  setTimeout(function(){
+    if(isGalleryTourSeen()||TOUR.active||CUR_SCREEN!=='gallery') return;
+    if(typeof _galleryDocu!=='undefined'&&_galleryDocu.active) return;
+    startGalleryTour(false);
+  },1600);
+}
+function startGalleryTour(replay){
+  if(TOUR.active) return;
+  if(!replay&&isGalleryTourSeen()) return;
+  if(CUR_SCREEN!=='gallery'){
+    if(typeof enterEmotionGallery==='function'){
+      // 從外部重播：先進入藝廊再導覽
+      var prevSeen=isGalleryTourSeen();
+      if(!replay&&prevSeen) return;
+      enterEmotionGallery();
+      setTimeout(function(){ startGalleryTour(!!replay); },2000);
+    }
+    return;
+  }
+  if(typeof stopGalleryDocumentary==='function') stopGalleryDocumentary(true);
+  hideOverlay('sos-modal');
+  TOUR.mode='gallery';
+  TOUR._galleryPrevCurate=!!(typeof _galleryState!=='undefined'&&_galleryState.curate);
+  if(typeof _galleryState!=='undefined'){
+    _galleryState.curate=false;
+    if(typeof renderEmotionGallery==='function') renderEmotionGallery();
+  }
+  TOUR.active=true; TOUR.step=0; TOUR.replay=!!replay;
+  var root=document.getElementById('feature-tour');
+  if(root){ root.classList.add('show'); root.setAttribute('aria-hidden','false'); }
+  document.body.classList.add('tour-active');
+  renderTourStep();
+}
 function cleanupTourStep(step){
   if(!step) return;
   if(step.sosOpen) hideOverlay('sos-modal');
@@ -6285,6 +7804,7 @@ function startFeatureTour(replay){
   if(TOUR.active) return;
   if(!replay&&S.featureTourSeen) return;
   hideOverlay('sos-modal');
+  TOUR.mode='main';
   S.curTab='home'; S.selectedDiary=null;
   updateTabUI(); renderMain();
   if(CUR_SCREEN!=='main') showScreen('main');
@@ -6295,23 +7815,86 @@ function startFeatureTour(replay){
   renderTourStep();
 }
 function endFeatureTour(){
-  cleanupTourStep(TOUR_STEPS[TOUR.step]);
+  var steps=getTourSteps();
+  cleanupTourStep(steps[TOUR.step]);
   hideOverlay('sos-modal');
+  var wasGallery=TOUR.mode==='gallery';
+  var wasNightGuide=TOUR.mode==='night-guide';
   TOUR.active=false;
   var root=document.getElementById('feature-tour');
   if(root){ root.classList.remove('show'); root.setAttribute('aria-hidden','true'); }
   document.body.classList.remove('tour-active');
+  document.body.classList.remove('tour-night-guide');
   var hole=document.getElementById('tour-hole');
   if(hole) hole.style.display='none';
-  if(!S.featureTourSeen){
-    S.featureTourSeen=true;
-    saveProfile();
+  var willPromptNight=false;
+  if(wasNightGuide){
+    TOUR.mode='main';
+  }else if(wasGallery){
+    markGalleryTourSeen();
+    if(typeof _galleryState!=='undefined'){
+      _galleryState.curate=!!TOUR._galleryPrevCurate;
+      if(CUR_SCREEN==='gallery'&&typeof renderEmotionGallery==='function') renderEmotionGallery();
+    }
+    TOUR.mode='main';
+  }else{
+    var firstTime=!S.featureTourSeen;
+    if(firstTime){
+      S.featureTourSeen=true;
+      saveProfile();
+    }
+    // 首次導覽結束：邀請試試夜間模式（可略過繼續日間）
+    if(firstTime&&!S.nightModePromptSeen){
+      if(S.dark){
+        S.nightModePromptSeen=true;
+        saveProfile();
+      }else{
+        willPromptNight=true;
+        setTimeout(showNightModePrompt, 420);
+      }
+    }
   }
+  return willPromptNight;
+}
+function showNightModePrompt(){
+  if(S.nightModePromptSeen||S.dark) return;
+  showOverlay('night-mode-prompt');
+}
+function acceptNightModePrompt(){
+  hideOverlay('night-mode-prompt');
+  S.nightModePromptSeen=true;
+  saveProfile();
+  startNightModeGuide();
+}
+function skipNightModePrompt(){
+  hideOverlay('night-mode-prompt');
+  S.nightModePromptSeen=true;
+  saveProfile();
+  showToast('沒問題，之後想換再點右上角開關即可', 2800);
+}
+function startNightModeGuide(){
+  if(TOUR.active) return;
+  hideOverlay('night-mode-prompt');
+  S.curTab='home'; S.selectedDiary=null;
+  updateTabUI(); renderMain();
+  if(CUR_SCREEN!=='main') showScreen('main');
+  TOUR.mode='night-guide';
+  TOUR.active=true; TOUR.step=0; TOUR.replay=true;
+  var root=document.getElementById('feature-tour');
+  if(root){ root.classList.add('show'); root.setAttribute('aria-hidden','false'); }
+  document.body.classList.add('tour-active');
+  document.body.classList.add('tour-night-guide');
+  renderTourStep();
 }
 function tourNext(){
-  if(TOUR.step>=TOUR_STEPS.length-1){
-    endFeatureTour();
-    showToast('導覽完成，祝你使用愉快 🌿',2800);
+  var steps=getTourSteps();
+  if(TOUR.step>=steps.length-1){
+    var wasGallery=TOUR.mode==='gallery';
+    var wasNightGuide=TOUR.mode==='night-guide';
+    var promptedNight=endFeatureTour();
+    if(wasNightGuide) showToast('之後想換模式，點右上角開關即可',2800);
+    else if(wasGallery) showToast('藝廊導覽完成 ✦',2800);
+    else if(!promptedNight) showToast('導覽完成，祝你使用愉快 🌿',2800);
     return;
   }
   tourGoTo(TOUR.step+1);
@@ -6322,8 +7905,9 @@ function tourPrev(){
 }
 function tourGoTo(index){
   if(!TOUR.active||TOUR._switching) return;
-  if(index<0||index>=TOUR_STEPS.length||index===TOUR.step) return;
-  cleanupTourStep(TOUR_STEPS[TOUR.step]);
+  var steps=getTourSteps();
+  if(index<0||index>=steps.length||index===TOUR.step) return;
+  cleanupTourStep(steps[TOUR.step]);
   TOUR.step=index;
   animateTourStep();
 }
@@ -6341,20 +7925,23 @@ function animateTourStep(){
 function renderTourDots(){
   var box=document.getElementById('tour-dots');
   if(!box) return;
-  box.innerHTML=TOUR_STEPS.map(function(_,i){
+  var steps=getTourSteps();
+  box.innerHTML=steps.map(function(_,i){
     return '<button type="button" class="tour-dot-btn'+(i===TOUR.step?' on':'')+'" onclick="tourGoTo('+i+')" aria-label="第 '+(i+1)+' 步" aria-current="'+(i===TOUR.step?'step':'false')+'">' +
       '<span class="tour-dot'+(i===TOUR.step?' on':'')+'"></span></button>';
   }).join('');
 }
 function renderTourStep(){
-  var step=TOUR_STEPS[TOUR.step];
-  var total=TOUR_STEPS.length;
+  var steps=getTourSteps();
+  var step=steps[TOUR.step];
+  if(!step) return;
+  var total=steps.length;
   renderTourDots();
   var label=document.getElementById('tour-step-label');
   var title=document.getElementById('tour-title');
   var text=document.getElementById('tour-text');
   var pagerNum=document.getElementById('tour-pager-num');
-  if(label) label.textContent='步驟 '+(TOUR.step+1)+' / '+total;
+  if(label) label.textContent=(TOUR.mode==='gallery'?'藝廊導覽 ':TOUR.mode==='night-guide'?'夜間模式 ':'步驟 ')+(TOUR.step+1)+' / '+total;
   if(pagerNum) pagerNum.textContent=(TOUR.step+1)+' / '+total;
   if(title) title.textContent=step.title;
   if(text) text.textContent=step.text||'';
@@ -6372,15 +7959,33 @@ function renderTourStep(){
   var nextPager=document.getElementById('tour-next-pager');
   var skipBtn=document.getElementById('tour-skip');
   var isLast=TOUR.step>=total-1;
-  if(prevBtn) prevBtn.disabled=TOUR.step<=0;
-  if(nextPager){
-    nextPager.textContent=isLast?'開始使用 ›':'下一步 ›';
-    nextPager.setAttribute('aria-label',isLast?'開始使用':'下一步');
-    nextPager.classList.toggle('tour-pager-finish',isLast);
+  if(prevBtn){
+    prevBtn.disabled=TOUR.step<=0||TOUR.mode==='night-guide';
+    prevBtn.style.visibility=TOUR.mode==='night-guide'?'hidden':'visible';
   }
-  if(skipBtn) skipBtn.style.display=isLast?'none':'inline-flex';
+  if(nextPager){
+    if(TOUR.mode==='night-guide'){
+      nextPager.textContent='先維持日間 ›';
+      nextPager.setAttribute('aria-label','先維持日間');
+      nextPager.classList.add('tour-pager-finish');
+    }else{
+      nextPager.textContent=isLast?(TOUR.mode==='gallery'?'開始逛展 ›':'開始使用 ›'):'下一步 ›';
+      nextPager.setAttribute('aria-label',isLast?(TOUR.mode==='gallery'?'開始逛展':'開始使用'):'下一步');
+      nextPager.classList.toggle('tour-pager-finish',isLast);
+    }
+  }
+  if(skipBtn) skipBtn.style.display=(isLast||TOUR.mode==='night-guide')?'none':'inline-flex';
   prepareTourStep(step);
-  if(step.tab&&S.curTab!==step.tab){
+
+  // 藝廊：需要顯示策展工具列時先開啟策展再重繪
+  if(TOUR.mode==='gallery'&&step.needCurate&&typeof _galleryState!=='undefined'&&!_galleryState.curate){
+    _galleryState.curate=true;
+    if(typeof renderEmotionGallery==='function') renderEmotionGallery();
+    setTimeout(renderTourStep, 160);
+    return;
+  }
+
+  if(step.tab&&step.tab!=='gallery'&&S.curTab!==step.tab){
     switchTab(step.tab);
     setTimeout(renderTourStep, step.sosOpen?220:120);
     return;
@@ -6449,8 +8054,26 @@ function positionTourCard(rect){
     card.style.transform='translate(-50%,-50%)';
   }
 }
+var _layoutResizeT;
 window.addEventListener('resize',function(){
   if(TOUR.active) renderTourStep();
+  clearTimeout(_layoutResizeT);
+  _layoutResizeT=setTimeout(function(){
+    // Canvas：依 stage 寬度重繪，維持 16:10，避免被拉成橢圓
+    if(typeof S!=='undefined'&&S.postStep===1&&document.getElementById('mind-canvas')&&typeof renderMindCanvas==='function'){
+      try{ renderMindCanvas('mind-canvas'); }catch(e){}
+    }
+    if(typeof S!=='undefined'&&S.selectedDiary&&document.getElementById('entry-cv')&&typeof renderEntryCanvas==='function'){
+      var stage=document.getElementById('entry-cv').parentElement;
+      var w=stage?(stage.clientWidth||360):360;
+      w=Math.max(w,280);
+      try{ renderEntryCanvas('entry-cv',S.selectedDiary,w,Math.round(w*0.625)); }catch(e){}
+    }
+    // 藝廊：依目前畫位寬度重繪，不整頁重渲（避免捲動重置）
+    if(typeof CUR_SCREEN!=='undefined'&&CUR_SCREEN==='gallery'&&typeof resizeGalleryCanvases==='function'){
+      try{ resizeGalleryCanvases(); }catch(e){}
+    }
+  },140);
 });
 (function initTourSwipe(){
   var root=document.getElementById('feature-tour');
@@ -6497,6 +8120,7 @@ function bootApp(){
   loadProfile();
   renderPINScreen();
   SPLASH_READY=true;
+  if(typeof initSosPillInteractions==='function') initSosPillInteractions();
   var forgotAcc=document.getElementById('forgot-account');
   if(forgotAcc) forgotAcc.addEventListener('blur',onForgotAccountBlur);
   initAuthConfig();
